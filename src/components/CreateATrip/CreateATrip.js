@@ -53,39 +53,39 @@ class UserPage extends Component {
                     >
                         Create-A-Trip
                     </h1>
-                    <select>
-                        <option>Trip 1</option>
-                        <option>Trip 2</option>
-                    </select>
-                    <select>
-                        <option>Trip Overview</option>
-                        <option>Gear List</option>
-                    </select>
                     <Paper>
-                        <Table><TableBody>
-                            <TableRow>
-                                <TableCell>Location</TableCell>
-                                <TableCell>Hardcoded location</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>Meetup Time</TableCell>
-                                <input>Hardcoded Meetup Time</input>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>Meetup Spot</TableCell>
-                                <TableCell>Hardcoded MeetupSpot</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>Exit Time</TableCell>
-                                <TableCell>Hardcoded Exit Time</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell>Exit Spot</TableCell>
-                                <TableCell>Hardcoded Exit Spot</TableCell>
-                            </TableRow>
-                        </TableBody>
+                        <Table>
+
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Edit trip details below</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell>Location</TableCell>
+                                    <TableCell>Hardcoded location</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Meetup Time</TableCell>
+                                    <TableCell>Hardcoded Meetup Time</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Meetup Spot</TableCell>
+                                    <TableCell>Hardcoded MeetupSpot</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Exit Time</TableCell>
+                                    <TableCell>Hardcoded Exit Time</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Exit Spot</TableCell>
+                                    <TableCell>Hardcoded Exit Spot</TableCell>
+                                </TableRow>
+                            </TableBody>
                         </Table>
                     </Paper>
+                    <button>Create Trip</button>
 
                     <button
                         onClick={this.logout}
