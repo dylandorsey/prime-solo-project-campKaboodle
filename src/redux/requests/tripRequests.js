@@ -11,4 +11,10 @@ export function callUserTrips() {
 
 // fetch trip participants
 
+// join trip
+export function callUserJoinTrip() {
+    return axios.put(`api/trip/join`)
+    .then(response => console.log(response))
+    .catch((error) => { throw error.response || error; });
+}
 

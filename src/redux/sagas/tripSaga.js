@@ -1,6 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { TRIP_ACTIONS } from '../actions/tripActions';
 import { callUserTrips } from '../requests/tripRequests';
+import { callUserJoinTrip } from '../requests/tripRequests';
 
 // worker Saga: will be fired on "FETCH_USER" actions
 function* fetchUserTrips() {
@@ -15,9 +16,19 @@ function* fetchUserTrips() {
     };
 }
 
+function* joinUserToTrip() {
+    try {
+        console.log('init joinUserToTrip')
+        yield callUserJoinTrip();
+        yield fetchUserTrips();
+    } catch (error) {
+        console.log('error joining user to trip', error);
+    };
+}
 
 function* tripSaga() {
     yield takeLatest(TRIP_ACTIONS.FETCH_USER_TRIPS, fetchUserTrips);
+    yield takeLatest(TRIP_ACTIONS.REQUEST_USER_JOIN_TRIP, joinUserToTrip);
 }
 
 export default tripSaga;

@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import {TRIP_ACTIONS} from '../../redux/actions/tripActions';
 import UserTripListTableItem from '../UserTripListTableItem/UserTripListTableItem';
 
 const mapStateToProps = state => ({
@@ -15,6 +16,11 @@ const mapStateToProps = state => ({
 });
 
 class UserTripTable extends Component {
+
+    handleClickJoin = () => {
+        this.props.dispatch({ type: TRIP_ACTIONS.REQUEST_USER_JOIN_TRIP})
+    }
+    
     render() {
         return (
             <Paper>
@@ -26,7 +32,7 @@ class UserTripTable extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.state.trip.userTrips.map(item=> <UserTripListTableItem key={item.id} item={item} />)}
+                        {this.props.state.trip.userTrips.map(item=> <UserTripListTableItem key={item.id} item={item} handleClickJoin={this.handleClickJoin}/>)}
                     </TableBody>
                 </Table>
             </Paper>
