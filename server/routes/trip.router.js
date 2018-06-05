@@ -5,8 +5,9 @@ const router = express.Router();
 /**
  * GET route template
  */
-router.get('/:id', (req, res) => {
-    const user_id = req.params.id;
+router.get('/', (req, res) => {
+    console.log(req.user);
+    const user_id = req.user.id;
     let queryText = `SELECT *
     FROM "trip" 
     JOIN "user_trip" ON "trip"."id" = "user_trip"."trip_id"

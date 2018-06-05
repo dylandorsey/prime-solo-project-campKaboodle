@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 
-export function callUserTrips(userID) {
-  return axios.get(`api/trip/2`)
+export function callUserTrips() {
+  return axios.get(`api/trip`)
     .then(response => response.data)
     .catch((error) => { throw error.response || error; });
 }
