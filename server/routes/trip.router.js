@@ -21,11 +21,12 @@ router.get('/', (req, res) => {
 router.post('/new-trip', (req, res) => {
     console.log('POST /api/trip/new-trip')
     const newTrip = req.body;
-    const queryText = `INSERT INTO "trip" ("location", "meetup_time", "meetup_spot",
+    const queryText = `INSERT INTO "trip" ("name", "location", "meetup_time", "meetup_spot",
      "meetup_coordinates", "exit_time", "exit_spot", "exit_coordinates",
-     "mapURL") VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
+     "mapURL") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
     pool.query(queryText, 
-        [newTrip.location, 
+        [   newTrip.name,
+            newTrip.location, 
             newTrip.meetup_time, 
             newTrip.meetup_spot, 
             newTrip.meetup_coordinates,

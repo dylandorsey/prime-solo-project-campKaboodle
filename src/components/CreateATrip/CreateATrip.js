@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,14 +13,23 @@ import Nav from '../../components/Nav/Nav';
 import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
+import { initiateNewTrip } from '../../redux/actions/tripActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
 
-
 const mapStateToProps = state => ({
+    message: '',
     user: state.user,
 });
 
 class UserPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            newTrip: {
+                name: '',
+            },
+        }
+    }
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
     }
@@ -28,6 +38,15 @@ class UserPage extends Component {
         if (!this.props.user.isLoading && this.props.user.userName === null) {
             this.props.history.push('home');
         }
+    }
+
+    handleChangeFor = propertyName => event => {
+        this.setState({
+            newTrip: {
+                ...this.state.newTrip,
+                [propertyName]: event.target.value
+            }
+        });
     }
 
     logout = () => {
@@ -40,10 +59,49 @@ class UserPage extends Component {
         this.props.history.push('user-main-menu');
     }
 
+    postNewTrip = (newTrip) => {
+        axios.post(`api/trip/new-trip`, newTrip)
+            .then((response) => {
+                if (response.status === 201) {
+                    this.props.history.push('/trip-overview');
+                } else {
+                    this.setState({
+                        message: 'That didn\'t work. Server error...',
+                    });
+                }
+            })
+            .catch(() => {
+                this.setState({
+                    message: 'That didn\'t work. Is the server running?',
+                });
+            });
+    }
+
+    renderAlert() {
+        if (this.state.message !== '') {
+          return (
+            <h2
+              className="alert"
+              role="alert"
+            >
+              {this.state.message}
+            </h2>
+          );
+        }
+        return (<span />);
+      }
+
+    submitHandler = (event) => {
+        event.preventDefault();
+        if (this.state.newTrip.name === '') {
+            alert('name must not be empty');
+        } else {
+            this.postNewTrip(this.state.newTrip);
+        }
+    }
 
     render() {
         let content = null;
-
         if (this.props.user.userName) {
             content = (
                 <div>
@@ -53,39 +111,47 @@ class UserPage extends Component {
                     >
                         Create-A-Trip
                     </h1>
+                    {this.renderAlert()}
+                    <pre>{JSON.stringify(this.state.newTrip)}</pre>
                     <Paper>
-                        <Table>
-
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Edit trip details below</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                <TableRow>
-                                    <TableCell>Location</TableCell>
-                                    <TableCell>Hardcoded location</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>Meetup Time</TableCell>
-                                    <TableCell>Hardcoded Meetup Time</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>Meetup Spot</TableCell>
-                                    <TableCell>Hardcoded MeetupSpot</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>Exit Time</TableCell>
-                                    <TableCell>Hardcoded Exit Time</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>Exit Spot</TableCell>
-                                    <TableCell>Hardcoded Exit Spot</TableCell>
-                                </TableRow>
-                            </TableBody>
-                        </Table>
+                        <form onSubmit={this.submitHandler}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Edit trip details below</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell>Trip Name</TableCell>
+                                        <TableCell><input onChange={this.handleChangeFor('name')}></input></TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>Location</TableCell>
+                                        <TableCell><input onChange={this.handleChangeFor('location')}></input></TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>Meetup Time</TableCell>
+                                        <TableCell><input type="datetime-local" onChange={this.handleChangeFor('exit_spot')}></input></TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>Meetup Spot</TableCell>
+                                        <TableCell><input onChange={this.handleChangeFor('meetup_spot')}></input></TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>Exit Time</TableCell>
+                                        <TableCell><input type="datetime-local" onChange={this.handleChangeFor('exit_time')}></input></TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>Exit Spot</TableCell>
+                                        <TableCell><input onChange={this.handleChangeFor('exit_spot')}></input></TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                            <input type="submit" value="create new trip"></input>
+                        </form>
                     </Paper>
-                    <button>Create Trip</button>
+
 
                     <button
                         onClick={this.logout}
@@ -95,7 +161,6 @@ class UserPage extends Component {
                 </div>
             );
         }
-
         return (
             <div>
                 <Nav />
