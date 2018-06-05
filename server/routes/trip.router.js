@@ -18,12 +18,29 @@ router.get('/', (req, res) => {
         res.sendStatus(500)});
 });
 
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-
-});
+router.post('/new-trip', (req, res) => {
+    console.log('POST /api/trip/new-trip')
+    const newTrip = req.body;
+    const queryText = `INSERT INTO "trip" ("location", "meetup_time", "meetup_spot",
+     "meetup_coordinates", "exit_time", "exit_spot", "exit_coordinates",
+     "mapURL") VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
+    pool.query(queryText, 
+        [newTrip.location, 
+            newTrip.meetup_time, 
+            newTrip.meetup_spot, 
+            newTrip.meetup_coordinates,
+            newTrip.exit_time,
+            newTrip.exit_spot,
+            newTrip.exit_coordinates,
+            newTrip.mapURL])
+        .then((result) => {
+            res.sendStatus(201);
+        })
+        .catch((error) => {
+            console.log('Error with POST /api/trip/new-trip', error);
+            res.sendStatus(500);
+        });
+})
 
 router.put('/join', (req,res) => {
     const user_id = req.user.id;
