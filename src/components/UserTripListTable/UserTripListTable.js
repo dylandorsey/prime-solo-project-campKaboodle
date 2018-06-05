@@ -8,8 +8,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
+
+import UserTripListTableItem from '../UserTripListTableItem/UserTripListTableItem';
+
 const mapStateToProps = state => ({
-    user: state.user,
+    state
 });
 
 class UserTripTable extends Component {
@@ -24,22 +28,7 @@ class UserTripTable extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {/* {this.props.tripReducer.map(item => {
-                  return (
-                    <TableRow key={trip.id}>
-                      <TableCell numeric>{trip.nickname}</TableCell>
-                      <TableCell numeric>{trip.meetup_time}</TableCell>
-                    </TableRow>
-                  );
-                })} */}
-                        <TableRow>
-                            <TableCell>hardcoded name</TableCell>
-                            <TableCell>hardcoded date</TableCell>
-                            {this.props.user.isAccepted ?
-                                <button>Details</button>
-                                :
-                                <button>Join</button>}
-                        </TableRow>
+                        {this.props.state.trip.userTrips.map(item=> <UserTripListTableItem key={item.id} item={item} />)}
                     </TableBody>
                 </Table>
             </Paper>

@@ -7,9 +7,7 @@ import Version from '../Version/Version';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
-
-
-
+import { NAV_ACTIONS } from '../../redux/actions/navActions';
 
 const mapStateToProps = state => ({
     user: state.user,

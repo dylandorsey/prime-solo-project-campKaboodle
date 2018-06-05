@@ -6,7 +6,7 @@ import UserTripListTable from '../UserTripListTable/UserTripListTable';
 import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
-// import { NAV_ACTIONS } from '../../redux/actions/navActions';
+import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
 
 const mapStateToProps = state => ({
@@ -16,6 +16,7 @@ const mapStateToProps = state => ({
 class UserTripList extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+        this.props.dispatch({ type: TRIP_ACTIONS.FETCH_USER_TRIPS})
     }
 
     componentDidUpdate() {

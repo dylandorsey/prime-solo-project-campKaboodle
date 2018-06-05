@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export function fetchUsersTrips() {
-  return axios.get('api/trip/1', config)
+export function callUserTrips() {
+  return axios.get('api/trip/2')
     .then(response => response.data)
     .catch((error) => { throw error.response || error; });
 }
