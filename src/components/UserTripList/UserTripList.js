@@ -16,7 +16,7 @@ const mapStateToProps = state => ({
 class UserTripList extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
-        this.props.dispatch({ type: TRIP_ACTIONS.FETCH_USER_TRIPS})
+        this.props.dispatch({ type: TRIP_ACTIONS.FETCH_USER_TRIPS })
     }
 
     componentDidUpdate() {

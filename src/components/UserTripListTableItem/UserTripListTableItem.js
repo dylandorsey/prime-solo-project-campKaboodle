@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-
-
-const mapStateToProps = state => ({
-    state
-});
 
 class UserTripTableItem extends Component {
     render() {
@@ -16,9 +10,9 @@ class UserTripTableItem extends Component {
                 <TableCell>{this.props.item.location}</TableCell>
                 <TableCell>{this.props.item.meetup_time}</TableCell>
                 <TableCell>{this.props.item.user_hasAccepted ?
-                    <button>Details</button>
+                    <button onClick={this.props.handleClickDetails}>Details</button>
                     :
-                    <button>Join</button>}
+                    <button onClick={this.props.handleClickJoin}>Join</button>}
                 </TableCell>
             </TableRow>
         );
