@@ -3,7 +3,6 @@ import { TRIP_ACTIONS } from '../actions/tripActions';
 import { callUserTrips } from '../requests/tripRequests';
 import { callUserJoinTrip } from '../requests/tripRequests';
 
-// worker Saga: will be fired on "FETCH_USER" actions
 function* fetchUserTrips() {
     try {
         const userTrips = yield callUserTrips();

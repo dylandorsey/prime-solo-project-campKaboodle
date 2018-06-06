@@ -7,8 +7,6 @@ export function callUserTrips() {
     .catch((error) => { throw error.response || error; });
 }
 
-// fetch trip gear
-
 // fetch trip participants
 
 // join trip
@@ -17,4 +15,3 @@ export function callUserJoinTrip() {
     .then(response => console.log(response))
     .catch((error) => { throw error.response || error; });
 }
-

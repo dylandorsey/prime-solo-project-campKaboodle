@@ -10,6 +10,16 @@ const userTrips = (state = [{id: 0, location: "default"}], action) => {
   }
 };
 
+const currentTrip = (state = '', action) => {
+  switch (action.type) {
+    case TRIP_ACTIONS.SET_CURRENT_TRIP:
+      return action.payload || state;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   userTrips,
+  currentTrip,
 });
