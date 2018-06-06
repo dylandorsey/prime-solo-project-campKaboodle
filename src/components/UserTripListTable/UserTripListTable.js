@@ -17,6 +17,12 @@ const mapStateToProps = state => ({
 
 class UserTripTable extends Component {
 
+    handleClickDetails = () => {
+        // dispatch action to set redux state's current trip to the selected trip
+        // navigate to the trip overview page 
+        // & ensure that page loads with the selected trip's info
+    }
+
     handleClickJoin = () => {
         this.props.dispatch({ type: TRIP_ACTIONS.REQUEST_USER_JOIN_TRIP})
     }
@@ -32,7 +38,12 @@ class UserTripTable extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {this.props.state.trip.userTrips.map(item=> <UserTripListTableItem key={item.id} item={item} handleClickJoin={this.handleClickJoin}/>)}
+                        {this.props.state.trip.userTrips.map(item=> 
+                        <UserTripListTableItem 
+                        key={item.id} item={item} 
+                        handleClickJoin={this.handleClickJoin} 
+                        handleClickDetails={this.handleClickDetails}
+                        />)}
                     </TableBody>
                 </Table>
             </Paper>

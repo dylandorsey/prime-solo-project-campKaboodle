@@ -9,10 +9,17 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+
+import { USER_ACTIONS } from '../../redux/actions/userActions';
+import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
+import { GEAR_ACTIONS } from '../../redux/actions/gearActions';
 import TripGearListTableItem from '../TripGearListTableItem/TripGearListTableItem';
 
 const mapStateToProps = state => ({
-    state
+    user: state.user,
+    userTrips: state.trip.userTrips,
+    currentTrip: state.trip.currentTrip,
+    tripGear: state.gear.tripGear
 });
 
 class TripGearListTable extends Component {
@@ -24,10 +31,12 @@ class TripGearListTable extends Component {
             newItem: {
                 description: '',
                 quantity: '',
-                tripID: this.props.state.trip.currentTrip.id,
+                tripID: '',
             }
         }
     }
+
+
 
     clearInput = () => {
         this.setState({
@@ -39,6 +48,15 @@ class TripGearListTable extends Component {
         });
     }
 
+    // componentDidUpdate() {
+    //     this.props.dispatch({
+    //         type: TRIP_ACTIONS.SET_CURRENT_TRIP,
+    //         payload: this.state.selectedTrip
+    //     })
+    //     this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR });
+    // }
+
+
     handleChangeFor = propertyName => event => {
         this.setState({
             newItem: {
@@ -49,20 +67,29 @@ class TripGearListTable extends Component {
     }
 
     handleClickCancel = () => {
-
         this.toggleAddingItem();
         this.clearInput();
-        console.log('init handleClickCancel')
+        console.log('init handleClickCancel');
+    }
+
+    handleClickProvide = () => {
+        console.log('init handleClickProvide')
+        // initiate PUT request to add req.user.username to item in database
+        // rerender the gear list
     }
 
     handleSubmitNewItem = event => {
         event.preventDefault();
-        if (this.state.newItem.description === '') {
-            alert('Item description must not be empty.');
+        if (this.props.currentTrip.id === '') {
+            alert('Trip ID must not be null');
+        } else if (this.state.newItem.description === '') {
+            alert('Item description must not be null');
+        } else if (this.state.newItem.quantity === '') {
+            alert('Item quantity must not be null');
         } else {
             const newItem = {
                 newItem: this.state.newItem,
-                tripID: this.props.state.trip.currentTrip.id
+                tripID: this.props.currentTrip.id
             }
             this.postNewItem(newItem);
             this.toggleAddingItem();
@@ -71,22 +98,22 @@ class TripGearListTable extends Component {
     }
 
     postNewItem = (body) => {
-        axios.post(`api/gear/new-item`, body)
-            .then((response) => {
-                if (response.status === 201) {
-                    alert('new gear posted with status', response.status);
-                } else {
+            axios.post(`api/gear/new-item`, body)
+                .then((response) => {
+                    if (response === 201) {
+                        alert('new gear posted with status', response);
+                    } else {
+                        this.setState({
+                            message: 'That didn\'t work. Server error...',
+                        });
+                    }
+                })
+                .catch(() => {
                     this.setState({
-                        message: 'That didn\'t work. Server error...',
+                        message: 'That didn\'t work. Is the server running?',
                     });
-                }
-            })
-            .catch(() => {
-                this.setState({
-                    message: 'That didn\'t work. Is the server running?',
                 });
-            });
-    }
+        }
 
     renderAlert() {
         if (this.state.message !== '') {
@@ -106,6 +133,7 @@ class TripGearListTable extends Component {
             <div>
                 <pre>{JSON.stringify(this.state.newItem)}</pre>
                 <pre>{JSON.stringify(this.state.addingItem)}</pre>
+                <pre>currentTrip (redux) {JSON.stringify(this.props.currentTrip)}</pre>
                 <Paper>
                     <Table>
                         <TableHead>
@@ -117,7 +145,7 @@ class TripGearListTable extends Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.props.state.gear.tripGear.map(item => <TripGearListTableItem key={item.id} item={item} />)}
+                            {this.props.tripGear.map(item => <TripGearListTableItem key={item.id} item={item} handleClickProvide={this.handleClickProvide}/>)}
                         </TableBody>
                     </Table>
                 </Paper>
