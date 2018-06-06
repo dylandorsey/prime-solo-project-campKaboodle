@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 
-export function callUserTrips(userID) {
-  return axios.get(`api/trip/2`)
+export function callUserTrips() {
+  return axios.get(`api/trip`)
     .then(response => response.data)
     .catch((error) => { throw error.response || error; });
 }
@@ -11,4 +11,10 @@ export function callUserTrips(userID) {
 
 // fetch trip participants
 
+// join trip
+export function callUserJoinTrip() {
+    return axios.put(`api/trip/join`)
+    .then(response => console.log(response))
+    .catch((error) => { throw error.response || error; });
+}
 
