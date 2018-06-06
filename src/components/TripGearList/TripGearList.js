@@ -8,6 +8,7 @@ import ViewSelector from '../ViewSelector/ViewSelector';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
+import { GEAR_ACTIONS } from '../../redux/actions/gearActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
 
 const mapStateToProps = state => ({
@@ -25,6 +26,7 @@ class TripGearList extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: TRIP_ACTIONS.FETCH_USER_TRIPS })
+        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR});
     }
 
     componentDidUpdate() {

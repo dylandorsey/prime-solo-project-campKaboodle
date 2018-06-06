@@ -7,9 +7,10 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
     // const user_id = req.user.id;
-    let queryText = `SELECT *
+    let queryText = `SELECT "gear"."description", "user_trip_gear"."quantity", "user_trip_gear"."trip_id", "user_trip_gear"."gear_id", "user"."username"
     FROM "gear" 
     JOIN "user_trip_gear" ON "user_trip_gear"."gear_id" = "gear"."id"
+    LEFT JOIN "user" ON "user_trip_gear"."gear_id" = "user"."id"
     WHERE "user_trip_gear"."trip_id" = 1;` 
     pool.query(queryText)
     .then((result) => {res.send(result.rows)})

@@ -13,7 +13,6 @@ import Nav from '../../components/Nav/Nav';
 import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
-import { initiateNewTrip } from '../../redux/actions/tripActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
 
 const mapStateToProps = state => ({

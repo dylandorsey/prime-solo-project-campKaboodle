@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
@@ -14,7 +13,6 @@ import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
-import { navToDetails } from '../../redux/actions/navActions';
 import ViewSelector from '../ViewSelector/ViewSelector';
 
 
@@ -30,6 +28,7 @@ class TripOverview extends Component {
             selectedTrip: '',
         }
     }
+
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: TRIP_ACTIONS.FETCH_USER_TRIPS })
