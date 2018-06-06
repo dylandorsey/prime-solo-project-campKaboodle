@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -20,12 +21,22 @@ class TripGearListTable extends Component {
 
         this.state = {
             addingItem: false,
-
+            newItem: {
+                description: '',
+                quantity: '',
+                tripID: this.props.state.trip.currentTrip.id,
+            }
         }
     }
 
-    componentDidUpdate() {
-
+    clearInput = () => {
+        this.setState({
+            ...this.state,
+            newItem: {
+                description: '',
+                quantity: '',
+            }
+        });
     }
 
     handleChangeFor = propertyName => event => {
@@ -37,15 +48,55 @@ class TripGearListTable extends Component {
         });
     }
 
+    handleClickCancel = () => {
+
+        this.toggleAddingItem();
+        this.clearInput();
+        console.log('init handleClickCancel')
+    }
+
     handleSubmitNewItem = event => {
         event.preventDefault();
-        this.toggleAddingItem();
-        this.componentDidUpdate();
+        if (this.state.newItem.description === '') {
+            alert('Item description must not be empty.');
+        } else {
+            const newItem = {
+                newItem: this.state.newItem,
+                tripID: this.props.state.trip.currentTrip.id
+            }
+            this.postNewItem(newItem);
+            this.toggleAddingItem();
+            this.clearInput();
+        }
+    }
 
+    postNewItem = (body) => {
+        axios.post(`api/gear/new-item`, body)
+            .then((response) => {
+                if (response.status === 201) {
+                    alert('new gear posted with status', response.status);
+                } else {
+                    this.setState({
+                        message: 'That didn\'t work. Server error...',
+                    });
+                }
+            })
+            .catch(() => {
+                this.setState({
+                    message: 'That didn\'t work. Is the server running?',
+                });
+            });
+    }
+
+    renderAlert() {
+        if (this.state.message !== '') {
+            alert(this.state.message)
+        }
     }
 
     toggleAddingItem = () => {
         this.setState({
+            ...this.state,
             addingItem: !this.state.addingItem
         })
     }
@@ -53,6 +104,8 @@ class TripGearListTable extends Component {
     render() {
         return (
             <div>
+                <pre>{JSON.stringify(this.state.newItem)}</pre>
+                <pre>{JSON.stringify(this.state.addingItem)}</pre>
                 <Paper>
                     <Table>
                         <TableHead>
@@ -64,8 +117,7 @@ class TripGearListTable extends Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.props.state.gear.tripGear.map(item => <TripGearListTableItem key={item.gear_id} item={item} />)}
-                            <TableCell></TableCell>
+                            {this.props.state.gear.tripGear.map(item => <TripGearListTableItem key={item.id} item={item} />)}
                         </TableBody>
                     </Table>
                 </Paper>
@@ -78,17 +130,12 @@ class TripGearListTable extends Component {
                                         <TableBody>
                                             <TableRow>
                                                 <TableCell>
-                                                    <input onChange={this.handleChangeFor('description')}></input>
+                                                    <input type="text" value={this.state.newItem.description} onChange={this.handleChangeFor('description')}></input>
                                                 </TableCell>
                                                 <TableCell>
-                                                    <input onChange={this.handleChangeFor('quantity')}></input>
+                                                    <input type="number" value={this.state.newItem.quantity} onChange={this.handleChangeFor('quantity')}></input>
                                                 </TableCell>
-                                                <TableCell>                                    <select onChange={this.handleChangeFor('provider')}>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                </select></TableCell>
+                                                <TableCell></TableCell>
                                                 <TableCell></TableCell>
                                                 <TableCell></TableCell>
                                             </TableRow>
@@ -96,6 +143,7 @@ class TripGearListTable extends Component {
                                     </Table>
                                     <input type="submit" value="create new item"></input>
                                 </form>
+                                <button onClick={this.handleClickCancel}>cancel</button>
                             </Paper>
                             :
                             <Paper>

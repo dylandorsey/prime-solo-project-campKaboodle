@@ -79,15 +79,9 @@ class UserPage extends Component {
     renderAlert() {
         if (this.state.message !== '') {
           return (
-            <h2
-              className="alert"
-              role="alert"
-            >
-              {this.state.message}
-            </h2>
-          );
+            alert(this.state.message)
+          )
         }
-        return (<span />);
       }
 
     submitHandler = (event) => {

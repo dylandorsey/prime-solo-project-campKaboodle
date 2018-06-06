@@ -18,7 +18,6 @@ class TripGearListTableItem extends Component {
                 <TableCell>
                     <Checkbox
                     />
-
                 </TableCell>
             </TableRow>
         );

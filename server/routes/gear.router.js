@@ -7,34 +7,30 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
     // const user_id = req.user.id;
-    let queryText = `SELECT "gear"."description", "user_trip_gear"."quantity", "user_trip_gear"."trip_id", "user_trip_gear"."gear_id", "user"."username"
-    FROM "gear" 
-    JOIN "user_trip_gear" ON "user_trip_gear"."gear_id" = "gear"."id"
-    LEFT JOIN "user" ON "user_trip_gear"."gear_id" = "user"."id"
-    WHERE "user_trip_gear"."trip_id" = 1;` 
+    let queryText = `SELECT "description","quantity", "user"."username", "user_trip_gear"."id"
+    FROM "user_trip_gear"
+    LEFT JOIN "user" 
+    ON "user_trip_gear"."id" = "user"."id"
+    WHERE "user_trip_gear"."trip_id" = 1;`
     pool.query(queryText)
-    .then((result) => {res.send(result.rows)})
-    .catch((error) => {
-        console.log('Error fetching trip gear', error);
-        res.sendStatus(500)});
+        .then((result) => { res.send(result.rows) })
+        .catch((error) => {
+            console.log('Error fetching trip gear', error);
+            res.sendStatus(500)
+        });
 });
 
-router.post('/new-trip', (req, res) => {
-    console.log('POST /api/trip/new-trip')
-    const newTrip = req.body;
-    const queryText = `INSERT INTO "trip" ("name", "location", "meetup_time", "meetup_spot",
-     "meetup_coordinates", "exit_time", "exit_spot", "exit_coordinates",
-     "mapURL") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`;
-    pool.query(queryText, 
-        [   newTrip.name,
-            newTrip.location, 
-            newTrip.meetup_time, 
-            newTrip.meetup_spot, 
-            newTrip.meetup_coordinates,
-            newTrip.exit_time,
-            newTrip.exit_spot,
-            newTrip.exit_coordinates,
-            newTrip.mapURL])
+router.post('/new-item', (req, res) => {
+    console.log('POST /api/gear/new-gear')
+    const newItem = req.body.newItem;
+    const tripID = req.body.tripID
+    console.log(tripID);
+    const queryText = `INSERT INTO "user_trip_gear" ("description", "quantity", "trip_id")
+    VALUES ($1, $2, $3);`;
+    pool.query(queryText,
+        [newItem.description,
+        newItem.quantity,
+    tripID])
         .then((result) => {
             res.sendStatus(201);
         })
@@ -44,16 +40,17 @@ router.post('/new-trip', (req, res) => {
         });
 })
 
-router.put('/join', (req,res) => {
+router.put('/join', (req, res) => {
     const user_id = req.user.id;
     let queryText = `UPDATE "user_trip" 
     SET "user_hasAccepted" = 'true'
-    WHERE "user_id" = $1;` 
-    pool.query(queryText,[user_id])
-    .then((result) => {res.sendStatus(200)})
-    .catch((error) => {
-        console.log('Error joining user to trip', error);
-        res.sendStatus(500)});
+    WHERE "user_id" = $1;`
+    pool.query(queryText, [user_id])
+        .then((result) => { res.sendStatus(200) })
+        .catch((error) => {
+            console.log('Error joining user to trip', error);
+            res.sendStatus(500)
+        });
 });
 
 module.exports = router;

@@ -13,32 +13,42 @@ import { triggerLogout } from '../../redux/actions/loginActions';
 
 const mapStateToProps = state => ({
     user: state.user,
-    trips: state.trip.userTrips,
+    userTrips: state.trip.userTrips,
+    currentTrip: state.trip.currentTrip
 });
-  
+
 class TripGearList extends Component {
-        constructor(props) {
-            super(props);
-            this.state = {
-                selectedTrip: '',
-            }
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedTrip: '',
         }
+    }
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: TRIP_ACTIONS.FETCH_USER_TRIPS })
-        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR});
+        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR });
     }
 
     componentDidUpdate() {
         if (!this.props.user.isLoading && this.props.user.userName === null) {
             this.props.history.push('home');
         }
+        this.props.dispatch({
+            type: TRIP_ACTIONS.SET_CURRENT_TRIP,
+            payload: this.state.selectedTrip
+        })
+        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR });
     }
 
     handleChangeFor = propertyName => event => {
         this.setState({
-            [propertyName]: this.props.trips[event.target.value],
+            [propertyName]: this.props.userTrips[event.target.value],
         });
+        this.props.dispatch({
+            type: TRIP_ACTIONS.SET_CURRENT_TRIP,
+            payload: this.state.selectedTrip
+        })
     }
 
     logout = () => {
@@ -48,8 +58,8 @@ class TripGearList extends Component {
 
     navToTripGearList = () => {
         this.props.history.push('trip-gear-list');
-      }
-        
+    }
+
     navToUserMainMenu = () => {
         console.log('init navToUserMainMenu');
         this.props.history.push('user-main-menu');
@@ -58,7 +68,6 @@ class TripGearList extends Component {
     navToTripOverview = () => {
         this.props.history.push('trip-overview');
     }
-    
 
     render() {
         let content = null;
@@ -70,13 +79,15 @@ class TripGearList extends Component {
                     <h1
                         id=""
                     >
-
                         Trip Gear List
+                        <p>selected trip</p>
+                        <pre>{JSON.stringify(this.state.selectedTrip)}</pre>
                     </h1>
-                    <ViewSelector 
-                    handleChangeFor={this.handleChangeFor}
-                    navToTripOverview={this.navToTripOverview}
-                    navToTripGearList={this.navToTripGearList}
+                    <ViewSelector
+                        handleChangeFor={this.handleChangeFor}
+                        navToTripOverview={this.navToTripOverview}
+                        navToTripGearList={this.navToTripGearList}
+                        selectedTrip={this.state.selectedTrip}
                     />
                     <TripGearListTable />
 
