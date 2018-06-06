@@ -34,6 +34,7 @@ class UserTripList extends Component {
         console.log('init navToUserMainMenu');
         this.props.history.push('user-main-menu');
     }
+    
 
     render() {
         let content = null;

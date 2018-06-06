@@ -28,11 +28,6 @@ CREATE TABLE "trip" (
   OIDS=FALSE
 );
 
-insert into "trip" ("location", "meetup_spot", "exit_spot")
-VALUES ('BWCA 2018', 'Downtown Ely', 'Entry 8');
-insert into "trip" ("location", "meetup_spot", "exit_spot")
-VALUES ('BWCA 2019', 'Duluth', 'Entry 20');
-
 CREATE TABLE "user_trip_gear" (
 	"quantity" DECIMAL(5) NOT NULL,
 	"trip_id" integer NOT NULL,

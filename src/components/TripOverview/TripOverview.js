@@ -14,6 +14,8 @@ import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
+import { navToDetails } from '../../redux/actions/navActions';
+import ViewSelector from '../ViewSelector/ViewSelector';
 
 
 const mapStateToProps = state => ({
@@ -50,11 +52,18 @@ class TripOverview extends Component {
         // this.props.history.push('home');
     }
 
+    navToTripGearList = () => {
+        this.props.history.push('trip-gear-list');
+    }
+
     navToUserMainMenu = () => {
         console.log('init navToUserMainMenu');
         this.props.history.push('user-main-menu');
     }
 
+    navToTripOverview = () => {
+        this.props.history.push('trip-overview');
+    }
 
     render() {
         let content = null;
@@ -69,13 +78,11 @@ class TripOverview extends Component {
                     >
                         Trip Overview
                     </h1>
-                    <select onChange={this.handleChangeFor('selectedTrip')}>
-                        {this.props.trips.map((item, i) => <option key={i} value={i} >{item.name}</option>)}
-                    </select>
-                    <select>
-                        <option>Trip Overview</option>
-                        <option>Gear List</option>
-                    </select>
+                    <ViewSelector
+                        handleChangeFor={this.handleChangeFor}
+                        navToTripOverview={this.navToTripOverview}
+                        navToTripGearList={this.navToTripGearList}
+                    />
                     {this.state.selectedTrip ?
                         <Paper>
                             <form onSubmit={this.submitHandler}>
@@ -104,6 +111,10 @@ class TripOverview extends Component {
                                         <TableRow>
                                             <TableCell>Exit Spot</TableCell>
                                             <TableCell>{selectedTrip.exit_spot}</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Trip Gear</TableCell>
+                                            <TableCell><button onClick={this.navToTripGearList}>View</button></TableCell>
                                         </TableRow>
                                     </TableBody>
                                 </Table>

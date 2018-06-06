@@ -17,10 +17,3 @@ export function callUserJoinTrip() {
     .then(response => console.log(response))
     .catch((error) => { throw error.response || error; });
 }
-
-export function callCreateNewTrip(newTrip) {
-    console.log('init callCreateNewTrip');
-    return axios.post(`api/trip/new-trip`, newTrip)
-    .then(response => console.log(response))
-    .catch((error) => { throw error.response || error; });
-}
