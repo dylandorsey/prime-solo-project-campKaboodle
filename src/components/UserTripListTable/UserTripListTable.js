@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { confirmAlert } from 'react-confirm-alert';
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -16,15 +18,40 @@ const mapStateToProps = state => ({
 });
 
 class UserTripTable extends Component {
+    
+    confirmAction = (trip_id) => {
+        confirmAlert({
+            title: 'Confirm leave trip',
+            message: 'Are you sure you want to leave this trip?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => this.executeLeaveTrip(trip_id)
+                },
+                {
+                    label: 'No',
+                    onClick: () => alert('aborted')
+                }
+            ]
+        })
+    };
 
-    handleClickDetails = () => {
-        // dispatch action to set redux state's current trip to the selected trip
-        // navigate to the trip overview page 
-        // & ensure that page loads with the selected trip's info
+    executeLeaveTrip = (trip_id) => {
+        this.props.dispatch({ type: TRIP_ACTIONS.REQUEST_USER_LEAVE_TRIP, payload: trip_id})
     }
 
-    handleClickJoin = () => {
-        this.props.dispatch({ type: TRIP_ACTIONS.REQUEST_USER_JOIN_TRIP})
+
+    handleClickDetails = (trip_id) => {
+        this.props.dispatch({ type: TRIP_ACTIONS.SET_CURRENT_TRIP, payload: trip_id})
+    }
+
+    handleClickJoin = (trip_id) => {
+        this.props.dispatch({ type: TRIP_ACTIONS.REQUEST_USER_JOIN_TRIP, payload: trip_id})
+    }
+
+
+    handleClickLeave = (trip_id) => {
+        this.confirmAction(trip_id);
     }
     
     render() {
@@ -41,8 +68,9 @@ class UserTripTable extends Component {
                         {this.props.state.trip.userTrips.map(item=> 
                         <UserTripListTableItem 
                         key={item.id} item={item} 
-                        handleClickJoin={this.handleClickJoin} 
                         handleClickDetails={this.handleClickDetails}
+                        handleClickJoin={this.handleClickJoin} 
+                        handleClickLeave={this.handleClickLeave}
                         />)}
                     </TableBody>
                 </Table>

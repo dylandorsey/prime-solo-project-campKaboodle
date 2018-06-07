@@ -10,8 +10,20 @@ export function callUserTrips() {
 // fetch trip participants
 
 // join trip
-export function callUserJoinTrip() {
-    return axios.put(`api/trip/join`)
+export function callUserJoinTrip(trip_id) {
+    const body = {
+        id: trip_id
+    };
+    return axios.put(`api/trip/join`, body)
+    .then(response => console.log(response))
+    .catch((error) => { throw error.response || error; });
+}
+
+export function callUserLeaveTrip(trip_id) {
+    const body = {
+        id: trip_id
+    };
+    return axios.put(`api/trip/leave`, body)
     .then(response => console.log(response))
     .catch((error) => { throw error.response || error; });
 }

@@ -11,17 +11,22 @@ import { triggerLogout } from '../../redux/actions/loginActions';
 
 const mapStateToProps = state => ({
     user: state.user,
+    state
   });
   
 class UserTripList extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: TRIP_ACTIONS.FETCH_USER_TRIPS })
+        this.props.dispatch({ type: TRIP_ACTIONS.START_UNSET_CURRENT_TRIP })
     }
 
     componentDidUpdate() {
         if (!this.props.user.isLoading && this.props.user.userName === null) {
             this.props.history.push('home');
+        }
+        if (this.props.state.trip.isLoading === false && this.props.state.trip.currentTrip != null) {
+            this.props.history.push('trip-overview');
         }
     }
 

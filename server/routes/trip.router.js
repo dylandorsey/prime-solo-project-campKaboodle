@@ -45,14 +45,30 @@ router.post('/new-trip', (req, res) => {
 
 router.put('/join', (req,res) => {
     const user_id = req.user.id;
+    const trip_id = req.body.id;
     let queryText = `UPDATE "user_trip" 
     SET "user_hasAccepted" = 'true'
-    WHERE "user_id" = $1;` 
-    pool.query(queryText,[user_id])
+    WHERE "user_id" = $1 AND "trip_id" = $2;` 
+    pool.query(queryText,[user_id, trip_id])
     .then((result) => {res.sendStatus(200)})
     .catch((error) => {
         console.log('Error joining user to trip', error);
         res.sendStatus(500)});
 });
+
+router.put('/leave', (req,res) => {
+    const user_id = req.user.id;
+    const trip_id = req.body.id;
+    console.log(req.body);
+    let queryText = `UPDATE "user_trip" 
+    SET "user_hasAccepted" = 'false'
+    WHERE "user_id" = $1 AND "trip_id" = $2;` 
+    pool.query(queryText,[user_id, trip_id])
+    .then((result) => {res.sendStatus(200)})
+    .catch((error) => {
+        console.log('Error joining user to trip', error);
+        res.sendStatus(500)});
+});
+
 
 module.exports = router;

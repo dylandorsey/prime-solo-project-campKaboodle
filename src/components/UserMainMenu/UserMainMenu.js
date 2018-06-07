@@ -46,7 +46,7 @@ class UserPage extends Component {
 
     logout = () => {
         this.props.dispatch(triggerLogout());
-        // this.props.history.push('home');
+        this.props.history.push('home');
     }
 
     navToCreateTrip = () => {
