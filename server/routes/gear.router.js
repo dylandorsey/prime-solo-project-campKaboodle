@@ -6,13 +6,15 @@ const router = express.Router();
  * GET route template
  */
 router.get('/', (req, res) => {
-    // const user_id = req.user.id;
+    console.log('this is the query', req.query);
+    const trip_id = req.query.trip_id;
+    console.log('fetching gear for trip: ',trip_id)
     let queryText = `SELECT "description","quantity", "user"."username", "user_trip_gear"."id"
     FROM "user_trip_gear"
     LEFT JOIN "user" 
     ON "user_trip_gear"."id" = "user"."id"
-    WHERE "user_trip_gear"."trip_id" = 1;`
-    pool.query(queryText)
+    WHERE "user_trip_gear"."trip_id" = $1;`
+    pool.query(queryText, [trip_id])
         .then((result) => { res.send(result.rows) })
         .catch((error) => {
             console.log('Error fetching trip gear', error);

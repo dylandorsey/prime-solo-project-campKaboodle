@@ -21,24 +21,19 @@ class TripGearList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTrip: '',
         }
     }
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: TRIP_ACTIONS.FETCH_USER_TRIPS })
-        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR });
+        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR, payload: this.props.currentTrip });
     }
 
     componentDidUpdate() {
         if (!this.props.user.isLoading && this.props.user.userName === null) {
             this.props.history.push('home');
         }
-        this.props.dispatch({
-            type: TRIP_ACTIONS.SET_CURRENT_TRIP,
-            payload: this.state.selectedTrip
-        })
-        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR });
+        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR, payload: this.props.currentTrip });
     }
 
     handleChangeFor = propertyName => event => {
@@ -71,6 +66,7 @@ class TripGearList extends Component {
 
     render() {
         let content = null;
+        let currentTrip = this.props.currentTrip;
 
         if (this.props.user.userName) {
             content = (
@@ -80,15 +76,15 @@ class TripGearList extends Component {
                         id=""
                     >
                         Trip Gear List
-                        <p>selected trip</p>
-                        <pre>{JSON.stringify(this.state.selectedTrip)}</pre>
+                        <p>currentTrip</p>
+                        <pre>{JSON.stringify(currentTrip)}</pre>
                     </h1>
-                    <ViewSelector
+                    {/* <ViewSelector
                         handleChangeFor={this.handleChangeFor}
                         navToTripOverview={this.navToTripOverview}
                         navToTripGearList={this.navToTripGearList}
                         selectedTrip={this.state.selectedTrip}
-                    />
+                    /> */}
                     <TripGearListTable />
 
                     <button

@@ -11,7 +11,7 @@ class UserTripTableItem extends Component {
                 <TableCell>{this.props.item.meetup_time}</TableCell>
                 {this.props.item.user_hasAccepted ?
                     <TableCell>
-                        <button onClick={() => {this.props.handleClickDetails(this.props.item.id)}}>Details</button>
+                        <button onClick={() => {this.props.handleClickDetails(this.props.item)}}>Details</button>
                         <button onClick={() => {this.props.handleClickLeave(this.props.item.id)}}>Leave trip</button>
                     </TableCell>
                     :

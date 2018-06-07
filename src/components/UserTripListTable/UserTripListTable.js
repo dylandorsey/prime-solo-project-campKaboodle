@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
 });
 
 class UserTripTable extends Component {
-    
+
     confirmAction = (trip_id) => {
         confirmAlert({
             title: 'Confirm leave trip',
@@ -41,8 +41,8 @@ class UserTripTable extends Component {
     }
 
 
-    handleClickDetails = (trip_id) => {
-        this.props.dispatch({ type: TRIP_ACTIONS.SET_CURRENT_TRIP, payload: trip_id})
+    handleClickDetails = (trip) => {
+        this.props.dispatch({ type: TRIP_ACTIONS.SET_CURRENT_TRIP, payload: trip})
     }
 
     handleClickJoin = (trip_id) => {

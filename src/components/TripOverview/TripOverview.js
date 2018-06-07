@@ -19,13 +19,14 @@ import ViewSelector from '../ViewSelector/ViewSelector';
 const mapStateToProps = state => ({
     user: state.user,
     trips: state.trip.userTrips,
+    currentTrip: state.trip.currentTrip,
 });
 
 class TripOverview extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTrip: '',
+            
         }
     }
 
@@ -66,7 +67,7 @@ class TripOverview extends Component {
 
     render() {
         let content = null;
-        let selectedTrip = this.state.selectedTrip;
+        let currentTrip = this.props.currentTrip;
 
         if (this.props.user.userName) {
             content = (
@@ -77,39 +78,39 @@ class TripOverview extends Component {
                     >
                         Trip Overview
                     </h1>
-                    <ViewSelector
+                    {/* <ViewSelector
                         handleChangeFor={this.handleChangeFor}
                         navToTripOverview={this.navToTripOverview}
                         navToTripGearList={this.navToTripGearList}
-                    />
-                    {this.state.selectedTrip ?
+                    /> */}
+                    {this.props.currentTrip ?
                         <Paper>
                             <form onSubmit={this.submitHandler}>
                                 <Table>
                                     <TableBody>
                                         <TableRow>
                                             <TableCell>Trip Name</TableCell>
-                                            <TableCell>{selectedTrip.name}</TableCell>
+                                            <TableCell>{currentTrip.name}</TableCell>
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>Location</TableCell>
-                                            <TableCell>{selectedTrip.location}</TableCell>
+                                            <TableCell>{currentTrip.location}</TableCell>
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>Meetup Time</TableCell>
-                                            <TableCell>{selectedTrip.meetup_time}</TableCell>
+                                            <TableCell>{currentTrip.meetup_time}</TableCell>
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>Meetup Spot</TableCell>
-                                            <TableCell>{selectedTrip.meetup_spot}</TableCell>
+                                            <TableCell>{currentTrip.meetup_spot}</TableCell>
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>Exit Time</TableCell>
-                                            <TableCell>{selectedTrip.exit_time}</TableCell>
+                                            <TableCell>{currentTrip.exit_time}</TableCell>
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>Exit Spot</TableCell>
-                                            <TableCell>{selectedTrip.exit_spot}</TableCell>
+                                            <TableCell>{currentTrip.exit_spot}</TableCell>
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>Trip Gear</TableCell>

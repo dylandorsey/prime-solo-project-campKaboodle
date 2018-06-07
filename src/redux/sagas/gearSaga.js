@@ -2,9 +2,9 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { GEAR_ACTIONS } from '../actions/gearActions';
 import { callTripGear } from '../requests/gearRequests';
 
-function* fetchTripGear() {
+function* fetchTripGear(action) {
     try {
-        const tripGear = yield callTripGear();
+        const tripGear = yield callTripGear(action);
         yield put({
             type: GEAR_ACTIONS.SET_TRIP_GEAR,
             tripGear,
