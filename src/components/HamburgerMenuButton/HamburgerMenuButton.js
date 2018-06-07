@@ -5,7 +5,7 @@ class HamburgerMenuButton extends Component {
         return (
             <button className="button" color="primary" onClick={this.props.navToUserMainMenu} 
             >
-            Hamburger Menu
+            User Main Menu
             </button>
         );
     }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Popover from '@material-ui/core/Popover';
 
 import Nav from '../../components/Nav/Nav';
 import Version from '../Version/Version';
@@ -21,19 +20,6 @@ class UserPage extends Component {
         }
     }
 
-    handlePopoverClick = event => {
-        this.setState({
-            ...this.state,
-            anchorEl: event.currentTarget,
-        });
-    }
-
-    handleClose = () => {
-        this.setState({
-            ...this.state,
-            anchorEl: null,
-        });
-    }
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
     }
@@ -63,7 +49,6 @@ class UserPage extends Component {
 
     render() {
         let content = null;
-        const { anchorEl } = this.state;
 
         if (this.props.user.userName) {
             content = (
@@ -73,41 +58,7 @@ class UserPage extends Component {
                     >
                         User Main Menu
                     </h1>
-                    <button onClick={this.handlePopoverClick}>
-                        App Info
-                    </button>
-                    <Popover
-                        open={Boolean(anchorEl)}
-                        anchorEl={anchorEl}
-                        onClose={this.handleClose}
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                        }}
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                        }}
-                    >
-                        <div>
-                            <h2>
-                                campKaboodle
-                            </h2>
-                            <p>
-                                Version: <Version />
-                            </p>
-                            <p>
-                                Author: Dylan Dorsey
-                             </p>
-                            <p>
-                                This app is made possible by a bunch of stuff that none of us fully understands.
-                             </p>
-                            <p>
-                                Thanks for giving it a try!
-                             </p>
-                        </div>
-                    </Popover>
-                    <h3>Hi, {this.props.user.userName}! Let's plan!</h3>
+                    <h3>Hi, {this.props.user.userName}! Let's plan your camp!</h3>
 
                     <button
                         onClick={this.navToCreateTrip}
@@ -117,10 +68,10 @@ class UserPage extends Component {
                         onClick={this.navToTrips}
                     >Your trips
                     </button>
-                    <button
+                    {/* <button
                         onClick={this.navToUserGearInventory}
                     >Your gear
-                    </button>
+                    </button> */}
                     <button
                         onClick={this.logout}
                     >

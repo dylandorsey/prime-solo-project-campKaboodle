@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-const Header = ({ title }) => (
-  <div className="instructions">
-    <div>
-      <h1 className="lead">{ title }</h1>
-    </div>
-  </div>
-);
+import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
+import AboutButton from '../AboutButton/AboutButton';
 
-export default Header;
+const mapStateToProps = state => ({
+  state
+});
+
+class Header extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className="instructions">
+        <div>
+          <h1 className="lead">{this.props.title}</h1>
+        </div>
+        {/* <AboutButton /> */}
+
+      </div>
+    );
+  }
+}
+export default connect(mapStateToProps)(Header);

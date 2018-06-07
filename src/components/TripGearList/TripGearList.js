@@ -26,7 +26,7 @@ class TripGearList extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: TRIP_ACTIONS.FETCH_USER_TRIPS })
-        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR, payload: this.props.currentTrip });
+        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR, payload: this.props.currentTrip.trip_id });
     }
 
     componentDidUpdate() {
@@ -36,15 +36,15 @@ class TripGearList extends Component {
         this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR, payload: this.props.currentTrip });
     }
 
-    handleChangeFor = propertyName => event => {
-        this.setState({
-            [propertyName]: this.props.userTrips[event.target.value],
-        });
-        this.props.dispatch({
-            type: TRIP_ACTIONS.SET_CURRENT_TRIP,
-            payload: this.state.selectedTrip
-        })
-    }
+    // handleChangeFor = propertyName => event => {
+    //     this.setState({
+    //         [propertyName]: this.props.userTrips[event.target.value],
+    //     });
+    //     this.props.dispatch({
+    //         type: TRIP_ACTIONS.SET_CURRENT_TRIP,
+    //         payload: this.state.selectedTrip
+    //     })
+    // }
 
     logout = () => {
         this.props.dispatch(triggerLogout());
@@ -66,7 +66,6 @@ class TripGearList extends Component {
 
     render() {
         let content = null;
-        let currentTrip = this.props.currentTrip;
 
         if (this.props.user.userName) {
             content = (
@@ -75,9 +74,6 @@ class TripGearList extends Component {
                     <h1
                         id=""
                     >
-                        Trip Gear List
-                        <p>currentTrip</p>
-                        <pre>{JSON.stringify(currentTrip)}</pre>
                     </h1>
                     {/* <ViewSelector
                         handleChangeFor={this.handleChangeFor}

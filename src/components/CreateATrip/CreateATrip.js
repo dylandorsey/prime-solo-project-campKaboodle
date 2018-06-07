@@ -14,9 +14,9 @@ import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
+import { Popover } from '@material-ui/core';
 
 const mapStateToProps = state => ({
-    message: '',
     user: state.user,
 });
 
@@ -25,6 +25,7 @@ class UserPage extends Component {
         super(props);
         this.state = {
             newTrip: {
+                message: '',
                 name: '',
             },
         }
@@ -61,8 +62,30 @@ class UserPage extends Component {
     postNewTrip = (newTrip) => {
         axios.post(`api/trip/new-trip`, newTrip)
             .then((response) => {
-                if (response.status === 201) {
-                    this.props.history.push('/trip-overview');
+                console.log(response);
+                // if (response.status === 201) {
+                //     alert('trip created');
+                //     this.addUserToTrip();
+                //     this.props.history.push('user-trip-list');
+
+                // } else {
+                //     this.setState({
+                //         message: 'That didn\'t work. Server error...',
+                //     });
+                // }
+            })
+            .catch(() => {
+                this.setState({
+                    message: 'That didn\'t work. Is the server running?',
+                });
+            });
+    }
+
+    addUserToTrip = (body) => {
+        axios.post(`api/trip/add-user`, body)
+            .then((response) => {
+                if (response.status === 200) {
+                    alert('camper added');
                 } else {
                     this.setState({
                         message: 'That didn\'t work. Server error...',
@@ -76,13 +99,14 @@ class UserPage extends Component {
             });
     }
 
+
     renderAlert() {
         if (this.state.message !== '') {
-          return (
-            alert(this.state.message)
-          )
+            return (
+                alert(this.state.message)
+            )
         }
-      }
+    }
 
     submitHandler = (event) => {
         event.preventDefault();
@@ -104,7 +128,6 @@ class UserPage extends Component {
                     >
                         Create-A-Trip
                     </h1>
-                    {this.renderAlert()}
                     <pre>{JSON.stringify(this.state.newTrip)}</pre>
                     <Paper>
                         <form onSubmit={this.submitHandler}>

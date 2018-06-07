@@ -9,7 +9,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
 import { GEAR_ACTIONS } from '../../redux/actions/gearActions';
@@ -31,12 +30,9 @@ class TripGearListTable extends Component {
             newItem: {
                 description: '',
                 quantity: '',
-                tripID: '',
             }
         }
     }
-
-
 
     clearInput = () => {
         this.setState({
@@ -48,14 +44,12 @@ class TripGearListTable extends Component {
         });
     }
 
-    // componentDidUpdate() {
-    //     this.props.dispatch({
-    //         type: TRIP_ACTIONS.SET_CURRENT_TRIP,
-    //         payload: this.state.selectedTrip
-    //     })
-    //     this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR });
-    // }
-
+    componentDidUpdate() {
+        // this.props.dispatch({
+        //     type: TRIP_ACTIONS.SET_CURRENT_TRIP,
+        //     payload: this.state.selectedTrip
+        // })
+    }
 
     handleChangeFor = propertyName => event => {
         this.setState({
@@ -68,13 +62,18 @@ class TripGearListTable extends Component {
 
     handleClickCancel = () => {
         this.toggleAddingItem();
+        console.log(this.state.addingItem);
         this.clearInput();
         console.log('init handleClickCancel');
     }
 
-    handleClickProvide = () => {
+    handleClickProvide = (item) => {
         console.log('init handleClickProvide')
         // initiate PUT request to add req.user.username to item in database
+        const payload = {item: item, trip_id: this.props.currentTrip.id}
+        this.props.dispatch({
+            type: GEAR_ACTIONS.UPDATE_ITEM_PROVIDER,
+            payload})
         // rerender the gear list
     }
 
@@ -89,31 +88,15 @@ class TripGearListTable extends Component {
         } else {
             const newItem = {
                 newItem: this.state.newItem,
-                tripID: this.props.currentTrip.id
+                trip_id: this.props.currentTrip.id
             }
-            this.postNewItem(newItem);
+            // this.postNewItem(newItem);
+            // dispatch for post new item
+            this.props.dispatch({ type: GEAR_ACTIONS.CREATE_NEW_GEAR_ITEM, payload: newItem})
             this.toggleAddingItem();
             this.clearInput();
         }
     }
-
-    postNewItem = (body) => {
-            axios.post(`api/gear/new-item`, body)
-                .then((response) => {
-                    if (response === 201) {
-                        alert('new gear posted with status', response);
-                    } else {
-                        this.setState({
-                            message: 'That didn\'t work. Server error...',
-                        });
-                    }
-                })
-                .catch(() => {
-                    this.setState({
-                        message: 'That didn\'t work. Is the server running?',
-                    });
-                });
-        }
 
     renderAlert() {
         if (this.state.message !== '') {
@@ -123,7 +106,6 @@ class TripGearListTable extends Component {
 
     toggleAddingItem = () => {
         this.setState({
-            ...this.state,
             addingItem: !this.state.addingItem
         })
     }
@@ -133,7 +115,6 @@ class TripGearListTable extends Component {
             <div>
                 <pre>{JSON.stringify(this.state.newItem)}</pre>
                 <pre>{JSON.stringify(this.state.addingItem)}</pre>
-                <pre>currentTrip (redux) {JSON.stringify(this.props.currentTrip)}</pre>
                 <Paper>
                     <Table>
                         <TableHead>

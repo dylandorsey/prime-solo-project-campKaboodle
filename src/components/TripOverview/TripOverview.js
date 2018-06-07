@@ -56,13 +56,13 @@ class TripOverview extends Component {
         this.props.history.push('trip-gear-list');
     }
 
+    navToTripOverview = () => {
+        this.props.history.push('trip-overview');
+    }
+
     navToUserMainMenu = () => {
         console.log('init navToUserMainMenu');
         this.props.history.push('user-main-menu');
-    }
-
-    navToTripOverview = () => {
-        this.props.history.push('trip-overview');
     }
 
     render() {
@@ -72,12 +72,13 @@ class TripOverview extends Component {
         if (this.props.user.userName) {
             content = (
                 <div>
-                    <HamburgerMenuButton navToUserMainMenu={this.navToUserMainMenu} />
+                                        <HamburgerMenuButton navToUserMainMenu={this.navToUserMainMenu} />
                     <h1
                         id=""
                     >
                         Trip Overview
                     </h1>
+
                     {/* <ViewSelector
                         handleChangeFor={this.handleChangeFor}
                         navToTripOverview={this.navToTripOverview}

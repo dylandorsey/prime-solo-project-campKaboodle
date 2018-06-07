@@ -6,13 +6,13 @@ const router = express.Router();
  * GET route template
  */
 router.get('/', (req, res) => {
-    console.log('this is the query', req.query);
+    // console.log('this is the query', req.query);
     const trip_id = req.query.trip_id;
-    console.log('fetching gear for trip: ',trip_id)
+    // console.log('fetching gear for trip: ',trip_id)
     let queryText = `SELECT "description","quantity", "user"."username", "user_trip_gear"."id"
     FROM "user_trip_gear"
     LEFT JOIN "user" 
-    ON "user_trip_gear"."id" = "user"."id"
+    ON "user_trip_gear"."user_id" = "user"."id"
     WHERE "user_trip_gear"."trip_id" = $1;`
     pool.query(queryText, [trip_id])
         .then((result) => { res.send(result.rows) })
@@ -23,10 +23,10 @@ router.get('/', (req, res) => {
 });
 
 router.post('/new-item', (req, res) => {
-    console.log('POST /api/gear/new-gear')
+    // console.log('POST /api/gear/new-gear')
     const newItem = req.body.newItem;
-    const tripID = req.body.tripID
-    console.log(tripID);
+    const tripID = req.body.trip_id;
+    // console.log(tripID);
     const queryText = `INSERT INTO "user_trip_gear" ("description", "quantity", "trip_id")
     VALUES ($1, $2, $3);`;
     pool.query(queryText,
@@ -42,12 +42,14 @@ router.post('/new-item', (req, res) => {
         });
 })
 
-router.put('/join', (req, res) => {
+router.put('/new-item-provider', (req, res) => {
     const user_id = req.user.id;
-    let queryText = `UPDATE "user_trip" 
-    SET "user_hasAccepted" = 'true'
-    WHERE "user_id" = $1;`
-    pool.query(queryText, [user_id])
+    const item_id = req.body.item_id;
+    console.log(item_id);
+    let queryText = `UPDATE "user_trip_gear" 
+    SET "user_id" = $1
+    WHERE "id" = $2;`
+    pool.query(queryText, [user_id, item_id])
         .then((result) => { res.sendStatus(200) })
         .catch((error) => {
             console.log('Error joining user to trip', error);

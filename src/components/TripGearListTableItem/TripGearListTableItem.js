@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
+
+const mapStateToProps = state => ({
+    state
+});
 
 class TripGearListTableItem extends Component {
     render() {
@@ -13,7 +18,7 @@ class TripGearListTableItem extends Component {
                 <TableCell>{this.props.item.username ?
                     this.props.item.username
                     :
-                    <button onClick={this.props.handleClickProvide}>Provide</button>}
+                    <button onClick={()=>{this.props.handleClickProvide(this.props.item)}}>Provide</button>}
                 </TableCell>
                 <TableCell>
                     <Checkbox
@@ -25,4 +30,4 @@ class TripGearListTableItem extends Component {
 }
 
 // this allows us to use <App /> in index.js
-export default TripGearListTableItem;
+export default connect(mapStateToProps)(TripGearListTableItem);

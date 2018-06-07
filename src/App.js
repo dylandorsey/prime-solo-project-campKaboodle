@@ -22,12 +22,13 @@ import CreateATrip from './components/CreateATrip/CreateATrip';
 import TripCamperList from './components/TripCamperList/TripCamperList';
 import TripMessageBoard from './components/TripMessageBoard/TripMessageBoard';
 import TripOverview from './components/TripOverview/TripOverview';
+import HamburgerMenuButton from './components/HamburgerMenuButton/HamburgerMenuButton';
 
 import './styles/main.css';
 
 const App = () => (
   <div>
-    <Header title="Project Base" />
+    <Header title="campKaboodle" />
     <Router>
       <Switch>
         <Redirect exact from="/" to="/home" />

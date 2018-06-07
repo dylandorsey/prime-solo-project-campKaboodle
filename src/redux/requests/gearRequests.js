@@ -1,16 +1,37 @@
 import axios from 'axios';
 
 // fetch trip gear
-export function callTripGear(action) {
-  console.log(action);
-  console.log(action.payload);
-  console.log(action.payload.id);
+export function callTripGear(trip_id) {
+  console.log(trip_id);
   const params = {
-    trip_id: action.payload.id,
+    trip_id: trip_id,
   }
   return axios.get(`api/gear`, {params})
     .then(response => response.data)
     .catch((error) => { throw error.response || error; });
+}
+
+// post new gear item
+export function callPostTripGearItem(action) {
+  const body = action.payload
+  axios.post(`api/gear/new-item`, body)
+  .then(response => response.data)
+  .catch((error) => {
+    throw error.response || error;
+  });
+}
+
+// put new gear item provider
+export function callPutItemProvider(action) {
+    console.log(action);
+    const body = {
+        item_id: action.payload.item.id
+    }
+    axios.put(`api/gear/new-item-provider`, body)
+    .then(response => response.data)
+    .catch((error) => {
+      throw error.response || error;
+    });
 }
 
 // fetch trip participants
