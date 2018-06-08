@@ -22,7 +22,7 @@ import CreateATrip from './components/CreateATrip/CreateATrip';
 import TripCamperList from './components/TripCamperList/TripCamperList';
 import TripMessageBoard from './components/TripMessageBoard/TripMessageBoard';
 import TripOverview from './components/TripOverview/TripOverview';
-import HamburgerMenuButton from './components/HamburgerMenuButton/HamburgerMenuButton';
+// import HamburgerMenuButton from './components/HamburgerMenuButton/HamburgerMenuButton';
 
 import './styles/main.css';
 

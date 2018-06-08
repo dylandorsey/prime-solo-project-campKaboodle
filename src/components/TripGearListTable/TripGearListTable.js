@@ -52,11 +52,11 @@ class TripGearListTable extends Component {
 
     handleClickDelete = (item) => {
         console.log('init handleClickDelete');
-        const payload = { item: item, id: this.props.currentTrip.id }
+        const payload = { item: item, id: this.props.currentTrip.id };
         this.props.dispatch({
             type: GEAR_ACTIONS.DELETE_ITEM,
             payload
-        })
+        });
     }
 
     handleClickCancel = () => {
@@ -68,22 +68,22 @@ class TripGearListTable extends Component {
 
     handleClickProvide = (item) => {
         console.log('init handleClickProvide')
-        const payload = { item: item, id: this.props.currentTrip.id }
+        const payload = { item: item, id: this.props.currentTrip.id };
         // initiate PUT request to add req.user.username to item in database
         this.props.dispatch({
             type: GEAR_ACTIONS.UPDATE_ITEM_PROVIDER,
             payload
-        })
+        });
     }
 
     handleClickRemoveProvider = (item) => {
         console.log('init handleClickRemoveProvider')
         // initiate PUT request to remove provider of item in database
-        const payload = { item: item, id: this.props.currentTrip.id }
+        const payload = { item: item, id: this.props.currentTrip.id };
         this.props.dispatch({
             type: GEAR_ACTIONS.REMOVE_ITEM_PROVIDER,
             payload
-        })
+        });
     }
 
     handleSubmitNewItem = event => {
@@ -98,9 +98,9 @@ class TripGearListTable extends Component {
             const newItem = {
                 newItem: this.state.newItem,
                 id: this.props.currentTrip.id
-            }
+            };
             // dispatch for post new item
-            this.props.dispatch({ type: GEAR_ACTIONS.CREATE_NEW_GEAR_ITEM, payload: newItem })
+            this.props.dispatch({ type: GEAR_ACTIONS.CREATE_NEW_GEAR_ITEM, payload: newItem });
             this.toggleAddingItem();
             this.clearInput();
         }
@@ -108,21 +108,19 @@ class TripGearListTable extends Component {
 
     renderAlert() {
         if (this.state.message !== '') {
-            alert(this.state.message)
+            alert(this.state.message);
         }
     }
 
     toggleAddingItem = () => {
         this.setState({
             addingItem: !this.state.addingItem
-        })
+        });
     }
 
     render() {
         return (
             <div>
-                <pre>{JSON.stringify(this.state.newItem)}</pre>
-                <pre>{JSON.stringify(this.state.addingItem)}</pre>
                 <Paper>
                     <Table>
                         <TableHead>

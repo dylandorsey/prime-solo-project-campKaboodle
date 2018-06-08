@@ -6,13 +6,14 @@ const router = express.Router();
  * GET route template
  */
 
- // add user to trip's list of users
+// add user to trip's list of users
 router.post('/add-user-to-trip', (req, res) => {
     console.log(req.body);
     console.log(req.body.inviteeUserID);
     const trip_id = req.body.trip_id;
+    console.log(trip_id);
     // handle request from user to add other users
-    if (req.body.inviteeUserID != '') {
+    if (req.body.inviteeUserID !== '' && req.body.inviteeUserID !== null && req.body.inviteeUserID !== undefined) {
         console.log('inviting other user');
         let user_id = req.body.inviteeUserID;
         console.log(user_id);
@@ -25,7 +26,7 @@ router.post('/add-user-to-trip', (req, res) => {
                 console.log('Error joining user to trip', error);
                 res.sendStatus(500)
             });
-    // upon creating new trip, add trip creator to the trip
+        // upon creating new trip, add trip creator to the trip
     } else {
         console.log('adding trip creator to trip');
         let user_id = req.user.id;
@@ -107,9 +108,10 @@ router.get('/user-current-trip-id', (req, res) => {
     FROM "user" 
     WHERE "id" = $1;`
     pool.query(queryText, [user_id])
-        .then((result) => { 
-            console.log(result.rows[0].userCurrentTripID); 
-            res.send(result.rows)})
+        .then((result) => {
+            console.log(result.rows[0].userCurrentTripID);
+            res.send(result.rows)
+        })
         .catch((error) => {
             console.log('Error fetching user current trip', error);
             res.sendStatus(500)
@@ -125,9 +127,10 @@ router.get('/user-current-trip-data', (req, res) => {
     FROM "trip" 
     WHERE "id" = $1;`
     pool.query(queryText, [trip_id])
-        .then((result) => { 
+        .then((result) => {
             console.log(result.rows);
-            res.send(result.rows) })
+            res.send(result.rows)
+        })
         .catch((error) => {
             console.log('Error fetching user current trip', error);
             res.sendStatus(500)
@@ -135,7 +138,7 @@ router.get('/user-current-trip-data', (req, res) => {
 });
 
 // set user's current trip id
-router.put ('/user-current-trip', (req, res) => {
+router.put('/user-current-trip', (req, res) => {
     const user_id = req.user.id;
     const trip_id = req.body.trip_id.id;
     console.log(req.body);
@@ -146,6 +149,20 @@ router.put ('/user-current-trip', (req, res) => {
         .then((result) => { res.sendStatus(200) })
         .catch((error) => {
             console.log('Error posting user current trip', error);
+            res.sendStatus(500)
+        });
+});
+
+// GET user's new trip id
+router.get(`/users-new-trip-id`, (req, res) => {
+    const user_id = req.user.id;
+    let queryText = `SELECT max("id")
+    FROM "trip"
+    WHERE "creatorID"= $1;`;
+    pool.query(queryText, [user_id])
+        .then((result) => { res.send(result.rows) })
+        .catch((error) => {
+            console.log('Error fetching user\'s new trip', error);
             res.sendStatus(500)
         });
 });

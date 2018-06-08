@@ -1,7 +1,9 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { TRIP_ACTIONS } from '../actions/tripActions';
+import { callCreateNewTrip } from '../requests/tripRequests';
 import { callGetCurrentTripID } from '../requests/tripRequests';
 import { callGetCurrentTripData } from '../requests/tripRequests';
+import { callGetUsersNewTripID } from '../requests/tripRequests';
 import { callGetInviteeUserID } from '../requests/tripRequests';
 import { callAddUserToTrip } from '../requests/tripRequests';
 import { callPutCurrentTrip } from '../requests/tripRequests';
@@ -9,6 +11,20 @@ import { callUserTrips } from '../requests/tripRequests';
 import { callUserJoinTrip } from '../requests/tripRequests';
 import { callUserLeaveTrip } from '../requests/tripRequests';
 
+function* createNewTrip(action) {
+    let newTrip = action.payload.newTrip;
+    console.log(newTrip);
+    try {
+        yield callCreateNewTrip(newTrip);
+        let response = yield callGetUsersNewTripID();
+        let trip_id = response[0].max;
+        let body = {trip_id: trip_id}
+        console.log(trip_id);
+        yield callAddUserToTrip(body);
+    } catch (error) {
+        console.log('error creating new trip', error);
+    };
+}
 
 function* fetchUserTrips() {
     try {
@@ -103,6 +119,7 @@ function* removeUserFromTrip(action) {
 }
 
 function* tripSaga() {
+    yield takeLatest(TRIP_ACTIONS.CREATE_NEW_TRIP, createNewTrip);
     yield takeLatest(TRIP_ACTIONS.FETCH_USER_TRIPS, fetchUserTrips);
     yield takeLatest(TRIP_ACTIONS.INVITE_USER, intiateInviteUser);
     yield takeLatest(TRIP_ACTIONS.REQUEST_USER_JOIN_TRIP, joinUserToTrip);

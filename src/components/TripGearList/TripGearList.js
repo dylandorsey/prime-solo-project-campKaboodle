@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Nav from '../../components/Nav/Nav';
 import TripGearListTable from '../TripGearListTable/TripGearListTable';
 import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
-import ViewSelector from '../ViewSelector/ViewSelector';
+// import ViewSelector from '../ViewSelector/ViewSelector';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
@@ -27,7 +27,6 @@ class TripGearList extends Component {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: TRIP_ACTIONS.START_SAGA_SET_CURRENT_TRIP });
         this.props.dispatch({ type: TRIP_ACTIONS.FETCH_USER_TRIPS })
-        this
         this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR, payload: this.props.currentTrip });
     }
 

@@ -1,12 +1,17 @@
 import axios from 'axios';
 
+export function callCreateNewTrip(newTrip) {
+    console.log('init callCreateNewTrip');
+    return axios.post(`api/trip/new-trip`, newTrip)
+    .then(response => response.data)
+    .catch((error) => { throw error.response || error; });
+}
 
 export function callUserTrips() {
     return axios.get(`api/trip/user-trips`)
         .then(response => response.data)
         .catch((error) => { throw error.response || error; });
 }
-
 
 // fetch user's current trip data
 export function callGetCurrentTripData(trip_id) {
@@ -35,6 +40,14 @@ export function callGetInviteeUserID(inviteeUserName) {
     .then(response => response.data)
     .catch((error) => { throw error.response || error; });
 }
+
+// fetch user's new trip id
+export function callGetUsersNewTripID() {
+    return(axios.get(`api/trip/users-new-trip-id`))
+    .then(response => response.data)
+    .catch((error) => { throw error.response || error; });
+}
+
 // fetch trip participants
 
 // Add user to trip

@@ -13,6 +13,7 @@ import Nav from '../../components/Nav/Nav';
 import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
+import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
 
 const mapStateToProps = state => ({
@@ -39,6 +40,14 @@ class UserPage extends Component {
         }
     }
 
+    createNewTrip= () => {
+        const payload = { newTrip: this.state.newTrip };
+        this.props.dispatch({
+            type: TRIP_ACTIONS.CREATE_NEW_TRIP,
+            payload
+        });
+    }
+
     handleChangeFor = propertyName => event => {
         this.setState({
             newTrip: {
@@ -56,28 +65,6 @@ class UserPage extends Component {
     navToUserMainMenu = () => {
         console.log('init navToUserMainMenu');
         this.props.history.push('user-main-menu');
-    }
-
-    postNewTrip = (newTrip) => {
-        axios.post(`api/trip/new-trip`, newTrip)
-            .then((response) => {
-                console.log(response);
-                // if (response.status === 201) {
-                //     alert('trip created');
-                //     this.addUserToTrip();
-                //     this.props.history.push('user-trip-list');
-
-                // } else {
-                //     this.setState({
-                //         message: 'That didn\'t work. Server error...',
-                //     });
-                // }
-            })
-            .catch(() => {
-                this.setState({
-                    message: 'That didn\'t work. Is the server running?',
-                });
-            });
     }
 
     addUserToTrip = (body) => {
@@ -112,7 +99,7 @@ class UserPage extends Component {
         if (this.state.newTrip.name === '') {
             alert('name must not be empty');
         } else {
-            this.postNewTrip(this.state.newTrip);
+            this.createNewTrip();
         }
     }
 
