@@ -7,10 +7,15 @@ const router = express.Router();
  */
 
  // add user to trip's list of users
-router.post('/add-user', (req, res) => {
+router.post('/add-user-to-trip', (req, res) => {
+    console.log(req.body);
+    console.log(req.body.inviteeUserID);
     const trip_id = req.body.trip_id;
-    if (req.body.user_id != '') {
-        let user_id = req.body.user_id
+    // handle request from user to add other users
+    if (req.body.inviteeUserID != '') {
+        console.log('inviting other user');
+        let user_id = req.body.inviteeUserID;
+        console.log(user_id);
         let queryText = `INSERT INTO "user_trip" 
     ("trip_id", "user_id")
     VALUES ($1,$2);`
@@ -20,7 +25,9 @@ router.post('/add-user', (req, res) => {
                 console.log('Error joining user to trip', error);
                 res.sendStatus(500)
             });
+    // upon creating new trip, add trip creator to the trip
     } else {
+        console.log('adding trip creator to trip');
         let user_id = req.user.id;
         let hasAccepted = true;
         let queryText = `INSERT INTO "user_trip" 

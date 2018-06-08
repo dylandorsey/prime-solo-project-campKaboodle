@@ -11,7 +11,7 @@ export function callUserTrips() {
 // fetch user's current trip data
 export function callGetCurrentTripData(trip_id) {
     const params = {
-        trip_id: trip_id
+        trip_id: trip_id,
     };
     return axios.get(`api/trip/user-current-trip-data`, {params})
         .then(response => response.data)
@@ -25,11 +25,26 @@ export function callGetCurrentTripID() {
         .catch((error) => { throw error.response || error; });
 }
 
+// fetch invitee user ID (given invitee username)
+export function callGetInviteeUserID(inviteeUserName) {
+    console.log('init callGetInviteeUserID. Given username: ', inviteeUserName);
+    const params = {
+        inviteeUserName: inviteeUserName,
+    }
+    return axios.get(`api/user/invitee-user-id`, {params})
+    .then(response => response.data)
+    .catch((error) => { throw error.response || error; });
+}
 // fetch trip participants
 
-// invite user to join trip
-export function callInviteUserToTrip(payload) {
+// Add user to trip
+export function callAddUserToTrip(body) {
     // axios POST to user_trip to add new row for a user
+    axios.post(`api/trip/add-user-to-trip`, body)
+    .then(response => response.data)
+    .catch((error) => {
+      throw error.response || error;
+    });
 }
 
 // put user's current trip

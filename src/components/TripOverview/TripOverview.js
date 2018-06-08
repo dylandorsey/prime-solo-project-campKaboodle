@@ -45,7 +45,7 @@ class TripOverview extends Component {
 
     handleChangeFor = propertyName => event => {
         this.setState({
-            [propertyName]: this.props.trips[event.target.value],
+            [propertyName]: event.target.value,
         });
     }
 
@@ -55,7 +55,8 @@ class TripOverview extends Component {
         })
     }
 
-    handleSubmitInviteCamper = () => {
+    handleSubmitInviteCamper = event => {
+        event.preventDefault();
         this.props.dispatch({
             type: TRIP_ACTIONS.INVITE_USER,
             payload: {
@@ -104,6 +105,7 @@ class TripOverview extends Component {
                     /> */}
                     {this.props.currentTrip ?
                         <Paper>
+                            <pre>{JSON.stringify(this.state.inviteeUsername)}</pre>
                             <form onSubmit={this.submitHandler}>
                                 <Table>
                                     <TableBody>

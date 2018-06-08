@@ -2,7 +2,8 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { TRIP_ACTIONS } from '../actions/tripActions';
 import { callGetCurrentTripID } from '../requests/tripRequests';
 import { callGetCurrentTripData } from '../requests/tripRequests';
-import { callInviteUserToTrip } from '../requests/tripRequests';
+import { callGetInviteeUserID } from '../requests/tripRequests';
+import { callAddUserToTrip } from '../requests/tripRequests';
 import { callPutCurrentTrip } from '../requests/tripRequests';
 import { callUserTrips } from '../requests/tripRequests';
 import { callUserJoinTrip } from '../requests/tripRequests';
@@ -51,8 +52,19 @@ function* initiateSetCurrentTrip(action) {
 }
 
 function* intiateInviteUser(action) {
+    console.log('init initiateInviteUser', action);
+    const inviteeUserName = action.payload.inviteeUsername;
+    const trip_id = action.payload.trip_id;
+    console.log('invitee username is ', inviteeUserName);
     try {
-        yield callInviteUserToTrip(action.payload);
+        const response = yield callGetInviteeUserID(inviteeUserName);
+        const inviteeUserID = response[0].id;
+        console.log(inviteeUserID);
+        const body = {
+            inviteeUserID: inviteeUserID,
+            trip_id: trip_id,
+        }
+        yield callAddUserToTrip(body);
     } catch (error) {
         console.log('error inviting user to current trip', error);
     }

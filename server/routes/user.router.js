@@ -12,6 +12,24 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
+// Handles GET request for the user id of the user being invited to a trip
+router.get('/invitee-user-id', (req, res) => {
+  console.log('this is the query', req.query);
+  const inviteeUserName = req.query.inviteeUserName;
+  console.log('fetching id for username: ', inviteeUserName)
+  let queryText = `SELECT "id"
+  FROM "user"
+  WHERE "username" = $1;`
+  pool.query(queryText, [inviteeUserName])
+      .then((result) => { 
+        console.log('query returns', result.rows);
+        res.send(result.rows) })
+      .catch((error) => {
+          console.log('Error fetching trip gear', error);
+          res.sendStatus(500)
+      });
+});
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
