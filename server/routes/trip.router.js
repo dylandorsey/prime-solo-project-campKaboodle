@@ -43,6 +43,25 @@ router.post('/add-user-to-trip', (req, res) => {
     }
 });
 
+// return current trip camper roster
+router.get('/current-camper-list', (req, res) => {
+    console.log('init GET current-camper-list with req.query: ', req.query);
+    const trip_id = req.query.trip_ID;
+    let queryText = `SELECT "trip_id"."user_id", "trip_id"."user_hasAccepted", "user"."username"
+    FROM "user_trip" 
+    JOIN "user" on "user"."id"="trip_id"."user_id"
+    WHERE "trip_id" = $1;`
+    pool.query(queryText, [trip_id])
+        .then((result) => {
+            console.log(result.rows);
+            res.send(result.rows)
+        })
+        .catch((error) => {
+            console.log('Error fetching user current trip', error);
+            res.sendStatus(500)
+        });
+});
+
 // add trip to user's list
 router.put('/join', (req, res) => {
     const user_id = req.user.id;

@@ -21,6 +21,16 @@ const currentTrip = (state = '', action) => {
   }
 };
 
+const currentTripCamperList = (state = [], action) => {
+  switch (action.type) {
+    case TRIP_ACTIONS.SET_CURRENT_TRIP_CAMPER_LIST:
+    console.log('reducer setting currentTripCamperList to ', action.payload);
+      return action.payload.currentTripCamperList || state;
+    default:
+      return state;
+  }
+};
+
 const isLoading = (state = false, action) => {
   switch (action.type) {
     case TRIP_ACTIONS.SET_CURRENT_TRIP_START:
@@ -35,5 +45,6 @@ const isLoading = (state = false, action) => {
 export default combineReducers({
   userTrips,
   currentTrip,
+  currentTripCamperList,
   isLoading,
 });

@@ -18,6 +18,7 @@ const mapStateToProps = state => ({
     user: state.user,
     trips: state.trip.userTrips,
     currentTrip: state.trip.currentTrip,
+    gear: state.gear,
 });
 
 class TripOverview extends Component {
@@ -67,6 +68,10 @@ class TripOverview extends Component {
     logout = () => {
         this.props.dispatch(triggerLogout());
         // this.props.history.push('home');
+    }
+
+    navToTripCamperList = () => {
+        this.props.history.push('trip-camper-list');
     }
 
     navToTripGearList = () => {
@@ -135,7 +140,11 @@ class TripOverview extends Component {
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>Trip Gear</TableCell>
-                                            <TableCell><button onClick={this.navToTripGearList}>View</button></TableCell>
+                                            <TableCell><button onClick={this.navToTripGearList}>View gear</button></TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Campers</TableCell>
+                                            <TableCell><button onClick={this.navToTripCamperList}>View campers</button></TableCell>
                                         </TableRow>
                                     </TableBody>
                                 </Table>

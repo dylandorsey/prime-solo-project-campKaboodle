@@ -2,6 +2,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { TRIP_ACTIONS } from '../actions/tripActions';
 import { callCreateNewTrip } from '../requests/tripRequests';
 import { callGetCurrentTripID } from '../requests/tripRequests';
+import { callGetCurrentTripCamperList } from '../requests/tripRequests';
 import { callGetCurrentTripData } from '../requests/tripRequests';
 import { callGetUsersNewTripID } from '../requests/tripRequests';
 import { callGetInviteeUserID } from '../requests/tripRequests';
@@ -18,7 +19,7 @@ function* createNewTrip(action) {
         yield callCreateNewTrip(newTrip);
         let response = yield callGetUsersNewTripID();
         let trip_id = response[0].max;
-        let body = {trip_id: trip_id}
+        let body = { trip_id: trip_id }
         console.log(trip_id);
         yield callAddUserToTrip(body);
     } catch (error) {
@@ -62,6 +63,21 @@ function* initiateSetCurrentTrip(action) {
             payload: trip_data,
         })
         yield put({ type: TRIP_ACTIONS.SET_CURRENT_TRIP_DONE })
+    } catch (error) {
+        console.log('error setting current trip', error);
+    }
+}
+
+function* initiateSetTripCamperList(action) {
+    let trip_ID = action.payload.trip_ID;
+    console.log(trip_ID);
+    try {
+        const currentTripCamperList = yield callGetCurrentTripCamperList(trip_ID);
+        console.log('GET for currentTripCamperList back with: ', currentTripCamperList);
+        yield put({
+            type: TRIP_ACTIONS.SET_CURRENT_TRIP_CAMPER_LIST,
+            payload: { currentTripCamperList },
+        })
     } catch (error) {
         console.log('error setting current trip', error);
     }
@@ -125,6 +141,7 @@ function* tripSaga() {
     yield takeLatest(TRIP_ACTIONS.REQUEST_USER_JOIN_TRIP, joinUserToTrip);
     yield takeLatest(TRIP_ACTIONS.REQUEST_USER_LEAVE_TRIP, removeUserFromTrip);
     yield takeLatest(TRIP_ACTIONS.START_SAGA_SET_CURRENT_TRIP, initiateSetCurrentTrip);
+    yield takeLatest(TRIP_ACTIONS.START_SAGA_SET_TRIP_CAMPER_LIST, initiateSetTripCamperList);
     yield takeLatest(TRIP_ACTIONS.START_UNSET_CURRENT_TRIP, initiateUnsetCurrentTrip);
 }
 
