@@ -52,6 +52,14 @@ class TripGearListTable extends Component {
             }
         });
     }
+    handleClickDelete = (item) => {
+        console.log('init handleClickDelete');
+        const payload = { item: item, id: this.props.currentTrip.id }
+        this.props.dispatch({
+            type: GEAR_ACTIONS.DELETE_ITEM,
+            payload
+        })
+    }
 
     handleClickCancel = () => {
         this.toggleAddingItem();
@@ -62,22 +70,22 @@ class TripGearListTable extends Component {
 
     handleClickProvide = (item) => {
         console.log('init handleClickProvide')
+        const payload = { item: item, id: this.props.currentTrip.id }
         // initiate PUT request to add req.user.username to item in database
-        const payload = {item: item, id: this.props.currentTrip.id}
         this.props.dispatch({
             type: GEAR_ACTIONS.UPDATE_ITEM_PROVIDER,
-            payload})
-        // rerender the gear list
+            payload
+        })
     }
 
     handleClickRemoveProvider = (item) => {
         console.log('init handleClickRemoveProvider')
         // initiate PUT request to remove provider of item in database
-        const payload = {item: item, id: this.props.currentTrip.id}
+        const payload = { item: item, id: this.props.currentTrip.id }
         this.props.dispatch({
             type: GEAR_ACTIONS.REMOVE_ITEM_PROVIDER,
-            payload})
-        // rerender the gear list
+            payload
+        })
     }
 
     handleSubmitNewItem = event => {
@@ -93,9 +101,8 @@ class TripGearListTable extends Component {
                 newItem: this.state.newItem,
                 id: this.props.currentTrip.id
             }
-            // this.postNewItem(newItem);
             // dispatch for post new item
-            this.props.dispatch({ type: GEAR_ACTIONS.CREATE_NEW_GEAR_ITEM, payload: newItem})
+            this.props.dispatch({ type: GEAR_ACTIONS.CREATE_NEW_GEAR_ITEM, payload: newItem })
             this.toggleAddingItem();
             this.clearInput();
         }
@@ -125,13 +132,15 @@ class TripGearListTable extends Component {
                                 <TableCell>ITEM</TableCell>
                                 <TableCell>QUANTITY</TableCell>
                                 <TableCell>PROVIDER</TableCell>
+                                <TableCell></TableCell>
                                 <TableCell>PACKED</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.props.tripGear.map(item => <TripGearListTableItem key={item.id} item={item} 
-                            handleClickProvide={this.handleClickProvide}
-                            handleClickRemoveProvider={this.handleClickRemoveProvider}/>)}
+                            {this.props.tripGear.map(item => <TripGearListTableItem key={item.id} item={item}
+                                handleClickProvide={this.handleClickProvide}
+                                handleClickRemoveProvider={this.handleClickRemoveProvider}
+                                handleClickDelete={this.handleClickDelete} />)}
                         </TableBody>
                     </Table>
                 </Paper>

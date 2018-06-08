@@ -26,6 +26,9 @@ class TripGearListTableItem extends Component {
                     </TableCell>
                 }
                 <TableCell>
+                    <button onClick={() => { this.props.handleClickDelete(this.props.item) }}>Delete Item</button>
+                </TableCell>
+                <TableCell>
                     <Checkbox
                     />
                 </TableCell>
