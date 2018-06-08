@@ -23,6 +23,22 @@ router.get('/', (req, res) => {
         });
 });
 
+router.delete('/:id', (req, res) => {
+    console.log(`DELETE /api/gear/ with req.params`, req.params);
+    const gear_id = req.params.id;
+    // console.log(tripID);
+    const queryText = `DELETE FROM "user_trip_gear"
+    WHERE "id" = $1`;
+    pool.query(queryText, [gear_id])
+        .then((result) => {
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            console.log('Error with POST /api/trip/new-trip', error);
+            res.sendStatus(500);
+        });
+})
+
 router.post('/new-item', (req, res) => {
     // console.log('POST /api/gear/new-gear')
     const newItem = req.body.newItem;

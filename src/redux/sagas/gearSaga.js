@@ -1,14 +1,28 @@
 import { put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { GEAR_ACTIONS } from '../actions/gearActions';
-import { callTripGear } from '../requests/gearRequests';
+import { callDeleteGearItem } from '../requests/gearRequests';
 import { callPostTripGearItem } from '../requests/gearRequests';
 import { callPutItemProvider } from '../requests/gearRequests';
 import { callRemoveItemProvider } from '../requests/gearRequests';
+import { callTripGear } from '../requests/gearRequests';
 
 function* createNewGearItem(action) {
     try {
         console.log(action);
         yield callPostTripGearItem(action);
+        yield fetchTripGear(action);
+        // DOM reflects newest gear item only after a second fetchTripGear call... this is an issue I dont understand
+        yield fetchTripGear(action);
+        yield fetchTripGear(action);
+    } catch (error) {
+        console.log('error creating new gear item', error);
+    };
+}
+
+function* deleteGearItem(action) {
+    try {
+        console.log(action);
+        yield callDeleteGearItem(action);
         yield fetchTripGear(action);
         // DOM reflects newest gear item only after a second fetchTripGear call... this is an issue I dont understand
         yield fetchTripGear(action);
@@ -58,8 +72,9 @@ function* updateItemProvider(action) {
 }
 
 function* gearSaga() {
-    yield takeLatest(GEAR_ACTIONS.FETCH_TRIP_GEAR, fetchTripGear);
     yield takeLatest(GEAR_ACTIONS.CREATE_NEW_GEAR_ITEM, createNewGearItem);
+    yield takeEvery(GEAR_ACTIONS.DELETE_ITEM, deleteGearItem);
+    yield takeLatest(GEAR_ACTIONS.FETCH_TRIP_GEAR, fetchTripGear);
     yield takeEvery(GEAR_ACTIONS.UPDATE_ITEM_PROVIDER, updateItemProvider);
     yield takeEvery(GEAR_ACTIONS.REMOVE_ITEM_PROVIDER, removeItemProvider);
 }
