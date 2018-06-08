@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,8 +8,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import { USER_ACTIONS } from '../../redux/actions/userActions';
-import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
 import { GEAR_ACTIONS } from '../../redux/actions/gearActions';
 import TripGearListTableItem from '../TripGearListTableItem/TripGearListTableItem';
 
@@ -52,6 +49,7 @@ class TripGearListTable extends Component {
             }
         });
     }
+
     handleClickDelete = (item) => {
         console.log('init handleClickDelete');
         const payload = { item: item, id: this.props.currentTrip.id }

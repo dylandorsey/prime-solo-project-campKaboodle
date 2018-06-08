@@ -14,7 +14,6 @@ import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
-import { Popover } from '@material-ui/core';
 
 const mapStateToProps = state => ({
     user: state.user,

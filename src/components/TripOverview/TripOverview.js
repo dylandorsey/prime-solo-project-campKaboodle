@@ -13,8 +13,6 @@ import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
-import ViewSelector from '../ViewSelector/ViewSelector';
-
 
 const mapStateToProps = state => ({
     user: state.user,
