@@ -21,13 +21,26 @@ export function callPostTripGearItem(action) {
   });
 }
 
-// put new gear item provider
+// put gear item new provider
 export function callPutItemProvider(action) {
     console.log(action);
     const body = {
         item_id: action.payload.item.id
     }
     axios.put(`api/gear/new-item-provider`, body)
+    .then(response => response.data)
+    .catch((error) => {
+      throw error.response || error;
+    });
+}
+
+// put gear item provider as null
+export function callRemoveItemProvider(action) {
+    console.log(action);
+    const body = {
+        item_id: action.payload.item.id
+    }
+    axios.put(`api/gear/null-item-provider`, body)
     .then(response => response.data)
     .catch((error) => {
       throw error.response || error;

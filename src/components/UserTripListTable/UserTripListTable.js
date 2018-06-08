@@ -42,7 +42,7 @@ class UserTripTable extends Component {
 
 
     handleClickDetails = (trip) => {
-        this.props.dispatch({ type: TRIP_ACTIONS.SET_CURRENT_TRIP, payload: trip})
+        this.props.dispatch({ type: TRIP_ACTIONS.START_SAGA_SET_CURRENT_TRIP, payload: trip})
     }
 
     handleClickJoin = (trip_id) => {

@@ -25,8 +25,10 @@ class TripGearList extends Component {
     }
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+        this.props.dispatch({ type: TRIP_ACTIONS.START_SAGA_SET_CURRENT_TRIP });
         this.props.dispatch({ type: TRIP_ACTIONS.FETCH_USER_TRIPS })
-        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR, payload: this.props.currentTrip.trip_id });
+        this
+        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR, payload: this.props.currentTrip });
     }
 
     componentDidUpdate() {

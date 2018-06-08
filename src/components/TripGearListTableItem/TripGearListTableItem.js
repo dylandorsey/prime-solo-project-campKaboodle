@@ -15,16 +15,21 @@ class TripGearListTableItem extends Component {
             <TableRow>
                 <TableCell>{this.props.item.description}</TableCell>
                 <TableCell>{this.props.item.quantity}</TableCell>
-                <TableCell>{this.props.item.username ?
-                    this.props.item.username
+                {this.props.item.username ?
+                    <TableCell>
+                        {this.props.item.username}
+                        <button onClick={() => { this.props.handleClickRemoveProvider(this.props.item) }}>Cancel Provide</button>
+                    </TableCell>
                     :
-                    <button onClick={()=>{this.props.handleClickProvide(this.props.item)}}>Provide</button>}
-                </TableCell>
+                    <TableCell>
+                        <button onClick={() => { this.props.handleClickProvide(this.props.item) }}>Provide</button>
+                    </TableCell>
+                }
                 <TableCell>
                     <Checkbox
                     />
                 </TableCell>
-            </TableRow>
+            </TableRow >
         );
     }
 }

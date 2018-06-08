@@ -5,20 +5,8 @@ const router = express.Router();
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
-    const user_id = req.user.id;
-    let queryText = `SELECT *
-    FROM "trip" 
-    JOIN "user_trip" ON "trip"."id" = "user_trip"."trip_id"
-    WHERE "user_trip"."user_id" = $1;`
-    pool.query(queryText, [user_id])
-        .then((result) => { res.send(result.rows) })
-        .catch((error) => {
-            console.log('Error fetching user trips', error);
-            res.sendStatus(500)
-        });
-});
 
+ // add user to trip's list of users
 router.post('/add-user', (req, res) => {
     const trip_id = req.body.trip_id;
     if (req.body.user_id != '') {
@@ -47,6 +35,7 @@ router.post('/add-user', (req, res) => {
     }
 });
 
+// add trip to user's list
 router.put('/join', (req, res) => {
     const user_id = req.user.id;
     const trip_id = req.body.id;
@@ -61,7 +50,23 @@ router.put('/join', (req, res) => {
         });
 });
 
+// remove trip from user's list
+router.put('/leave', (req, res) => {
+    const user_id = req.user.id;
+    const trip_id = req.body.id;
+    console.log(req.body);
+    let queryText = `UPDATE "user_trip" 
+    SET "user_hasAccepted" = 'false'
+    WHERE "user_id" = $1 AND "trip_id" = $2;`
+    pool.query(queryText, [user_id, trip_id])
+        .then((result) => { res.sendStatus(200) })
+        .catch((error) => {
+            console.log('Error joining user to trip', error);
+            res.sendStatus(500)
+        });
+});
 
+// post new trip
 router.post('/new-trip', (req, res) => {
     console.log('POST /api/trip/new-trip')
     const newTrip = req.body;
@@ -88,34 +93,71 @@ router.post('/new-trip', (req, res) => {
         });
 })
 
-router.put('/join', (req, res) => {
+// get user's current trip id
+router.get('/user-current-trip-id', (req, res) => {
     const user_id = req.user.id;
-    const trip_id = req.body.id;
-    let queryText = `UPDATE "user_trip" 
-    SET "user_hasAccepted" = 'true'
-    WHERE "user_id" = $1 AND "trip_id" = $2;`
-    pool.query(queryText, [user_id, trip_id])
-        .then((result) => { res.sendStatus(200) })
+    let queryText = `SELECT "userCurrentTripID"
+    FROM "user" 
+    WHERE "id" = $1;`
+    pool.query(queryText, [user_id])
+        .then((result) => { 
+            console.log(result.rows[0].userCurrentTripID); 
+            res.send(result.rows)})
         .catch((error) => {
-            console.log('Error joining user to trip', error);
+            console.log('Error fetching user current trip', error);
             res.sendStatus(500)
         });
 });
 
-router.put('/leave', (req, res) => {
-    const user_id = req.user.id;
-    const trip_id = req.body.id;
-    console.log(req.body);
-    let queryText = `UPDATE "user_trip" 
-    SET "user_hasAccepted" = 'false'
-    WHERE "user_id" = $1 AND "trip_id" = $2;`
-    pool.query(queryText, [user_id, trip_id])
-        .then((result) => { res.sendStatus(200) })
+// get user's current trip's data
+router.get('/user-current-trip-data', (req, res) => {
+    console.log(`GET request for user-current-trip-data with query ${req.query.trip_id}`)
+    console.log(req.query)
+    const trip_id = req.query.trip_id;
+    let queryText = `SELECT *
+    FROM "trip" 
+    WHERE "id" = $1;`
+    pool.query(queryText, [trip_id])
+        .then((result) => { 
+            console.log(result.rows);
+            res.send(result.rows) })
         .catch((error) => {
-            console.log('Error joining user to trip', error);
+            console.log('Error fetching user current trip', error);
             res.sendStatus(500)
         });
 });
+
+// set user's current trip id
+router.put ('/user-current-trip', (req, res) => {
+    const user_id = req.user.id;
+    const trip_id = req.body.trip_id.id;
+    console.log(req.body);
+    let queryText = `UPDATE "user" 
+    SET "userCurrentTripID" = $1
+    WHERE "id" = $2;`
+    pool.query(queryText, [trip_id, user_id])
+        .then((result) => { res.sendStatus(200) })
+        .catch((error) => {
+            console.log('Error posting user current trip', error);
+            res.sendStatus(500)
+        });
+});
+
+// GET all trips for user
+router.get('/user-trips', (req, res) => {
+    const user_id = req.user.id;
+    let queryText = `SELECT *
+    FROM "trip"
+    JOIN "user_trip" ON "trip"."id" = "user_trip"."trip_id"
+    WHERE "user_trip"."user_id" = $1;`
+    pool.query(queryText, [user_id])
+        .then((result) => { res.send(result.rows) })
+        .catch((error) => {
+            console.log('Error fetching user trips', error);
+            res.sendStatus(500)
+        });
+});
+
 
 
 module.exports = router;

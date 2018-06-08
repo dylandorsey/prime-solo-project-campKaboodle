@@ -26,13 +26,15 @@ class TripOverview extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            inviteOthers: false,
+            inviteeUsername: '',
         }
     }
 
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
-        this.props.dispatch({ type: TRIP_ACTIONS.FETCH_USER_TRIPS })
+        this.props.dispatch({ type: TRIP_ACTIONS.FETCH_USER_TRIPS });
+        this.props.dispatch({ type: TRIP_ACTIONS.START_SAGA_SET_CURRENT_TRIP });
     }
 
     componentDidUpdate() {
@@ -44,6 +46,22 @@ class TripOverview extends Component {
     handleChangeFor = propertyName => event => {
         this.setState({
             [propertyName]: this.props.trips[event.target.value],
+        });
+    }
+
+    handleClickInviteOtherFolks = () => {
+        this.setState({
+            inviteOthers: !this.state.inviteOthers,
+        })
+    }
+
+    handleSubmitInviteCamper = () => {
+        this.props.dispatch({
+            type: TRIP_ACTIONS.INVITE_USER,
+            payload: {
+                inviteeUsername: this.state.inviteeUsername,
+                trip_id: this.props.currentTrip.id,
+            },
         });
     }
 
@@ -72,7 +90,7 @@ class TripOverview extends Component {
         if (this.props.user.userName) {
             content = (
                 <div>
-                                        <HamburgerMenuButton navToUserMainMenu={this.navToUserMainMenu} />
+                    <HamburgerMenuButton navToUserMainMenu={this.navToUserMainMenu} />
                     <h1
                         id=""
                     >
@@ -99,7 +117,9 @@ class TripOverview extends Component {
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>Meetup Time</TableCell>
-                                            <TableCell>{currentTrip.meetup_time}</TableCell>
+                                            <TableCell>
+                                                {currentTrip.meetup_time}
+                                            </TableCell>
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>Meetup Spot</TableCell>
@@ -121,6 +141,14 @@ class TripOverview extends Component {
                                 </Table>
                                 <input type="submit" value="edit trip"></input>
                             </form>
+                            <button onClick={this.handleClickInviteOtherFolks}>invite other folks</button>
+                            {this.state.inviteOthers ?
+                                <form onSubmit={this.handleSubmitInviteCamper}>
+                                    <input type="text" onChange={this.handleChangeFor('inviteeUsername')} placeholder="input username here"></input>
+                                    <input type="submit" value="invite camper"></input>
+                                </form>
+                                :
+                                ''}
                         </Paper>
                         :
                         <p>Select a trip</p>

@@ -44,13 +44,6 @@ class TripGearListTable extends Component {
         });
     }
 
-    componentDidUpdate() {
-        // this.props.dispatch({
-        //     type: TRIP_ACTIONS.SET_CURRENT_TRIP,
-        //     payload: this.state.selectedTrip
-        // })
-    }
-
     handleChangeFor = propertyName => event => {
         this.setState({
             newItem: {
@@ -70,9 +63,19 @@ class TripGearListTable extends Component {
     handleClickProvide = (item) => {
         console.log('init handleClickProvide')
         // initiate PUT request to add req.user.username to item in database
-        const payload = {item: item, trip_id: this.props.currentTrip.id}
+        const payload = {item: item, id: this.props.currentTrip.id}
         this.props.dispatch({
             type: GEAR_ACTIONS.UPDATE_ITEM_PROVIDER,
+            payload})
+        // rerender the gear list
+    }
+
+    handleClickRemoveProvider = (item) => {
+        console.log('init handleClickRemoveProvider')
+        // initiate PUT request to remove provider of item in database
+        const payload = {item: item, id: this.props.currentTrip.id}
+        this.props.dispatch({
+            type: GEAR_ACTIONS.REMOVE_ITEM_PROVIDER,
             payload})
         // rerender the gear list
     }
@@ -88,7 +91,7 @@ class TripGearListTable extends Component {
         } else {
             const newItem = {
                 newItem: this.state.newItem,
-                trip_id: this.props.currentTrip.id
+                id: this.props.currentTrip.id
             }
             // this.postNewItem(newItem);
             // dispatch for post new item
@@ -126,7 +129,9 @@ class TripGearListTable extends Component {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.props.tripGear.map(item => <TripGearListTableItem key={item.id} item={item} handleClickProvide={this.handleClickProvide}/>)}
+                            {this.props.tripGear.map(item => <TripGearListTableItem key={item.id} item={item} 
+                            handleClickProvide={this.handleClickProvide}
+                            handleClickRemoveProvider={this.handleClickRemoveProvider}/>)}
                         </TableBody>
                     </Table>
                 </Paper>
