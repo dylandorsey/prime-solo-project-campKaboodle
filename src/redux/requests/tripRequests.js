@@ -17,7 +17,7 @@ export function callDeleteCamper(payload) {
 }
 
 export function callDeleteTrip(payload) {
-    console.log(`init callDeleteTrip for trip_id: ${payload.trip_id}}`);
+    console.log(`init callDeleteTrip for trip_id: ${payload.trip_id}`);
     axios.delete(`api/trip/delete-trip`, {data: payload})
       .then(response => response.data)
       .catch((error) => {

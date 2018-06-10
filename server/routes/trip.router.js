@@ -82,7 +82,7 @@ router.delete('/delete-camper', (req, res) => {
 })
 
 router.delete('/delete-trip', (req, res) => {
-    console.log(`DELE trip: ${rq.body.trip_id}`);
+    console.log(`DELETE trip: ${req.body.trip_id}`);
     const user_id = req.user.id;
     const trip_id = req.body.trip_id;
     const queryText = `DELETE FROM "trip"
@@ -134,7 +134,7 @@ router.post('/new-trip', (req, res) => {
     const newTrip = req.body;
     const queryText = `INSERT INTO "trip" ("name", "location", "meetup_time", "meetup_spot",
      "meetup_coordinates", "exit_time", "exit_spot", "exit_coordinates",
-     "mapURL", "trip_creatorID") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
+     "mapURL", "creatorID") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
     pool.query(queryText,
         [newTrip.name,
         newTrip.location,

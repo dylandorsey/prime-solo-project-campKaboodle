@@ -11,14 +11,17 @@ class UserTripTableItem extends Component {
                 <TableCell>{this.props.item.meetup_time}</TableCell>
                 {this.props.item.user_hasAccepted ?
                     <TableCell>
-                        <button onClick={() => {this.props.handleClickDetails(this.props.item)}}>Details</button>
-                        <button onClick={() => {this.props.handleClickLeave(this.props.item.id)}}>Leave trip</button>
+                        <button onClick={() => { this.props.handleClickDetails(this.props.item) }}>Details</button>
+                        <button onClick={() => { this.props.handleClickLeave(this.props.item.id) }}>Leave trip</button>
                     </TableCell>
                     :
                     <TableCell>
-                        <button onClick={() => {this.props.handleClickJoin(this.props.item.id)}}>Join</button>
+                        <button onClick={() => { this.props.handleClickJoin(this.props.item.id) }}>Join</button>
                     </TableCell>
                 }
+                <TableCell>
+                    <button onClick={() => { this.props.handleClickDelete(this.props.item) }}>Delete Trip</button>
+                </TableCell>
             </TableRow>
         );
     }
