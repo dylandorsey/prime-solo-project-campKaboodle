@@ -32,6 +32,9 @@ function* deleteCamper(action) {
     let payload = action.payload;
     try {
         yield callDeleteCamper(payload);
+        let responseGetCurrentTripID = yield callGetCurrentTripID();
+        const trip_ID = responseGetCurrentTripID[0].userCurrentTripID;
+        yield initiateSetTripCamperList(trip_ID);
     } catch (error) {
         console.log('error deleting camper from trip', error);
     };
@@ -50,32 +53,38 @@ function* fetchUserTrips() {
 }
 
 function* initiateSetCurrentTrip(action) {
-    let trip_ID = action.payload;
-    let trip_data = action.payload
-    console.log(trip_ID);
+    console.log('init initiateSetCurrentTripData with action', action);
+    // action.payload = trip from triplisttable.js
+    // action.payload = nothing from tripOverview, tripGearList, tripCamperList
     try {
         yield put({ type: TRIP_ACTIONS.SET_CURRENT_TRIP_START })
-        if (trip_ID !== undefined) {
+        if (action.payload) {
+            console.log(`given trip.id of ${action.payload.id}, editing database.`);
+            const trip_ID = action.payload.id;
             yield callPutCurrentTrip(trip_ID);
+            // wet code: see else statement
+            yield put({
+                type: TRIP_ACTIONS.SET_CURRENT_TRIP,
+                payload: action.payload,
+            });
+            yield initiateSetTripCamperList(trip_ID);
         } else {
             console.log('getting trip id from database');
             let responseGetCurrentTripID = yield callGetCurrentTripID();
-            console.log(responseGetCurrentTripID);
-            trip_ID = responseGetCurrentTripID[0].userCurrentTripID;
+            console.log('db responsed with current trip: ', responseGetCurrentTripID);
+            const trip_ID = responseGetCurrentTripID[0].userCurrentTripID;
             console.log(`trip id is ${trip_ID} and now fetching trip data from database`);
             let responseGetCurrentTripData = yield callGetCurrentTripData(trip_ID);
             console.log('reponse from GetCurrentTripData = ', responseGetCurrentTripData[0]);
-            trip_data = responseGetCurrentTripData[0];
-            console.log(`trip data is now for trip id# ${trip_data.id}`);
+            const trip = responseGetCurrentTripData[0];
+            console.log(`trip data is now for trip id# ${trip.id}`);
+            // wet code: see if statement
+            yield put({
+                type: TRIP_ACTIONS.SET_CURRENT_TRIP,
+                payload: trip,
+            })
+            yield initiateSetTripCamperList(trip_ID);
         }
-        yield put({
-            type: TRIP_ACTIONS.SET_CURRENT_TRIP,
-            payload: trip_data,
-        })
-        yield initiateSetTripCamperList(trip_ID);
-        yield put({
-            type: TRIP_ACTIONS.SET
-        })
         yield put({ type: TRIP_ACTIONS.SET_CURRENT_TRIP_DONE })
     } catch (error) {
         console.log('error setting current trip', error);

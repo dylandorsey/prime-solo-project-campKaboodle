@@ -8,12 +8,8 @@ export function callCreateNewTrip(newTrip) {
 } 
 
 export function callDeleteCamper(payload) {
-    console.log(`init callDeleteCamper from trip: ${payload.trip_id} with username: ${payload.username}`);
-    axios.delete({
-        method: 'DELETE',
-        url: `api/trip/delete-camper`,
-        data: payload,
-    })
+    console.log(`init callDeleteCamper from trip: ${payload.trip_id} with user id: ${payload.user_id}`);
+    axios.delete(`api/trip/delete-camper`, {data: payload})
       .then(response => response.data)
       .catch((error) => {
         throw error.response || error;

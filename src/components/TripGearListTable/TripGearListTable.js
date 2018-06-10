@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,6 +13,8 @@ import Paper from '@material-ui/core/Paper';
 
 import { GEAR_ACTIONS } from '../../redux/actions/gearActions';
 import TripGearListTableItem from '../TripGearListTableItem/TripGearListTableItem';
+
+
 
 const mapStateToProps = state => ({
     user: state.user,
@@ -41,6 +46,33 @@ class TripGearListTable extends Component {
         });
     }
 
+    confirmAction = (item) => {
+        const description = item.description;
+        confirmAlert({
+            title: 'Confirm delete camper from trip',
+            message: `Are you sure you want to remove ${description} from the trip?`,
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => this.executeDeleteItem(item)
+                },
+                {
+                    label: 'No',
+                    onClick: () => alert('aborted')
+                }
+            ]
+        })
+    };
+
+    executeDeleteItem = (item) => {
+        console.log('init handleClickDelete');
+        const payload = { item: item, id: this.props.currentTrip.id };
+        this.props.dispatch({
+            type: GEAR_ACTIONS.DELETE_ITEM,
+            payload
+        });
+    }
+
     handleChangeFor = propertyName => event => {
         this.setState({
             newItem: {
@@ -51,12 +83,7 @@ class TripGearListTable extends Component {
     }
 
     handleClickDelete = (item) => {
-        console.log('init handleClickDelete');
-        const payload = { item: item, id: this.props.currentTrip.id };
-        this.props.dispatch({
-            type: GEAR_ACTIONS.DELETE_ITEM,
-            payload
-        });
+        this.confirmAction(item);
     }
 
     handleClickCancel = () => {

@@ -9,8 +9,6 @@ import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
 
-
-
 const mapStateToProps = state => ({
     user: state.user,
     trip: state.trip
@@ -20,10 +18,6 @@ class UserPage extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: TRIP_ACTIONS.START_SAGA_SET_CURRENT_TRIP });
-        // this.props.dispatch({
-        //     type: TRIP_ACTIONS.START_SAGA_SET_TRIP_CAMPER_LIST,
-        //     payload: { trip_ID: this.props.trip.currentTrip.id }
-        // })
     }
 
     componentDidUpdate() {

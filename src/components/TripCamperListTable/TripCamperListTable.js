@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -21,14 +22,14 @@ const mapStateToProps = state => ({
 class TripCamperListTable extends Component {
 
     confirmAction = (camper) => {
-        const username = camper.username;
+        const user_id = camper.user_id;
         confirmAlert({
             title: 'Confirm delete camper from trip',
-            message: `Are you sure you want to remove ${username} from the trip?`,
+            message: `Are you sure you want to remove ${camper.username} from the trip?`,
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => this.executeDeleteCamper(username)
+                    onClick: () => this.executeDeleteCamper(user_id)
                 },
                 {
                     label: 'No',
@@ -38,9 +39,9 @@ class TripCamperListTable extends Component {
         })
     };
 
-    executeDeleteCamper = (username) => {
+    executeDeleteCamper = (user_id) => {
         let payload = { 
-            username: username,
+            user_id: user_id,
             trip_id: this.props.trip.currentTrip.id,
         };
         this.props.dispatch({ type: TRIP_ACTIONS.DELETE_CAMPER, payload});

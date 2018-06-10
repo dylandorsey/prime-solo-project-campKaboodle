@@ -66,27 +66,20 @@ router.get('/current-camper-list', (req, res) => {
 
 // delete camper from trip camper list
 router.delete('/delete-camper', (req, res) => {
-    const payload = req.params.payload;
-    console.log('init delete camper from list');
-    console.log(req.params);
-    console.log(req.body);
-    console.log(req.query);
-    console.log(util.inspect(req.params.payload, {depth: null}));
-    // console.log(`DELETE /api/trip/delete-camper with req.params: ${req.params.payload.username}`);
-    // console.log(`DELETE /api/trip/delete-camper from trip: ${req.query.payload.trip_id} with username: ${req.query.payload}`);
-    // const username = req.query.username;
-    // const trip_id = req.query.payload.trip_id;
-    // // console.log(tripID);
-    // const queryText = `DELETE FROM "user_trip"
-    // WHERE "user_username" = $1 AND "trip_id" = $2;`;
-    // pool.query(queryText, [username, trip_id])
-    //     .then((result) => {
-    //         res.sendStatus(200);
-    //     })
-    //     .catch((error) => {
-    //         console.log('Error with delete /api/trip/delete-camper', error);
-    //         res.sendStatus(500);
-    //     });
+    console.log(`DELETE from trip: ${req.body.trip_id} with user_id: ${req.body.user_id}`);
+    const user_id = req.body.user_id;
+    const trip_id = req.body.trip_id;
+    // console.log(tripID);
+    const queryText = `DELETE FROM "user_trip"
+    WHERE "user_id" = $1 AND "trip_id" = $2;`;
+    pool.query(queryText, [user_id, trip_id])
+        .then((result) => {
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            console.log('Error with delete /api/trip/delete-camper', error);
+            res.sendStatus(500);
+        });
 })
 
 // add trip to user's list
@@ -185,8 +178,9 @@ router.get('/user-current-trip-data', (req, res) => {
 
 // set user's current trip id
 router.put('/user-current-trip', (req, res) => {
+    console.log('init update user current trip with :', req.body);
     const user_id = req.user.id;
-    const trip_id = req.body.trip_id.id;
+    const trip_id = req.body.trip_id;
     console.log(req.body);
     let queryText = `UPDATE "user" 
     SET "userCurrentTripID" = $1
