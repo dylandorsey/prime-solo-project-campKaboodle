@@ -30,6 +30,13 @@ class TripOverview extends Component {
         }
     }
 
+    clearInput = () => {
+        this.setState({
+            ...this.state,
+            inviteeUsername: '',
+        });
+    }
+
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: TRIP_ACTIONS.FETCH_USER_TRIPS });
@@ -63,6 +70,7 @@ class TripOverview extends Component {
                 trip_id: this.props.currentTrip.id,
             },
         });
+        this.clearInput();
     }
 
     logout = () => {
@@ -87,6 +95,11 @@ class TripOverview extends Component {
         this.props.history.push('user-main-menu');
     }
 
+    submitHandler = event => {
+        event.preventDefault();
+
+    }
+
     render() {
         let content = null;
         let currentTrip = this.props.currentTrip;
@@ -108,7 +121,6 @@ class TripOverview extends Component {
                     /> */}
                     {this.props.currentTrip ?
                         <Paper>
-                            <pre>{JSON.stringify(this.state.inviteeUsername)}</pre>
                             <form onSubmit={this.submitHandler}>
                                 <Table>
                                     <TableBody>
@@ -153,7 +165,11 @@ class TripOverview extends Component {
                             <button onClick={this.handleClickInviteOtherFolks}>invite other folks</button>
                             {this.state.inviteOthers ?
                                 <form onSubmit={this.handleSubmitInviteCamper}>
-                                    <input type="text" onChange={this.handleChangeFor('inviteeUsername')} placeholder="input username here"></input>
+                                    <input type="text" 
+                                    onChange={this.handleChangeFor('inviteeUsername')} 
+                                    placeholder="input username here"
+                                    value={this.state.inviteeUsername}
+                                    ></input>
                                     <input type="submit" value="invite camper"></input>
                                 </form>
                                 :
