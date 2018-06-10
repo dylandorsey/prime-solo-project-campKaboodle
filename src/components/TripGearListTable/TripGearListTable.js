@@ -113,6 +113,23 @@ class TripGearListTable extends Component {
         });
     }
 
+    handleClickSortByDescriptionAscending = () => {
+        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR, payload: this.props.currentTrip });
+    }
+
+    handleClickSortByDescriptionDescending = () => {
+        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR_BY_DESCRIPTION_DESC, payload: this.props.currentTrip });
+    }
+
+    handleClickSortByProviderAscending = () => {
+        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR_BY_PROVIDER_ASC, payload: this.props.currentTrip });
+    }
+
+    handleClickSortByProviderDescending = () => {
+        console.log('init handleClickSortyByProviderDescending');
+        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR_BY_PROVIDER_DESC, payload: this.props.currentTrip });
+    }
+
     handleSubmitNewItem = event => {
         event.preventDefault();
         if (this.props.currentTrip.id === '') {
@@ -157,6 +174,25 @@ class TripGearListTable extends Component {
                                 <TableCell>PROVIDER</TableCell>
                                 <TableCell></TableCell>
                                 <TableCell>PACKED</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>
+                                    <button
+                                        onClick={() => {this.handleClickSortByDescriptionAscending()}}
+                                    >Sort Ascending</button>
+                                    <button
+                                        onClick={() => {this.handleClickSortByDescriptionDescending()}}
+                                    >Sort Descending</button>
+                                </TableCell>
+                                <TableCell></TableCell>
+                                <TableCell>
+                                    <button
+                                        onClick={() => {this.handleClickSortByProviderAscending()}}
+                                    >Sort Ascending</button>
+                                    <button
+                                        onClick={() => {this.handleClickSortByProviderDescending()}}
+                                    >Sort Descending</button>
+                                </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

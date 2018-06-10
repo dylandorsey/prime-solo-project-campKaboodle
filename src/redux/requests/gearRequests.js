@@ -48,15 +48,46 @@ export function callRemoveItemProvider(action) {
     });
 }
 
-// fetch trip gear
+// fetch trip gear (order DESC)
 export function callTripGear(trip_id) {
   console.log(trip_id);
   const params = {
     trip_id: trip_id,
   }
-  return axios.get(`api/gear`, { params })
+  return axios.get(`api/gear/asc`, { params })
     .then(response => response.data)
     .catch((error) => { throw error.response || error; });
 }
 
-// fetch trip participants
+// fetch trip gear (order ASC)
+export function callTripGearByDescriptionDESC(trip_id) {
+  console.log(trip_id);
+  const params = {
+    trip_id: trip_id,
+  }
+  return axios.get(`api/gear/desc`, { params })
+    .then(response => response.data)
+    .catch((error) => { throw error.response || error; });
+}
+
+// fetch trip gear by provider order ASC
+export function callTripGearByProviderASC(trip_id) {
+  console.log(trip_id);
+  const params = {
+    trip_id: trip_id,
+  }
+  return axios.get(`api/gear/provider-asc`, { params })
+    .then(response => response.data)
+    .catch((error) => { throw error.response || error; });
+}
+
+// fetch trip gear by provider order DESC
+export function callTripGearByProviderDESC(trip_id) {
+  console.log(trip_id);
+  const params = {
+    trip_id: trip_id,
+  }
+  return axios.get(`api/gear/provider-desc`, { params })
+    .then(response => response.data)
+    .catch((error) => { throw error.response || error; });
+}
