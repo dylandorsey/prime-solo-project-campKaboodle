@@ -2,10 +2,8 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
- * GET route template
- */
-router.get('/', (req, res) => {
+// GET gear list ASC
+router.get('/asc', (req, res) => {
     // console.log('this is the query', req.query);
     const trip_id = req.query.trip_id;
     // console.log('fetching gear for trip: ',trip_id)
@@ -14,7 +12,66 @@ router.get('/', (req, res) => {
     LEFT JOIN "user" 
     ON "user_trip_gear"."user_id" = "user"."id"
     WHERE "user_trip_gear"."trip_id" = $1
-    ORDER BY "user_trip_gear"."description";`
+    ORDER BY "user_trip_gear"."description" ASC;`
+    pool.query(queryText, [trip_id])
+        .then((result) => { res.send(result.rows) })
+        .catch((error) => {
+            console.log('Error fetching trip gear', error);
+            res.sendStatus(500)
+        });
+});
+
+
+// GET gear list DESC
+router.get('/desc', (req, res) => {
+    // console.log('this is the query', req.query);
+    const trip_id = req.query.trip_id;
+    // console.log('fetching gear for trip: ',trip_id)
+    let queryText = `SELECT "description","quantity", "user"."username", "user_trip_gear"."id"
+    FROM "user_trip_gear"
+    LEFT JOIN "user" 
+    ON "user_trip_gear"."user_id" = "user"."id"
+    WHERE "user_trip_gear"."trip_id" = $1
+    ORDER BY "user_trip_gear"."description" DESC;`
+    pool.query(queryText, [trip_id])
+        .then((result) => { res.send(result.rows) })
+        .catch((error) => {
+            console.log('Error fetching trip gear', error);
+            res.sendStatus(500)
+        });
+});
+
+// GET gear list by provider asc
+router.get('/provider-asc', (req, res) => {
+    // console.log('this is the query', req.query);
+    const trip_id = req.query.trip_id;
+    // console.log('fetching gear for trip: ',trip_id)
+    let queryText = `SELECT "description","quantity", "user"."username", "user_trip_gear"."id"
+    FROM "user_trip_gear"
+    LEFT JOIN "user" 
+    ON "user_trip_gear"."user_id" = "user"."id"
+    WHERE "user_trip_gear"."trip_id" = $1
+    ORDER BY "user"."username" ASC;`
+    pool.query(queryText, [trip_id])
+        .then((result) => { res.send(result.rows) })
+        .catch((error) => {
+            console.log('Error fetching trip gear', error);
+            res.sendStatus(500)
+        });
+});
+
+
+// GET gear list by provider desc
+router.get('/provider-desc', (req, res) => {
+    // console.log('this is the query', req.query);
+    const trip_id = req.query.trip_id;
+    // console.log('fetching gear for trip: ',trip_id)
+    let queryText = `SELECT "description","quantity", "user"."username", "user_trip_gear"."id"
+    FROM "user_trip_gear"
+    LEFT JOIN "user" 
+    ON "user_trip_gear"."user_id" = "user"."id"
+    WHERE "user_trip_gear"."trip_id" = $1
+    ORDER BY "user"."username" DESC;`
     pool.query(queryText, [trip_id])
         .then((result) => { res.send(result.rows) })
         .catch((error) => {
