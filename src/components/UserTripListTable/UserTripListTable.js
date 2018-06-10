@@ -19,7 +19,24 @@ const mapStateToProps = state => ({
 
 class UserTripTable extends Component {
 
-    confirmAction = (trip_id) => {
+    confirmActionDeleteTrip = (trip) => {
+        confirmAlert({
+            title: 'Confirm delete trip',
+            message: `Are you sure you want to delete trip: ${trip.name} from the trip?`,
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => this.executeDeleteTrip(trip)
+                },
+                {
+                    label: 'No',
+                    onClick: () => alert('aborted')
+                }
+            ]
+        })
+    };
+
+    confirmActionLeaveTrip = (trip_id) => {
         confirmAlert({
             title: 'Confirm leave trip',
             message: 'Are you sure you want to leave this trip?',
@@ -36,10 +53,22 @@ class UserTripTable extends Component {
         })
     };
 
+    executeDeleteTrip = (trip) => {
+        console.log('init handleClickDelete');
+        const payload = { trip_id: trip.id };
+        this.props.dispatch({
+            type: TRIP_ACTIONS.DELETE_TRIP,
+            payload
+        });
+    }
+
     executeLeaveTrip = (trip_id) => {
         this.props.dispatch({ type: TRIP_ACTIONS.REQUEST_USER_LEAVE_TRIP, payload: trip_id})
     }
 
+    handleClickDelete = (tripID) => {
+        this.confirmActionDeleteTrip(tripID);
+    }
 
     handleClickDetails = (trip) => {
         this.props.dispatch({ type: TRIP_ACTIONS.START_SAGA_SET_CURRENT_TRIP, payload: trip})
@@ -51,7 +80,7 @@ class UserTripTable extends Component {
 
 
     handleClickLeave = (trip_id) => {
-        this.confirmAction(trip_id);
+        this.confirmActionLeaveTrip(trip_id);
     }
     
     render() {
@@ -71,6 +100,7 @@ class UserTripTable extends Component {
                         handleClickDetails={this.handleClickDetails}
                         handleClickJoin={this.handleClickJoin} 
                         handleClickLeave={this.handleClickLeave}
+                        handleClickDelete={this.handleClickDelete}
                         />)}
                     </TableBody>
                 </Table>

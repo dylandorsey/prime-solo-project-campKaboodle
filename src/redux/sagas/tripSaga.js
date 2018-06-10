@@ -2,6 +2,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { TRIP_ACTIONS } from '../actions/tripActions';
 import { callCreateNewTrip } from '../requests/tripRequests';
 import { callDeleteCamper } from '../requests/tripRequests';
+import { callDeleteTrip } from '../requests/tripRequests'; 
 import { callGetCurrentTripID } from '../requests/tripRequests';
 import { callGetCurrentTripCamperList } from '../requests/tripRequests';
 import { callGetCurrentTripData } from '../requests/tripRequests';
@@ -37,6 +38,17 @@ function* deleteCamper(action) {
         yield initiateSetTripCamperList(trip_ID);
     } catch (error) {
         console.log('error deleting camper from trip', error);
+    };
+}
+
+function* deleteTrip(action) {
+    let payload = action.payload;
+    try {
+        yield callDeleteTrip(payload);
+        yield fetchUserTrips();
+        yield fetchUserTrips();
+    } catch (error) {
+        console.log('error deleting trip', error);
     };
 }
 
