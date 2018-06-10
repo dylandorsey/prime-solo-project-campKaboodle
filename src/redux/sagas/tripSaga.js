@@ -1,6 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { TRIP_ACTIONS } from '../actions/tripActions';
 import { callCreateNewTrip } from '../requests/tripRequests';
+import { callDeleteCamper } from '../requests/tripRequests';
 import { callGetCurrentTripID } from '../requests/tripRequests';
 import { callGetCurrentTripCamperList } from '../requests/tripRequests';
 import { callGetCurrentTripData } from '../requests/tripRequests';
@@ -24,6 +25,15 @@ function* createNewTrip(action) {
         yield callAddUserToTrip(body);
     } catch (error) {
         console.log('error creating new trip', error);
+    };
+}
+
+function* deleteCamper(action) {
+    let payload = action.payload;
+    try {
+        yield callDeleteCamper(payload);
+    } catch (error) {
+        console.log('error deleting camper from trip', error);
     };
 }
 
@@ -62,14 +72,18 @@ function* initiateSetCurrentTrip(action) {
             type: TRIP_ACTIONS.SET_CURRENT_TRIP,
             payload: trip_data,
         })
+        yield initiateSetTripCamperList(trip_ID);
+        yield put({
+            type: TRIP_ACTIONS.SET
+        })
         yield put({ type: TRIP_ACTIONS.SET_CURRENT_TRIP_DONE })
     } catch (error) {
         console.log('error setting current trip', error);
     }
 }
 
-function* initiateSetTripCamperList(action) {
-    let trip_ID = action.payload.trip_ID;
+function* initiateSetTripCamperList(trip_ID) {
+    // let trip_ID = action.payload.trip_ID;
     console.log(trip_ID);
     try {
         const currentTripCamperList = yield callGetCurrentTripCamperList(trip_ID);
@@ -136,6 +150,7 @@ function* removeUserFromTrip(action) {
 
 function* tripSaga() {
     yield takeLatest(TRIP_ACTIONS.CREATE_NEW_TRIP, createNewTrip);
+    yield takeLatest(TRIP_ACTIONS.DELETE_CAMPER, deleteCamper);
     yield takeLatest(TRIP_ACTIONS.FETCH_USER_TRIPS, fetchUserTrips);
     yield takeLatest(TRIP_ACTIONS.INVITE_USER, intiateInviteUser);
     yield takeLatest(TRIP_ACTIONS.REQUEST_USER_JOIN_TRIP, joinUserToTrip);

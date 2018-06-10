@@ -1,6 +1,7 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const util = require('util');
 
 /**
  * GET route template
@@ -47,20 +48,46 @@ router.post('/add-user-to-trip', (req, res) => {
 router.get('/current-camper-list', (req, res) => {
     console.log('init GET current-camper-list with req.query: ', req.query);
     const trip_id = req.query.trip_ID;
-    let queryText = `SELECT "trip_id"."user_id", "trip_id"."user_hasAccepted", "user"."username"
+    let queryText = `SELECT "user_trip"."user_id", "user_trip"."user_hasAccepted", "user"."username"
     FROM "user_trip" 
-    JOIN "user" on "user"."id"="trip_id"."user_id"
-    WHERE "trip_id" = $1;`
+    JOIN "user" on "user"."id"="user_trip"."user_id"
+    WHERE "trip_id" = $1
+    ORDER BY "user"."username" DESC;`
     pool.query(queryText, [trip_id])
         .then((result) => {
             console.log(result.rows);
             res.send(result.rows)
         })
         .catch((error) => {
-            console.log('Error fetching user current trip', error);
+            console.log('Error fetching current-camper-list', error);
             res.sendStatus(500)
         });
 });
+
+// delete camper from trip camper list
+router.delete('/delete-camper', (req, res) => {
+    const payload = req.params.payload;
+    console.log('init delete camper from list');
+    console.log(req.params);
+    console.log(req.body);
+    console.log(req.query);
+    console.log(util.inspect(req.params.payload, {depth: null}));
+    // console.log(`DELETE /api/trip/delete-camper with req.params: ${req.params.payload.username}`);
+    // console.log(`DELETE /api/trip/delete-camper from trip: ${req.query.payload.trip_id} with username: ${req.query.payload}`);
+    // const username = req.query.username;
+    // const trip_id = req.query.payload.trip_id;
+    // // console.log(tripID);
+    // const queryText = `DELETE FROM "user_trip"
+    // WHERE "user_username" = $1 AND "trip_id" = $2;`;
+    // pool.query(queryText, [username, trip_id])
+    //     .then((result) => {
+    //         res.sendStatus(200);
+    //     })
+    //     .catch((error) => {
+    //         console.log('Error with delete /api/trip/delete-camper', error);
+    //         res.sendStatus(500);
+    //     });
+})
 
 // add trip to user's list
 router.put('/join', (req, res) => {
@@ -99,7 +126,7 @@ router.post('/new-trip', (req, res) => {
     const newTrip = req.body;
     const queryText = `INSERT INTO "trip" ("name", "location", "meetup_time", "meetup_spot",
      "meetup_coordinates", "exit_time", "exit_spot", "exit_coordinates",
-     "mapURL", "creatorID") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
+     "mapURL", "trip_creatorID") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
     pool.query(queryText,
         [newTrip.name,
         newTrip.location,

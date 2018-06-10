@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-
 import Nav from '../../components/Nav/Nav';
 
 import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
-import TripCamperListTableItem from '../TripCamperListTableItem/TripCamperListTableItem';
+import TripCamperListTable from '../TripCamperListTable/TripCamperListTable';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
+
 
 
 const mapStateToProps = state => ({
@@ -26,10 +20,10 @@ class UserPage extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: TRIP_ACTIONS.START_SAGA_SET_CURRENT_TRIP });
-        this.props.dispatch({
-            type: TRIP_ACTIONS.START_SAGA_SET_TRIP_CAMPER_LIST,
-            payload: { trip_ID: this.props.trip.currentTrip.id }
-        })
+        // this.props.dispatch({
+        //     type: TRIP_ACTIONS.START_SAGA_SET_TRIP_CAMPER_LIST,
+        //     payload: { trip_ID: this.props.trip.currentTrip.id }
+        // })
     }
 
     componentDidUpdate() {
@@ -60,25 +54,7 @@ class UserPage extends Component {
                     >
                         Campers coming on your trip:
                     </h1>
-                    <Paper>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Username</TableCell>
-                                    <TableCell>Accepted Invitation</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                <TableRow>
-                                </TableRow>
-                                {this.props.trip.currentTripCamperList.map(item =>
-                                    <TripCamperListTableItem
-                                        key={item.user_id} item={item}
-                                        handleClickDelete={this.handleClickDelete}
-                                    />)}
-                            </TableBody>
-                        </Table>
-                    </Paper>
+                    <TripCamperListTable />
                     <button
                         onClick={this.logout}
                     >

@@ -5,6 +5,19 @@ export function callCreateNewTrip(newTrip) {
     return axios.post(`api/trip/new-trip`, newTrip)
     .then(response => response.data)
     .catch((error) => { throw error.response || error; });
+} 
+
+export function callDeleteCamper(payload) {
+    console.log(`init callDeleteCamper from trip: ${payload.trip_id} with username: ${payload.username}`);
+    axios.delete({
+        method: 'DELETE',
+        url: `api/trip/delete-camper`,
+        data: payload,
+    })
+      .then(response => response.data)
+      .catch((error) => {
+        throw error.response || error;
+      });
 }
 
 export function callUserTrips() {
