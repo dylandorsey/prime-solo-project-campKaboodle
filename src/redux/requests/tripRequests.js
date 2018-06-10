@@ -5,6 +5,15 @@ export function callCreateNewTrip(newTrip) {
     return axios.post(`api/trip/new-trip`, newTrip)
     .then(response => response.data)
     .catch((error) => { throw error.response || error; });
+} 
+
+export function callDeleteCamper(payload) {
+    console.log(`init callDeleteCamper from trip: ${payload.trip_id} with user id: ${payload.user_id}`);
+    axios.delete(`api/trip/delete-camper`, {data: payload})
+      .then(response => response.data)
+      .catch((error) => {
+        throw error.response || error;
+      });
 }
 
 export function callUserTrips() {
@@ -48,7 +57,16 @@ export function callGetUsersNewTripID() {
     .catch((error) => { throw error.response || error; });
 }
 
-// fetch trip participants
+// fetch trip camper list
+export function callGetCurrentTripCamperList(trip_ID) {
+    console.log('init callGetCurrentTripCamperList. Given trip_ID: ', trip_ID);
+    const params = {
+        trip_ID: trip_ID,
+    }
+    return axios.get(`api/trip/current-camper-list`, {params})
+    .then(response => response.data)
+    .catch((error) => { throw error.response || error; });
+}
 
 // Add user to trip
 export function callAddUserToTrip(body) {

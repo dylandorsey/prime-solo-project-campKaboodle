@@ -1,6 +1,7 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const util = require('util');
 
 /**
  * GET route template
@@ -43,6 +44,44 @@ router.post('/add-user-to-trip', (req, res) => {
     }
 });
 
+// return current trip camper roster
+router.get('/current-camper-list', (req, res) => {
+    console.log('init GET current-camper-list with req.query: ', req.query);
+    const trip_id = req.query.trip_ID;
+    let queryText = `SELECT "user_trip"."user_id", "user_trip"."user_hasAccepted", "user"."username"
+    FROM "user_trip" 
+    JOIN "user" on "user"."id"="user_trip"."user_id"
+    WHERE "trip_id" = $1
+    ORDER BY "user"."username" DESC;`
+    pool.query(queryText, [trip_id])
+        .then((result) => {
+            console.log(result.rows);
+            res.send(result.rows)
+        })
+        .catch((error) => {
+            console.log('Error fetching current-camper-list', error);
+            res.sendStatus(500)
+        });
+});
+
+// delete camper from trip camper list
+router.delete('/delete-camper', (req, res) => {
+    console.log(`DELETE from trip: ${req.body.trip_id} with user_id: ${req.body.user_id}`);
+    const user_id = req.body.user_id;
+    const trip_id = req.body.trip_id;
+    // console.log(tripID);
+    const queryText = `DELETE FROM "user_trip"
+    WHERE "user_id" = $1 AND "trip_id" = $2;`;
+    pool.query(queryText, [user_id, trip_id])
+        .then((result) => {
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            console.log('Error with delete /api/trip/delete-camper', error);
+            res.sendStatus(500);
+        });
+})
+
 // add trip to user's list
 router.put('/join', (req, res) => {
     const user_id = req.user.id;
@@ -80,7 +119,7 @@ router.post('/new-trip', (req, res) => {
     const newTrip = req.body;
     const queryText = `INSERT INTO "trip" ("name", "location", "meetup_time", "meetup_spot",
      "meetup_coordinates", "exit_time", "exit_spot", "exit_coordinates",
-     "mapURL", "creatorID") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
+     "mapURL", "trip_creatorID") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
     pool.query(queryText,
         [newTrip.name,
         newTrip.location,
@@ -139,8 +178,9 @@ router.get('/user-current-trip-data', (req, res) => {
 
 // set user's current trip id
 router.put('/user-current-trip', (req, res) => {
+    console.log('init update user current trip with :', req.body);
     const user_id = req.user.id;
-    const trip_id = req.body.trip_id.id;
+    const trip_id = req.body.trip_id;
     console.log(req.body);
     let queryText = `UPDATE "user" 
     SET "userCurrentTripID" = $1
