@@ -160,6 +160,7 @@ function* removeUserFromTrip(action) {
 function* tripSaga() {
     yield takeLatest(TRIP_ACTIONS.CREATE_NEW_TRIP, createNewTrip);
     yield takeLatest(TRIP_ACTIONS.DELETE_CAMPER, deleteCamper);
+    yield takeLatest(TRIP_ACTIONS.DELETE_TRIP, deleteTrip);
     yield takeLatest(TRIP_ACTIONS.FETCH_USER_TRIPS, fetchUserTrips);
     yield takeLatest(TRIP_ACTIONS.INVITE_USER, intiateInviteUser);
     yield takeLatest(TRIP_ACTIONS.REQUEST_USER_JOIN_TRIP, joinUserToTrip);

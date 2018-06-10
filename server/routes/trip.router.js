@@ -69,7 +69,6 @@ router.delete('/delete-camper', (req, res) => {
     console.log(`DELETE from trip: ${req.body.trip_id} with user_id: ${req.body.user_id}`);
     const user_id = req.body.user_id;
     const trip_id = req.body.trip_id;
-    // console.log(tripID);
     const queryText = `DELETE FROM "user_trip"
     WHERE "user_id" = $1 AND "trip_id" = $2;`;
     pool.query(queryText, [user_id, trip_id])
@@ -78,6 +77,22 @@ router.delete('/delete-camper', (req, res) => {
         })
         .catch((error) => {
             console.log('Error with delete /api/trip/delete-camper', error);
+            res.sendStatus(500);
+        });
+})
+
+router.delete('/delete-trip', (req, res) => {
+    console.log(`DELE trip: ${rq.body.trip_id}`);
+    const user_id = req.user.id;
+    const trip_id = req.body.trip_id;
+    const queryText = `DELETE FROM "trip"
+    WHERE "creatorID" = $1 AND "id" = $2;`;
+    pool.query(queryText, [user_id, trip_id])
+        .then((result) => {
+            res.sendStatus(200);
+        })
+        .catch((error) => {
+            console.log('Error with delete /api/trip/delete-trip', error);
             res.sendStatus(500);
         });
 })

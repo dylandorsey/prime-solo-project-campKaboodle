@@ -16,6 +16,15 @@ export function callDeleteCamper(payload) {
       });
 }
 
+export function callDeleteTrip(payload) {
+    console.log(`init callDeleteTrip for trip_id: ${payload.trip_id}}`);
+    axios.delete(`api/trip/delete-trip`, {data: payload})
+      .then(response => response.data)
+      .catch((error) => {
+        throw error.response || error;
+      });
+}
+
 export function callUserTrips() {
     return axios.get(`api/trip/user-trips`)
         .then(response => response.data)
