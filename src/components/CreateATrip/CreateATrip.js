@@ -10,7 +10,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import Nav from '../../components/Nav/Nav';
-import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
@@ -59,7 +58,7 @@ class UserPage extends Component {
 
     logout = () => {
         this.props.dispatch(triggerLogout());
-        // this.props.history.push('home');
+        this.props.history.push('home');
     }
 
     navToUserMainMenu = () => {
@@ -108,13 +107,11 @@ class UserPage extends Component {
         if (this.props.user.userName) {
             content = (
                 <div>
-                    <HamburgerMenuButton navToUserMainMenu={this.navToUserMainMenu} />
                     <h1
                         id=""
                     >
                         Create-A-Trip
                     </h1>
-                    <pre>{JSON.stringify(this.state.newTrip)}</pre>
                     <Paper>
                         <form onSubmit={this.submitHandler}>
                             <Table>

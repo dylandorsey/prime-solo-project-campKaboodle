@@ -15,14 +15,11 @@ import red from '@material-ui/core/colors/red';
 
 // component imports
 import CreateATrip from './components/CreateATrip/CreateATrip';
-import EditCamperPermissions from './components/EditCamperPermissions/EditCamperPermissions';
 import Header from './components/Header/Header';
 import LoginPage from './components/LoginPage/LoginPage';
-import InviteCampers from './components/InviteCampers/InviteCampers';
 import RegisterPage from './components/RegisterPage/RegisterPage';
 import TripCamperList from './components/TripCamperList/TripCamperList';
 import TripGearList from './components/TripGearList/TripGearList';
-import TripMessageBoard from './components/TripMessageBoard/TripMessageBoard';
 import TripOverview from './components/TripOverview/TripOverview';
 import UserGearInventory from './components/UserGearInventory/UserGearInventory';
 import UserMainMenu from './components/UserMainMenu/UserMainMenu';
@@ -30,8 +27,9 @@ import UserPage from './components/UserPage/UserPage';
 import UserTripList from './components/UserTripList/UserTripList';
 
 // Future functionality
+import EditCamperPermissions from './components/EditCamperPermissions/EditCamperPermissions';
 import TripCostEstimate from './components/TripCostEstimate/TripCostEstimate';
-import InfoPage from './components/InfoPage/InfoPage';
+import TripMessageBoard from './components/TripMessageBoard/TripMessageBoard';
 // End future functionality
 
 import './styles/main.css';
@@ -69,10 +67,6 @@ const App = () => (
               path="/user"
               component={UserPage}
             />
-            {/* <Route
-            path="/info"
-            component={InfoPage}
-          /> */}
             <Route
               path="/user-main-menu"
               component={UserMainMenu}
@@ -89,18 +83,6 @@ const App = () => (
               path="/trip-gear-list"
               component={TripGearList}
             />
-            {/* <Route
-            path="/trip-cost-estimate"
-            component={TripCostEstimate}
-          /> */}
-            <Route
-              path="/invite-campers"
-              component={InviteCampers}
-            />
-            <Route
-              path="/edit-camper-permissions"
-              component={EditCamperPermissions}
-            />
             <Route
               path="/user-gear-inventory"
               component={UserGearInventory}
@@ -113,10 +95,21 @@ const App = () => (
               path="/trip-camper-list"
               component={TripCamperList}
             />
-            <Route
+            {/* Future functionality */}
+            {/* <Route
+            path="/trip-cost-estimate"
+            component={TripCostEstimate}
+          /> */}
+            {/* <Route
+              path="/edit-camper-permissions"
+              component={EditCamperPermissions}
+            /> */}
+            {/* <Route
               path="/trip-message-board"
               component={TripMessageBoard}
-            />
+            /> */}
+            {/* End future functionality */}
+
             {/* OTHERWISE (no path!) */}
             <Route render={() => <h1>404</h1>} />
           </Switch>

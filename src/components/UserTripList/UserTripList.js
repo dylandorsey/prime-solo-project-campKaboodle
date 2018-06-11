@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import Nav from '../../components/Nav/Nav';
 import UserTripListTable from '../UserTripListTable/UserTripListTable';
-import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
@@ -32,7 +31,7 @@ class UserTripList extends Component {
 
     logout = () => {
         this.props.dispatch(triggerLogout());
-        // this.props.history.push('home');
+        this.props.history.push('home');
     }
 
     navToUserMainMenu = () => {
@@ -47,7 +46,6 @@ class UserTripList extends Component {
         if (this.props.user.userName) {
             content = (
                 <div>
-                    <HamburgerMenuButton navToUserMainMenu={this.navToUserMainMenu} />
                     <h1
                         id=""
                     >

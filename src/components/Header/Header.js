@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Popover } from '@material-ui/core/Popover';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Drawer from '@material-ui/core/Drawer';
 
+import About from '../About/About';
 import ButtonHamburgerMenu from '../ButtonHamburgerMenu/ButtonHamburgerMenu';
 import ButtonAbout from '../ButtonAbout/ButtonAbout';
 import DrawerList from '../DrawerList/DrawerList';
-import Version from '../Version/Version';
+
 
 const styles = {
   root: {
@@ -42,22 +42,8 @@ class Header extends Component {
 
     this.state = {
       left: false,
-      anchorEl: null,
+      top: false,
     }
-  }
-
-  handleClickPopover = event => {
-    this.setState({
-      ...this.state,
-      anchorEl: event.currentTarget,
-    });
-  }
-
-  handleClose = () => {
-    this.setState({
-      ...this.state,
-      anchorEl: null,
-    });
   }
 
   toggleDrawer = (side, open) => () => {
@@ -68,7 +54,6 @@ class Header extends Component {
   };
 
   render() {
-    const { anchorEl } = this.state;
 
     return (
       <div className={this.props.classes.root}>
@@ -88,43 +73,22 @@ class Header extends Component {
                 <DrawerList />
               </div>
             </Drawer>
+            <Drawer open={this.state.top} onClose={this.toggleDrawer('top', false)}>
+              <div
+                tabIndex={0}
+                role="button"
+                onClick={this.toggleDrawer('top', false)}
+                onKeyDown={this.toggleDrawer('top', false)}
+              >
+              <About />
+              </div>
+            </Drawer>
             <Typography variant="title" color="inherit" className={this.props.classes.flex}>
               {this.props.title}
             </Typography>
-            <ButtonAbout onClick={() => {this.handleClickPopover()}} />
+            <ButtonAbout onClick={this.toggleDrawer('top', true)} />
           </Toolbar>
         </AppBar>
-        {/* <Popover
-          open={Boolean(anchorEl)}
-          anchorEl={anchorEl}
-          onClose={this.handleClose}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-        >
-          <div>
-            <h2>
-              campKaboodle
-                            </h2>
-            <p>
-              Version: <Version />
-            </p>
-            <p>
-              Author: Dylan Dorsey
-                             </p>
-            <p>
-              This app is made possible by a bunch of stuff that none of us fully understands.
-                             </p>
-            <p>
-              Thanks for giving it a try!
-                             </p>
-          </div>
-        </Popover> */}
       </div>
     );
   }

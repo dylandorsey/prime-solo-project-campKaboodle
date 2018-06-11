@@ -1,8 +1,10 @@
 import { put, takeLatest } from 'redux-saga/effects';
+import { GEAR_ACTIONS } from '../actions/gearActions';
 import { TRIP_ACTIONS } from '../actions/tripActions';
+
 import { callCreateNewTrip } from '../requests/tripRequests';
 import { callDeleteCamper } from '../requests/tripRequests';
-import { callDeleteTrip } from '../requests/tripRequests'; 
+import { callDeleteTrip } from '../requests/tripRequests';
 import { callGetCurrentTripID } from '../requests/tripRequests';
 import { callGetCurrentTripCamperList } from '../requests/tripRequests';
 import { callGetCurrentTripData } from '../requests/tripRequests';
@@ -96,6 +98,10 @@ function* initiateSetCurrentTrip(action) {
                 payload: trip,
             })
             yield initiateSetTripCamperList(trip_ID);
+            yield put({
+                type: GEAR_ACTIONS.FETCH_TRIP_GEAR,
+                payload: trip
+            })
         }
         yield put({ type: TRIP_ACTIONS.SET_CURRENT_TRIP_DONE })
     } catch (error) {

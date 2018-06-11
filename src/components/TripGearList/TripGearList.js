@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 
 import Nav from '../../components/Nav/Nav';
 import TripGearListTable from '../TripGearListTable/TripGearListTable';
-import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
-// import ViewSelector from '../ViewSelector/ViewSelector';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
@@ -37,16 +35,6 @@ class TripGearList extends Component {
         this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR, payload: this.props.currentTrip });
     }
 
-    // handleChangeFor = propertyName => event => {
-    //     this.setState({
-    //         [propertyName]: this.props.userTrips[event.target.value],
-    //     });
-    //     this.props.dispatch({
-    //         type: TRIP_ACTIONS.SET_CURRENT_TRIP,
-    //         payload: this.state.selectedTrip
-    //     })
-    // }
-
     logout = () => {
         this.props.dispatch(triggerLogout());
         // this.props.history.push('home');
@@ -71,17 +59,10 @@ class TripGearList extends Component {
         if (this.props.user.userName) {
             content = (
                 <div>
-                    <HamburgerMenuButton navToUserMainMenu={this.navToUserMainMenu} />
                     <h1
                         id=""
                     >
                     </h1>
-                    {/* <ViewSelector
-                        handleChangeFor={this.handleChangeFor}
-                        navToTripOverview={this.navToTripOverview}
-                        navToTripGearList={this.navToTripGearList}
-                        selectedTrip={this.state.selectedTrip}
-                    /> */}
                     <TripGearListTable />
 
                     <button

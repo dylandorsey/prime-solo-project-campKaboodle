@@ -1,25 +1,82 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 
-import ButtonAddCircleOutline from '../ButtonAddCircleOutline/ButtonAddCircleOutline';
+
+
+import ButtonAddCamper from '../ButtonAddCamper/ButtonAddCamper';
+import ButtonSendInvitation from '../ButtonSendInvitation/ButtonSendInvitation';
+import ButtonViewCampers from '../ButtonViewCampers/ButtonViewCampers';
+import ButtonViewList from '../ButtonViewList/ButtonViewList';
 import Nav from '../../components/Nav/Nav';
-import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
+import Snackbar from '@material-ui/core/Snackbar';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
+import { Typography } from '@material-ui/core';
 
 const mapStateToProps = state => ({
     user: state.user,
-    trips: state.trip.userTrips,
+    trip: state.trip,
     currentTrip: state.trip.currentTrip,
     gear: state.gear,
+
+});
+
+const styles = theme => ({
+    root: {
+        position: 'relative',
+        overflow: 'hidden',
+    },
+    appFrame: {
+        width: 360,
+        height: 360,
+        backgroundColor: theme.palette.background.paper,
+    },
+    menuButton: {
+        marginLeft: -12,
+        marginRight: 20,
+    },
+    button: {
+        marginBottom: theme.spacing.unit,
+    },
+    fab: {
+        position: 'absolute',
+        bottom: theme.spacing.unit * 2,
+        right: theme.spacing.unit * 2,
+    },
+    fabMoveUp: {
+        transform: 'translate3d(0, -46px, 0)',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.enteringScreen,
+            easing: theme.transitions.easing.easeOut,
+        }),
+    },
+    fabMoveDown: {
+        transform: 'translate3d(0, 0, 0)',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.leavingScreen,
+            easing: theme.transitions.easing.sharp,
+        }),
+    },
+    snackbar: {
+        position: 'absolute',
+    },
+    snackbarContent: {
+        width: 360,
+    },
 });
 
 class TripOverview extends Component {
@@ -28,6 +85,7 @@ class TripOverview extends Component {
         this.state = {
             inviteOthers: false,
             inviteeUsername: '',
+            open: false,
         }
     }
 
@@ -71,12 +129,16 @@ class TripOverview extends Component {
                 trip_id: this.props.currentTrip.id,
             },
         });
+        this.setState({
+            // open: true,
+            inviteOthers: !this.state.inviteOthers,
+        });
         this.clearInput();
     }
 
     logout = () => {
         this.props.dispatch(triggerLogout());
-        // this.props.history.push('home');
+        this.props.history.push('home');
     }
 
     navToTripCamperList = () => {
@@ -98,7 +160,6 @@ class TripOverview extends Component {
 
     submitHandler = event => {
         event.preventDefault();
-
     }
 
     render() {
@@ -108,17 +169,9 @@ class TripOverview extends Component {
         if (this.props.user.userName) {
             content = (
                 <div>
-                    <HamburgerMenuButton navToUserMainMenu={this.navToUserMainMenu} />
-                    <h1
-                        id=""
-                    >
+                    <h1 id="">
                         Trip Overview
                     </h1>
-                    {/* <ViewSelector
-                        handleChangeFor={this.handleChangeFor}
-                        navToTripOverview={this.navToTripOverview}
-                        navToTripGearList={this.navToTripGearList}
-                    /> */}
                     {this.props.currentTrip ?
                         <Paper>
                             <form onSubmit={this.submitHandler}>
@@ -152,31 +205,44 @@ class TripOverview extends Component {
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>Trip Gear</TableCell>
-                                            <TableCell><button onClick={this.navToTripGearList}>View gear</button></TableCell>
+                                            <TableCell>
+                                                <ButtonViewList onClick={this.navToTripGearList} />
+                                                <Typography variant="body1" gutterBottom>
+                                                    ({this.props.gear.tripGear.length} items)
+                                                </Typography>
+                                            </TableCell>
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>Campers</TableCell>
-                                            <TableCell><button onClick={this.navToTripCamperList}>View campers</button></TableCell>
+                                            <TableCell>
+                                                <ButtonViewCampers onClick={this.navToTripCamperList} />
+                                                <Typography variant="body1" gutterBottom>
+                                                    ({this.props.trip.currentTripCamperList.length} campers)
+                                                </Typography>
+                                            </TableCell>
+                                            <TableCell>
+                                                <ButtonAddCamper onClick={this.handleClickInviteOtherFolks} />
+                                                <Typography variant="body1" gutterBottom>Invite others
+                                                </Typography>
+                                            </TableCell>
                                         </TableRow>
                                     </TableBody>
                                 </Table>
-                                <input type="submit" value="edit trip"></input>
                             </form>
                             {/* WHALEHUNTER this button does not call the function upon click - figure out why! */}
                             {/* <ButtonAddCircleOutline onClick={() => {this.handleClickInviteOtherFolks}} text="Invite Other Folks"/> */}
-                            <button onClick={this.handleClickInviteOtherFolks}>Invite other Folks</button>
                             {this.state.inviteOthers ?
                                 <div>
-                                <form onSubmit={this.handleSubmitInviteCamper}>
-                                    <input type="text" 
-                                    onChange={this.handleChangeFor('inviteeUsername')} 
-                                    placeholder="input username here"
-                                    value={this.state.inviteeUsername}>
-                                    </input>
-                                    <input type="submit" value="Invite user"></input>
-                                </form>
-                                {/* WHALEHUNTER this button does not call the function upon click - figure out why! */}
-                                {/* <ButtonAddCircleOutline onClick={()=> {this.handleSubmitInviteCamper}}/> */}
+                                    <FormControl onSubmit={this.handleSubmitInviteCamper}>
+                                        <InputLabel htmlFor="invitee-username">invitee username</InputLabel>
+                                        <Input
+                                            id="invitee-username"
+                                            onChange={this.handleChangeFor('inviteeUsername')}
+                                            value={this.state.inviteeUsername} />
+                                        <ButtonSendInvitation onClick={this.handleSubmitInviteCamper} type="submit" value="Invite user" />
+                                    </FormControl>
+                                    {/* WHALEHUNTER this button does not call the function upon click - figure out why! */}
+                                    {/* <ButtonAddCircleOutline onClick={()=> {this.handleSubmitInviteCamper}}/> */}
                                 </div>
                                 :
                                 ''}
@@ -188,18 +254,39 @@ class TripOverview extends Component {
                         onClick={this.logout}
                     >
                         Log Out
-          </button>
-                </div>
+                    </button>
+
+                    <Snackbar
+                        open={this.state.open}
+                        autoHideDuration={4000}
+                        onClose={this.handleClose}
+                        ContentProps={{
+                            'aria-describedby': 'snackbar-fab-message-id',
+                            className: this.props.classes.snackbarContent,
+                        }}
+                        message={<span id="snackbar-fab-message-id">Invitation sent</span>}
+                        action={
+                            <Button color="inherit" size="small" onClick={this.handleClose}>
+                                Close
+                            </Button>
+                        }
+                        className={this.props.classes.snackbar}
+                    />
+                </div >
             );
         }
         return (
             <div>
                 <Nav />
                 {content}
-            </div>
+            </div >
         );
     }
 }
 
+TripOverview.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
 // this allows us to use <App /> in index.js
-export default connect(mapStateToProps)(TripOverview);
+export default connect(mapStateToProps)(withStyles(styles)(TripOverview));

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import Nav from '../../components/Nav/Nav';
 
-import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
 import TripCamperListTable from '../TripCamperListTable/TripCamperListTable';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
@@ -43,8 +42,6 @@ class UserPage extends Component {
         if (this.props.user.userName) {
             content = (
                 <div>
-                    <pre>{JSON.stringify(this.props.history)}</pre>
-                    <HamburgerMenuButton navToUserMainMenu={this.navToUserMainMenu} />
                     <h1
                         id=""
                     >
