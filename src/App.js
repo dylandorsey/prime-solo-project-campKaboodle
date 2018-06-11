@@ -18,10 +18,8 @@ import CreateATrip from './components/CreateATrip/CreateATrip';
 import EditCamperPermissions from './components/EditCamperPermissions/EditCamperPermissions';
 import Header from './components/Header/Header';
 import LoginPage from './components/LoginPage/LoginPage';
-import InfoPage from './components/InfoPage/InfoPage';
 import InviteCampers from './components/InviteCampers/InviteCampers';
 import RegisterPage from './components/RegisterPage/RegisterPage';
-import TripCostEstimate from './components/TripCostEstimate/TripCostEstimate';
 import TripCamperList from './components/TripCamperList/TripCamperList';
 import TripGearList from './components/TripGearList/TripGearList';
 import TripMessageBoard from './components/TripMessageBoard/TripMessageBoard';
@@ -30,7 +28,11 @@ import UserGearInventory from './components/UserGearInventory/UserGearInventory'
 import UserMainMenu from './components/UserMainMenu/UserMainMenu';
 import UserPage from './components/UserPage/UserPage';
 import UserTripList from './components/UserTripList/UserTripList';
-// import HamburgerMenuButton from './components/HamburgerMenuButton/HamburgerMenuButton';
+
+// Future functionality
+import TripCostEstimate from './components/TripCostEstimate/TripCostEstimate';
+import InfoPage from './components/InfoPage/InfoPage';
+// End future functionality
 
 import './styles/main.css';
 
@@ -49,73 +51,76 @@ const myTheme = createMuiTheme({
 const App = () => (
   <div>
     <MuiThemeProvider theme={myTheme}>
-      <Header title="campKaboodle" />
+
       <Router>
-        <Switch>
-          <Redirect exact from="/" to="/home" />
-          <Route
-            path="/home"
-            component={LoginPage}
-          />
-          <Route
-            path="/register"
-            component={RegisterPage}
-          />
-          <Route
-            path="/user"
-            component={UserPage}
-          />
-          <Route
+        <div>
+          <Header title="campKaboodle" />
+          <Switch>
+            <Redirect exact from="/" to="/home" />
+            <Route
+              path="/home"
+              component={LoginPage}
+            />
+            <Route
+              path="/register"
+              component={RegisterPage}
+            />
+            <Route
+              path="/user"
+              component={UserPage}
+            />
+            {/* <Route
             path="/info"
             component={InfoPage}
-          />
-          <Route
-            path="/user-main-menu"
-            component={UserMainMenu}
-          />
-          <Route
-            path="/user-trip-list"
-            component={UserTripList}
-          />
-          <Route
-            path="/trip-overview"
-            component={TripOverview}
-          />
-          <Route
-            path="/trip-gear-list"
-            component={TripGearList}
-          />
-          <Route
+          /> */}
+            <Route
+              path="/user-main-menu"
+              component={UserMainMenu}
+            />
+            <Route
+              path="/user-trip-list"
+              component={UserTripList}
+            />
+            <Route
+              path="/trip-overview"
+              component={TripOverview}
+            />
+            <Route
+              path="/trip-gear-list"
+              component={TripGearList}
+            />
+            {/* <Route
             path="/trip-cost-estimate"
             component={TripCostEstimate}
-          />
-          <Route
-            path="/invite-campers"
-            component={InviteCampers}
-          />
-          <Route
-            path="/edit-camper-permissions"
-            component={EditCamperPermissions}
-          />
-          <Route
-            path="/user-gear-inventory"
-            component={UserGearInventory}
-          />
-          <Route
-            path="/create-a-trip"
-            component={CreateATrip}
-          />
-          <Route
-            path="/trip-camper-list"
-            component={TripCamperList}
-          />
-          <Route
-            path="/trip-message-board"
-            component={TripMessageBoard}
-          />
-          {/* OTHERWISE (no path!) */}
-          <Route render={() => <h1>404</h1>} />
-        </Switch>
+          /> */}
+            <Route
+              path="/invite-campers"
+              component={InviteCampers}
+            />
+            <Route
+              path="/edit-camper-permissions"
+              component={EditCamperPermissions}
+            />
+            <Route
+              path="/user-gear-inventory"
+              component={UserGearInventory}
+            />
+            <Route
+              path="/create-a-trip"
+              component={CreateATrip}
+            />
+            <Route
+              path="/trip-camper-list"
+              component={TripCamperList}
+            />
+            <Route
+              path="/trip-message-board"
+              component={TripMessageBoard}
+            />
+            {/* OTHERWISE (no path!) */}
+            <Route render={() => <h1>404</h1>} />
+          </Switch>
+        </div>
       </Router>
     </MuiThemeProvider>
   </div>

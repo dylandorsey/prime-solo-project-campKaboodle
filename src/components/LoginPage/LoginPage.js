@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { triggerLogin, formError, clearError } from '../../redux/actions/loginActions';
+import Typography from '@material-ui/core/Typography';
+
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -63,11 +65,11 @@ class LoginPage extends Component {
     return (
       <div>
         { this.renderAlert() }
-        <h1>campKaboodle</h1>
-        <h3>Plan your next camping adventure</h3>
+        <Typography variant="title" gutterBottom>
+        Log in to plan your next camping adventure
+        </Typography>
+        <pre>{JSON.stringify(this.props, null, 2)}</pre>
         <form onSubmit={this.login}>
-          <h2>Already a member?</h2>
-          <h2>Go ahead and log in.</h2>
           <div>
             <label htmlFor="username">
               Username:
