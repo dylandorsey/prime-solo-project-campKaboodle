@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 
+import ButtonAddCircleOutline from '../ButtonAddCircleOutline/ButtonAddCircleOutline';
 import Nav from '../../components/Nav/Nav';
 import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
 
@@ -162,16 +163,22 @@ class TripOverview extends Component {
                                 </Table>
                                 <input type="submit" value="edit trip"></input>
                             </form>
-                            <button onClick={this.handleClickInviteOtherFolks}>invite other folks</button>
+                            {/* WHALEHUNTER this button does not call the function upon click - figure out why! */}
+                            {/* <ButtonAddCircleOutline onClick={() => {this.handleClickInviteOtherFolks}} text="Invite Other Folks"/> */}
+                            <button onClick={this.handleClickInviteOtherFolks}>Invite other Folks</button>
                             {this.state.inviteOthers ?
+                                <div>
                                 <form onSubmit={this.handleSubmitInviteCamper}>
                                     <input type="text" 
                                     onChange={this.handleChangeFor('inviteeUsername')} 
                                     placeholder="input username here"
-                                    value={this.state.inviteeUsername}
-                                    ></input>
-                                    <input type="submit" value="invite camper"></input>
+                                    value={this.state.inviteeUsername}>
+                                    </input>
+                                    <input type="submit" value="Invite user"></input>
                                 </form>
+                                {/* WHALEHUNTER this button does not call the function upon click - figure out why! */}
+                                {/* <ButtonAddCircleOutline onClick={()=> {this.handleSubmitInviteCamper}}/> */}
+                                </div>
                                 :
                                 ''}
                         </Paper>

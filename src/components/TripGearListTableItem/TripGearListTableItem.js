@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
+import DeleteForeverButton from '../DeleteForeverButton/DeleteForeverButton';
 
 const mapStateToProps = state => ({
     state
@@ -26,7 +27,7 @@ class TripGearListTableItem extends Component {
                     </TableCell>
                 }
                 <TableCell>
-                    <button onClick={() => { this.props.handleClickDelete(this.props.item) }}>Delete Item</button>
+                    <DeleteForeverButton onClick={() => { this.props.handleClickDelete(this.props.item) }}/>
                 </TableCell>
                 <TableCell>
                     <Checkbox

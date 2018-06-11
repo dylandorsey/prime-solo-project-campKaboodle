@@ -3,8 +3,10 @@ import React, { Component } from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
+import ButtonDeleteForever from '../ButtonDeleteForever/ButtonDeleteForever';
+
 class UserTripTableItem extends Component {
-    render() {
+render() {
         return (
             <TableRow>
                 <TableCell>{this.props.item.name}</TableCell>
@@ -20,7 +22,7 @@ class UserTripTableItem extends Component {
                     </TableCell>
                 }
                 <TableCell>
-                    <button onClick={() => { this.props.handleClickDelete(this.props.item) }}>Delete Trip</button>
+                    <ButtonDeleteForever  onClick={() => { this.props.handleClickDelete(this.props.item) }}/>
                 </TableCell>
             </TableRow>
         );

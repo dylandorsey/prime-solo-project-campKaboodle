@@ -12,6 +12,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import { GEAR_ACTIONS } from '../../redux/actions/gearActions';
+import ButtonArrowDownward from '../ButtonArrowDownward/ButtonArrowDownward';
+import ButtonArrowUpward from '../ButtonArrowUpward/ButtonArrowUpward';
 import TripGearListTableItem from '../TripGearListTableItem/TripGearListTableItem';
 
 
@@ -81,16 +83,17 @@ class TripGearListTable extends Component {
             }
         });
     }
-
-    handleClickDelete = (item) => {
-        this.confirmAction(item);
-    }
-
+    
     handleClickCancel = () => {
         this.toggleAddingItem();
         console.log(this.state.addingItem);
         this.clearInput();
         console.log('init handleClickCancel');
+    }
+    
+    handleClickDelete = (item) => {
+        console.log('init handleClickDelete');
+        this.confirmAction(item);
     }
 
     handleClickProvide = (item) => {
@@ -177,21 +180,21 @@ class TripGearListTable extends Component {
                             </TableRow>
                             <TableRow>
                                 <TableCell>
-                                    <button
+                                    <ButtonArrowUpward
                                         onClick={() => {this.handleClickSortByDescriptionAscending()}}
-                                    >Sort Ascending</button>
-                                    <button
+                                    ></ButtonArrowUpward>
+                                    <ButtonArrowDownward
                                         onClick={() => {this.handleClickSortByDescriptionDescending()}}
-                                    >Sort Descending</button>
+                                    ></ButtonArrowDownward>
                                 </TableCell>
                                 <TableCell></TableCell>
                                 <TableCell>
-                                    <button
+                                <ButtonArrowUpward
                                         onClick={() => {this.handleClickSortByProviderAscending()}}
-                                    >Sort Ascending</button>
-                                    <button
+                                    ></ButtonArrowUpward>
+                                    <ButtonArrowDownward
                                         onClick={() => {this.handleClickSortByProviderDescending()}}
-                                    >Sort Descending</button>
+                                    ></ButtonArrowDownward>
                                 </TableCell>
                             </TableRow>
                         </TableHead>
