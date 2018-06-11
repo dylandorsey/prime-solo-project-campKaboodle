@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import { Menu } from '@material-ui/icons'; // destructuring
+import { Menu } from '@material-ui/icons';
 
 const ButtonHamburgerMenu = props => (
-    <Button
-        onClick={props.onClick}
-    >
-        <Menu />
-    </Button>
+        <Menu         onClick={props.onClick}/>
 );
 
 export default ButtonHamburgerMenu;

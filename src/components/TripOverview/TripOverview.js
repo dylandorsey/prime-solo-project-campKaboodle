@@ -114,7 +114,6 @@ class TripOverview extends Component {
                     >
                         Trip Overview
                     </h1>
-
                     {/* <ViewSelector
                         handleChangeFor={this.handleChangeFor}
                         navToTripOverview={this.navToTripOverview}

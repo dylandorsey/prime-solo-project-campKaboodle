@@ -11,7 +11,8 @@ import { triggerLogout } from '../../redux/actions/loginActions';
 
 const mapStateToProps = state => ({
     user: state.user,
-    trip: state.trip
+    trip: state.trip,
+    history: state.history,
 });
 
 class UserPage extends Component {
@@ -42,6 +43,7 @@ class UserPage extends Component {
         if (this.props.user.userName) {
             content = (
                 <div>
+                    <pre>{JSON.stringify(this.props.history)}</pre>
                     <HamburgerMenuButton navToUserMainMenu={this.navToUserMainMenu} />
                     <h1
                         id=""
