@@ -48,7 +48,7 @@ export function callRemoveItemProvider(action) {
     });
 }
 
-// fetch trip gear (order DESC)
+// fetch trip gear by description order ASC
 export function callTripGear(trip_id) {
   console.log(trip_id);
   const params = {
@@ -59,7 +59,7 @@ export function callTripGear(trip_id) {
     .catch((error) => { throw error.response || error; });
 }
 
-// fetch trip gear (order ASC)
+// fetch trip gear by description order DESC
 export function callTripGearByDescriptionDESC(trip_id) {
   console.log(trip_id);
   const params = {
@@ -88,6 +88,28 @@ export function callTripGearByProviderDESC(trip_id) {
     trip_id: trip_id,
   }
   return axios.get(`api/gear/provider-desc`, { params })
+    .then(response => response.data)
+    .catch((error) => { throw error.response || error; });
+}
+
+// fetch trip gear by quantity order ASC
+export function callTripGearByQuantityASC(trip_id) {
+  console.log(trip_id);
+  const params = {
+    trip_id: trip_id,
+  }
+  return axios.get(`api/gear/quantity-asc`, { params })
+    .then(response => response.data)
+    .catch((error) => { throw error.response || error; });
+}
+
+// fetch trip gear by quantity order DESC
+export function callTripGearByQuantityDESC(trip_id) {
+  console.log(trip_id);
+  const params = {
+    trip_id: trip_id,
+  }
+  return axios.get(`api/gear/quantity-DESC`, { params })
     .then(response => response.data)
     .catch((error) => { throw error.response || error; });
 }

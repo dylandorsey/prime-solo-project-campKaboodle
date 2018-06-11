@@ -83,14 +83,14 @@ class TripGearListTable extends Component {
             }
         });
     }
-    
+
     handleClickCancel = () => {
         this.toggleAddingItem();
         console.log(this.state.addingItem);
         this.clearInput();
         console.log('init handleClickCancel');
     }
-    
+
     handleClickDelete = (item) => {
         console.log('init handleClickDelete');
         this.confirmAction(item);
@@ -131,6 +131,16 @@ class TripGearListTable extends Component {
     handleClickSortByProviderDescending = () => {
         console.log('init handleClickSortyByProviderDescending');
         this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR_BY_PROVIDER_DESC, payload: this.props.currentTrip });
+    }
+
+    handleClickSortByQuantityAscending = () => {
+        console.log('init handleClickSortByQuantityAscending');
+        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR_BY_QUANTITY_ASC, payload: this.props.currentTrip });
+    }
+
+    handleClickSortByQuantityDescending= () => {
+        console.log('init handleClickSortByQuantityDescending');
+        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR_BY_QUANTITY_ASC, payload: this.props.currentTrip });
     }
 
     handleSubmitNewItem = event => {
@@ -181,28 +191,39 @@ class TripGearListTable extends Component {
                             <TableRow>
                                 <TableCell>
                                     <ButtonArrowUpward
-                                        onClick={() => {this.handleClickSortByDescriptionAscending()}}
+                                        onClick={() => { this.handleClickSortByDescriptionAscending() }}
                                     ></ButtonArrowUpward>
                                     <ButtonArrowDownward
-                                        onClick={() => {this.handleClickSortByDescriptionDescending()}}
+                                        onClick={() => { this.handleClickSortByDescriptionDescending() }}
                                     ></ButtonArrowDownward>
                                 </TableCell>
-                                <TableCell></TableCell>
                                 <TableCell>
                                 <ButtonArrowUpward
-                                        onClick={() => {this.handleClickSortByProviderAscending()}}
+                                        onClick={() => { this.handleClickSortByQuantityAscending() }}
                                     ></ButtonArrowUpward>
                                     <ButtonArrowDownward
-                                        onClick={() => {this.handleClickSortByProviderDescending()}}
+                                        onClick={() => { this.handleClickSortByQuantityDescending() }}
+                                    ></ButtonArrowDownward>
+                                </TableCell>
+                                <TableCell>
+                                    <ButtonArrowUpward
+                                        onClick={() => { this.handleClickSortByProviderAscending() }}
+                                    ></ButtonArrowUpward>
+                                    <ButtonArrowDownward
+                                        onClick={() => { this.handleClickSortByProviderDescending() }}
                                     ></ButtonArrowDownward>
                                 </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {this.props.tripGear.map(item => <TripGearListTableItem key={item.id} item={item}
-                                handleClickProvide={this.handleClickProvide}
-                                handleClickRemoveProvider={this.handleClickRemoveProvider}
-                                handleClickDelete={this.handleClickDelete} />)}
+                            {this.props.tripGear.map(item =>
+                                <TripGearListTableItem
+                                    key={item.id} 
+                                    item={item}
+                                    handleClickProvide={this.handleClickProvide}
+                                    handleClickRemoveProvider={this.handleClickRemoveProvider}
+                                    handleClickDelete={this.handleClickDelete}
+                                />)}
                         </TableBody>
                     </Table>
                 </Paper>

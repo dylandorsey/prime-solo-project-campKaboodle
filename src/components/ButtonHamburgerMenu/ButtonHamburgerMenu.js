@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import { DeleteForever } from '@material-ui/icons';
+import { Menu } from '@material-ui/icons'; // destructuring
 
-const ButtonDeleteForever = props => (
+const ButtonHamburgerMenu = props => (
     <Button
         onClick={props.onClick}
     >
-        <DeleteForever />
+        <Menu />
     </Button>
 );
 
-export default ButtonDeleteForever;
+export default ButtonHamburgerMenu;

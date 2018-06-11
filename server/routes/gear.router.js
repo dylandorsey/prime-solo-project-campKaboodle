@@ -2,7 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-// GET gear list ASC
+// GET gear list by description ASC
 router.get('/asc', (req, res) => {
     // console.log('this is the query', req.query);
     const trip_id = req.query.trip_id;
@@ -22,7 +22,7 @@ router.get('/asc', (req, res) => {
 });
 
 
-// GET gear list DESC
+// GET gear list by description DESC
 router.get('/desc', (req, res) => {
     // console.log('this is the query', req.query);
     const trip_id = req.query.trip_id;
@@ -79,6 +79,41 @@ router.get('/provider-desc', (req, res) => {
             res.sendStatus(500)
         });
 });
+
+// GET gear list by quantity asc
+router.get('/quantity-asc', (req, res) => {
+    const trip_id = req.query.trip_id;
+    let queryText = `SELECT "description","quantity", "user"."username", "user_trip_gear"."id"
+    FROM "user_trip_gear"
+    LEFT JOIN "user" 
+    ON "user_trip_gear"."user_id" = "user"."id"
+    WHERE "user_trip_gear"."trip_id" = $1
+    ORDER BY "user_trip_gear"."quantity" ASC;`
+    pool.query(queryText, [trip_id])
+        .then((result) => { res.send(result.rows) })
+        .catch((error) => {
+            console.log('Error fetching trip gear', error);
+            res.sendStatus(500)
+        });
+});
+
+// GET gear list by quantity asc
+router.get('/quantity-desc', (req, res) => {
+    const trip_id = req.query.trip_id;
+    let queryText = `SELECT "description","quantity", "user"."username", "user_trip_gear"."id"
+    FROM "user_trip_gear"
+    LEFT JOIN "user" 
+    ON "user_trip_gear"."user_id" = "user"."id"
+    WHERE "user_trip_gear"."trip_id" = $1
+    ORDER BY "user_trip_gear"."quantity" DESC;`
+    pool.query(queryText, [trip_id])
+        .then((result) => { res.send(result.rows) })
+        .catch((error) => {
+            console.log('Error fetching trip gear', error);
+            res.sendStatus(500)
+        });
+});
+
 
 router.delete('/:id', (req, res) => {
     console.log(`DELETE /api/gear/ with req.params`, req.params);

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-// import HamburgerMenuButton from '../HamburgerMenuButton/HamburgerMenuButton';
+import AppBar from '@material-uicore/AppBar';
+import ButtonHamburgerMenu from '../ButtonHamburgerMenu/ButtonHamburgerMenu';
 // import AboutButton from '../AboutButton/AboutButton';
 
 const mapStateToProps = state => ({
@@ -14,6 +15,7 @@ class Header extends Component {
     return (
       <div className="instructions">
         <div>
+          <ButtonHamburgerMenu />
           <h1 className="lead">{this.props.title}</h1>
         </div>
         {/* <AboutButton /> */}
