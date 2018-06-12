@@ -15,6 +15,8 @@ import red from '@material-ui/core/colors/red';
 
 // component imports
 import CreateATrip from './components/CreateATrip/CreateATrip';
+import CurrentTripIndicator from './components/CurrentTripIndicator/CurrentTripIndicator';
+import CurrentViewIndicator from './components/CurrentViewIndicator/CurrentViewIndicator';
 import Header from './components/Header/Header';
 import LoginPage from './components/LoginPage/LoginPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
@@ -53,6 +55,7 @@ const App = () => (
       <Router>
         <div>
           <Header title="campKaboodle" />
+          <CurrentTripIndicator />
           <Switch>
             <Redirect exact from="/" to="/home" />
             <Route

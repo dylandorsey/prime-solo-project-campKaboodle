@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Nav from '../../components/Nav/Nav';
-
+import CurrentViewIndicator from '../CurrentViewIndicator/CurrentViewIndicator';
 import TripCamperListTable from '../TripCamperListTable/TripCamperListTable';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
@@ -14,7 +13,7 @@ const mapStateToProps = state => ({
     history: state.history,
 });
 
-class UserPage extends Component {
+class TripCamperList extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
         this.props.dispatch({ type: TRIP_ACTIONS.START_SAGA_SET_CURRENT_TRIP });
@@ -42,11 +41,7 @@ class UserPage extends Component {
         if (this.props.user.userName) {
             content = (
                 <div>
-                    <h1
-                        id=""
-                    >
-                        Campers coming on this trip:
-                    </h1>
+                    <CurrentViewIndicator currentViewName="Campers"/>
                     <TripCamperListTable />
                 </div>
             );
@@ -54,7 +49,6 @@ class UserPage extends Component {
 
         return (
             <div>
-                <Nav />
                 {content}
             </div>
         );
@@ -62,4 +56,4 @@ class UserPage extends Component {
 }
 
 // this allows us to use <App /> in index.js
-export default connect(mapStateToProps)(UserPage);
+export default connect(mapStateToProps)(TripCamperList);

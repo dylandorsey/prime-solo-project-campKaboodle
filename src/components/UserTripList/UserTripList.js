@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Nav from '../../components/Nav/Nav';
 import UserTripListTable from '../UserTripListTable/UserTripListTable';
 
+import CurrentViewIndicator from '../CurrentViewIndicator/CurrentViewIndicator';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
@@ -39,18 +39,13 @@ class UserTripList extends Component {
         this.props.history.push('user-main-menu');
     }
     
-
     render() {
         let content = null;
 
         if (this.props.user.userName) {
             content = (
                 <div>
-                    <h1
-                        id=""
-                    >
-                        Your trips
-                    </h1>
+                    <CurrentViewIndicator currentViewName="Your trips"/>
                     <UserTripListTable />
                 </div>
             );
@@ -58,7 +53,7 @@ class UserTripList extends Component {
 
         return (
             <div>
-                <Nav />
+                {/* <Nav /> */}
                 {content}
             </div>
         );

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
+import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -13,20 +14,68 @@ import Paper from '@material-ui/core/Paper';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar';
 
 import { GEAR_ACTIONS } from '../../redux/actions/gearActions';
 import ButtonAddCircleOutline from '../ButtonAddCircleOutline/ButtonAddCircleOutline';
 import ButtonArrowDownward from '../ButtonArrowDownward/ButtonArrowDownward';
 import ButtonArrowUpward from '../ButtonArrowUpward/ButtonArrowUpward';
 import ButtonCancel from '../ButtonCancel/ButtonCancel';
-import TripGearListTableItem from '../TripGearListTableItem/TripGearListTableItem';
 import ButtonSendInvitation from '../ButtonSendInvitation/ButtonSendInvitation';
+import TripGearListTableItem from '../TripGearListTableItem/TripGearListTableItem';
 
 const mapStateToProps = state => ({
     user: state.user,
     userTrips: state.trip.userTrips,
     currentTrip: state.trip.currentTrip,
     tripGear: state.gear.tripGear
+});
+
+
+const styles = theme => ({
+    root: {
+        position: 'relative',
+        overflow: 'hidden',
+    },
+    appFrame: {
+        width: 360,
+        height: 360,
+        backgroundColor: theme.palette.background.paper,
+    },
+    menuButton: {
+        marginLeft: -12,
+        marginRight: 20,
+    },
+    button: {
+        marginBottom: theme.spacing.unit,
+    },
+    fab: {
+        position: 'absolute',
+        bottom: theme.spacing.unit * 2,
+        right: theme.spacing.unit * 2,
+    },
+    fabMoveUp: {
+        transform: 'translate3d(0, -46px, 0)',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.enteringScreen,
+            easing: theme.transitions.easing.easeOut,
+        }),
+    },
+    fabMoveDown: {
+        transform: 'translate3d(0, 0, 0)',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.leavingScreen,
+            easing: theme.transitions.easing.sharp,
+        }),
+    },
+    snackbar: {
+        position: 'absolute',
+    },
+    snackbarContent: {
+        width: 360,
+    },
 });
 
 class TripGearListTable extends Component {
@@ -44,7 +93,6 @@ class TripGearListTable extends Component {
 
     clearInput = () => {
         this.setState({
-            ...this.state,
             newItem: {
                 description: '',
                 quantity: '',
@@ -121,6 +169,18 @@ class TripGearListTable extends Component {
         });
     }
 
+    handleSnackBarClose = () => {
+        this.setState({
+            open: false,
+        });
+    }
+
+    handleSnackBarOpen = () => {
+        this.setState({
+            open: true,
+        });
+    }
+
     handleClickSortByDescriptionAscending = () => {
         this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR, payload: this.props.currentTrip });
     }
@@ -161,9 +221,8 @@ class TripGearListTable extends Component {
                 newItem: this.state.newItem,
                 id: this.props.currentTrip.id
             };
-            // dispatch for post new item
             this.props.dispatch({ type: GEAR_ACTIONS.CREATE_NEW_GEAR_ITEM, payload: newItem });
-            this.toggleAddingItem();
+            this.handleSnackBarOpen()
             this.clearInput();
         }
     }
@@ -184,7 +243,7 @@ class TripGearListTable extends Component {
     render() {
         return (
             <div>
-                <Paper>
+                <Paper className="table" elevation={1} square="true">
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -235,7 +294,7 @@ class TripGearListTable extends Component {
                 <div>
                     {
                         this.state.addingItem ?
-                            <Paper>
+                            <Paper elevation={6} square="true">
                                 <form onSubmit={this.handleSubmitNewItem}>
                                     <Table>
                                         <TableBody>
@@ -263,11 +322,11 @@ class TripGearListTable extends Component {
                                         </TableBody>
                                     </Table>
                                 </form>
-                                <ButtonCancel onClick={this.handleClickCancel}/>
+                                <ButtonCancel onClick={this.handleClickCancel} />
                                 <ButtonSendInvitation onClick={this.handleSubmitNewItem} />
                             </Paper>
                             :
-                            <Paper>
+                            <Paper elevation={6} square="true">
                                 <Table>
                                     <TableBody>
                                         <TableRow>
@@ -282,10 +341,29 @@ class TripGearListTable extends Component {
                             </Paper>
                     }
                 </div>
+                <Snackbar
+                    open={this.state.open}
+                    autoHideDuration={4000}
+                    onClose={this.handleSnackBarClose}
+                    ContentProps={{
+                        'aria-describedby': 'snackbar-fab-message-id',
+                        className: this.props.classes.snackbarContent,
+                    }}
+                    message={<span id="snackbar-fab-message-id">Gear item added</span>}
+                    action={
+                        <Button color="inherit" size="small" onClick={this.handleSnackBarClose}>
+                            Close
+                            </Button>
+                    }
+                    className={this.props.classes.snackbar}
+                />
             </div>
         );
     }
 }
 
-// this allows us to use <App /> in index.js
-export default connect(mapStateToProps)(TripGearListTable);
+TripGearListTable.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default connect(mapStateToProps)(withStyles(styles)(TripGearListTable));

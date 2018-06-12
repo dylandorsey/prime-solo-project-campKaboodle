@@ -13,13 +13,12 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 
-
-
 import ButtonAddCamper from '../ButtonAddCamper/ButtonAddCamper';
 import ButtonCancel from '../ButtonCancel/ButtonCancel';
 import ButtonSendInvitation from '../ButtonSendInvitation/ButtonSendInvitation';
 import ButtonViewCampers from '../ButtonViewCampers/ButtonViewCampers';
 import ButtonViewList from '../ButtonViewList/ButtonViewList';
+import CurrentViewIndicator from '../CurrentViewIndicator/CurrentViewIndicator';
 import Nav from '../../components/Nav/Nav';
 import Snackbar from '@material-ui/core/Snackbar';
 
@@ -183,89 +182,89 @@ class TripOverview extends Component {
         if (this.props.user.userName) {
             content = (
                 <div>
-                    <h1 id="">
-                        Trip Overview
-                    </h1>
                     {this.props.currentTrip ?
-                        <Paper>
-                            <form onSubmit={this.handleSubmitEdits}>
-                                <Table>
-                                    <TableBody>
-                                        <TableRow>
-                                            <TableCell>Trip Name</TableCell>
-                                            <TableCell>{currentTrip.name}</TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>Location</TableCell>
-                                            <TableCell>{currentTrip.location}</TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>Meetup Time</TableCell>
-                                            <TableCell>
-                                                {currentTrip.meetup_time}
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>Meetup Spot</TableCell>
-                                            <TableCell>{currentTrip.meetup_spot}</TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>Exit Time</TableCell>
-                                            <TableCell>{currentTrip.exit_time}</TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>Exit Spot</TableCell>
-                                            <TableCell>{currentTrip.exit_spot}</TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>Trip Gear</TableCell>
-                                            <TableCell onClick={this.navToTripGearList}>
-                                                <ButtonViewList  />
-                                                <Typography variant="body1" gutterBottom>
-                                                    ({this.props.gear.tripGear.length} items)
+                        <div>
+                            <CurrentViewIndicator currentViewName="Trip overview"/>
+                            <Paper className="table" elevation={1} square="true">
+                                <form onSubmit={this.handleSubmitEdits}>
+                                    <Table>
+                                        <TableBody>
+                                            <TableRow>
+                                                <TableCell>Trip Name</TableCell>
+                                                <TableCell>{currentTrip.name}</TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                                <TableCell>Location</TableCell>
+                                                <TableCell>{currentTrip.location}</TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                                <TableCell>Meetup Time</TableCell>
+                                                <TableCell>
+                                                    {currentTrip.meetup_time}
+                                                </TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                                <TableCell>Meetup Spot</TableCell>
+                                                <TableCell>{currentTrip.meetup_spot}</TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                                <TableCell>Exit Time</TableCell>
+                                                <TableCell>{currentTrip.exit_time}</TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                                <TableCell>Exit Spot</TableCell>
+                                                <TableCell>{currentTrip.exit_spot}</TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                                <TableCell>Trip Gear</TableCell>
+                                                <TableCell onClick={this.navToTripGearList}>
+                                                    <ButtonViewList />
+                                                    <Typography variant="body1" gutterBottom>
+                                                        ({this.props.gear.tripGear.length} items)
                                                 </Typography>
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>Campers</TableCell>
-                                            <TableCell onClick={this.navToTripCamperList}>
-                                                <ButtonViewCampers  />
-                                                <Typography variant="body1" gutterBottom>
-                                                    {this.props.trip.currentTripCamperList.length>1 ? 
-                                                        <p>{this.props.trip.currentTripCamperList.length} campers</p> :
-                                                        <p>{this.props.trip.currentTripCamperList.length} camper</p>}
+                                                </TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                                <TableCell>Campers</TableCell>
+                                                <TableCell onClick={this.navToTripCamperList}>
+                                                    <ButtonViewCampers />
+                                                    <Typography variant="body1" gutterBottom>
+                                                        {this.props.trip.currentTripCamperList.length > 1 ?
+                                                            `(${this.props.trip.currentTripCamperList.length} campers)` :
+                                                            `(${this.props.trip.currentTripCamperList.length} camper)`}
+                                                    </Typography>
+                                                </TableCell>
+                                                <TableCell onClick={this.handleClickInviteOtherFolks} >
+                                                    <ButtonAddCamper />
+                                                    <Typography variant="body1" gutterBottom>Invite others
                                                 </Typography>
-                                            </TableCell>
-                                            <TableCell onClick={this.handleClickInviteOtherFolks} >
-                                                <ButtonAddCamper />
-                                                <Typography variant="body1" gutterBottom>Invite others
-                                                </Typography>
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
-                            </form>
-                            {/* WHALEHUNTER this button does not call the function upon click - figure out why! */}
-                            {/* <ButtonAddCircleOutline onClick={() => {this.handleClickInviteOtherFolks}} text="Invite Other Folks"/> */}
-                            {this.state.inviteOthers ?
-                                <div>
-                                    <form onSubmit={this.handleSubmitInviteCamper}>
-                                        <FormControl>
-                                            <InputLabel htmlFor='invitee-username'>invitee username</InputLabel>
-                                            <Input
-                                                id='invitee-username'
-                                                onChange={this.handleChangeFor('inviteeUsername')}
-                                                value={this.state.inviteeUsername} />
-                                            <ButtonSendInvitation onClick={this.handleSubmitInviteCamper} />
-                                            <ButtonCancel onClick={this.handleClickInviteOtherFolks} />
-                                        </FormControl>
-                                        {/* WHALEHUNTER this button does not call the function upon click - figure out why! */}
-                                        {/* <ButtonAddCircleOutline onClick={()=> {this.handleSubmitInviteCamper}}/> */}
-                                    </form>
-                                </div>
-                                :
-                                ''}
-                        </Paper>
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableBody>
+                                    </Table>
+                                </form>
+                                {/* WHALEHUNTER this button does not call the function upon click - figure out why! */}
+                                {/* <ButtonAddCircleOutline onClick={() => {this.handleClickInviteOtherFolks}} text="Invite Other Folks"/> */}
+                                {this.state.inviteOthers ?
+                                    <div>
+                                        <form onSubmit={this.handleSubmitInviteCamper}>
+                                            <FormControl>
+                                                <InputLabel htmlFor='invitee-username'>invitee username</InputLabel>
+                                                <Input
+                                                    id='invitee-username'
+                                                    onChange={this.handleChangeFor('inviteeUsername')}
+                                                    value={this.state.inviteeUsername} />
+                                                <ButtonSendInvitation onClick={this.handleSubmitInviteCamper} />
+                                                <ButtonCancel onClick={this.handleClickInviteOtherFolks} />
+                                            </FormControl>
+                                            {/* WHALEHUNTER this button does not call the function upon click - figure out why! */}
+                                            {/* <ButtonAddCircleOutline onClick={()=> {this.handleSubmitInviteCamper}}/> */}
+                                        </form>
+                                    </div>
+                                    :
+                                    ''}
+                            </Paper>
+                        </div>
                         :
                         <p>Select a trip</p>
                     }

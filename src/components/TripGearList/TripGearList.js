@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Nav from '../../components/Nav/Nav';
-import TripGearListTable from '../TripGearListTable/TripGearListTable';
 
+import TripGearListTable from '../TripGearListTable/TripGearListTable';
+import CurrentViewIndicator from '../CurrentViewIndicator/CurrentViewIndicator';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
 import { GEAR_ACTIONS } from '../../redux/actions/gearActions';
@@ -54,11 +55,7 @@ class TripGearList extends Component {
         if (this.props.user.userName) {
             content = (
                 <div>
-                    <h1
-                        id=""
-                    >
-                        Gear
-                    </h1>
+                    <CurrentViewIndicator currentViewName="Gear"/>
                     <TripGearListTable />
                 </div>
             );

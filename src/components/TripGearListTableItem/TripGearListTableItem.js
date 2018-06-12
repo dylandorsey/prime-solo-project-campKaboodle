@@ -21,6 +21,7 @@ class TripGearListTableItem extends Component {
                 {this.props.item.username ?
                     <TableCell padding='none'>
                         <Chip
+                            className="provider-chip"
                             label={this.props.item.username}
                             onDelete={() => { this.props.handleClickRemoveProvider(this.props.item) }}
                         />

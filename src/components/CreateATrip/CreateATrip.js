@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
+
 import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -15,14 +16,16 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Snackbar from '@material-ui/core/Snackbar';
-
 import TextField from '@material-ui/core/TextField';
+
+import CurrentViewIndicator from '../CurrentViewIndicator/CurrentViewIndicator';
+import ButtonSendInvitation from '../ButtonSendInvitation/ButtonSendInvitation';
+
 
 import Nav from '../../components/Nav/Nav';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
-import ButtonSendInvitation from '../ButtonSendInvitation/ButtonSendInvitation';
 
 const mapStateToProps = state => ({
     user: state.user,
@@ -98,6 +101,7 @@ class CreateATrip extends Component {
 
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+        this.props.dispatch({ type: TRIP_ACTIONS.UNSET_CURRENT_TRIP });
     }
 
     componentDidUpdate() {
@@ -184,12 +188,8 @@ class CreateATrip extends Component {
         if (this.props.user.userName) {
             content = (
                 <div>
-                    <h1
-                        id=""
-                    >
-                        Create-A-Trip
-                    </h1>
-                    <Paper>
+                    <CurrentViewIndicator currentViewName="New Trip"/>
+                    <Paper className="table" elevation={1} square="true">
                         <form onSubmit={this.submitHandler}>
                             <Table>
                                 <TableBody>

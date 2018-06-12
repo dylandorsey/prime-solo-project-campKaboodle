@@ -1,5 +1,23 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #008B66;
+}
+
+.CurrentTripIndicator {
+    background-color: #D96727 !important;
+    height: 33.75px;
+}
+
+.CurrentViewIndicator {
+    background-color: #F4C344 !important;
+    height: 21px;
+    margin-top: 8px;
+    margin-bottom: -1px;
+}
+
+.Header {
+    background-color: #413522 !important;
+    color:  #F4C344 ;
 }
 
 .instructions h1 {
@@ -11,6 +29,17 @@ body {
     background-color: #00acb0;
     padding: 5px;
     color: #ece7e7;
+}
+
+.provider-chip {
+    background-color: #0078A5 !important;
+    color:  #F4C344 !important;
+}
+
+.table {
+    background-color: #DFEFCF !important;
+    /* background-color: #0078A5 !important; */
+    rounded: false;
 }
 
 /* form {
