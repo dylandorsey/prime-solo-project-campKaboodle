@@ -20,10 +20,6 @@ class TripCamperListTableItem extends Component {
                     <ButtonDeleteForever onClick={() => 
                         { this.props.handleClickDelete(this.props.item) }} />
                 </TableCell>
-                <TableCell>
-                    <Checkbox
-                    />
-                </TableCell>
             </TableRow >
         );
     }

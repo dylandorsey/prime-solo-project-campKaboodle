@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
+import Chip from '@material-ui/core/Chip';
+
 import ButtonDeleteForever from '../ButtonDeleteForever/ButtonDeleteForever';
 
 const mapStateToProps = state => ({
@@ -14,25 +16,22 @@ class TripGearListTableItem extends Component {
     render() {
         return (
             <TableRow>
-                <TableCell>{this.props.item.description}</TableCell>
-                <TableCell>{this.props.item.quantity}</TableCell>
+                <TableCell padding='none'>{this.props.item.description}</TableCell>
+                <TableCell padding='none'>{this.props.item.quantity}</TableCell>
                 {this.props.item.username ?
-                    <TableCell>
-                        {this.props.item.username}
-                        <button onClick={() => { this.props.handleClickRemoveProvider(this.props.item) }}>Cancel Provide</button>
+                    <TableCell padding='none'>
+                        <Chip
+                            label={this.props.item.username}
+                            onDelete={() => { this.props.handleClickRemoveProvider(this.props.item) }}
+                        />
                     </TableCell>
                     :
-                    <TableCell>
+                    <TableCell padding='none'>
                         <button onClick={() => { this.props.handleClickProvide(this.props.item) }}>Provide</button>
                     </TableCell>
                 }
-                <TableCell>
-                    <ButtonDeleteForever onClick={() => { this.props.handleClickDelete(this.props.item) }}/>
-                
-                </TableCell>
-                <TableCell>
-                    <Checkbox
-                    />
+                <TableCell padding='none'>
+                    <ButtonDeleteForever onClick={() => { this.props.handleClickDelete(this.props.item) }} />
                 </TableCell>
             </TableRow >
         );

@@ -68,7 +68,6 @@ class LoginPage extends Component {
         <Typography variant="title" gutterBottom>
         Log in to plan your next camping adventure
         </Typography>
-        <pre>{JSON.stringify(this.props, null, 2)}</pre>
         <form onSubmit={this.login}>
           <div>
             <label htmlFor="username">

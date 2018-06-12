@@ -49,16 +49,9 @@ class UserTripList extends Component {
                     <h1
                         id=""
                     >
-
                         Your trips
                     </h1>
                     <UserTripListTable />
-
-                    <button
-                        onClick={this.logout}
-                    >
-                        Log Out
-          </button>
                 </div>
             );
         }

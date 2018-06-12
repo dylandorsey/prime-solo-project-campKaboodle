@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 
-
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 
-import ButtonAbout from '../ButtonAbout/ButtonAbout';
 import ButtonAddCircleOutline from '../ButtonAddCircleOutline/ButtonAddCircleOutline';
+
+import { triggerLogout } from '../../redux/actions/loginActions';
 
 const styles = {
     fullList: {
@@ -26,32 +26,60 @@ const styles = {
 };
 
 const mapStateToProps = state => ({
+    user: state.user,
     state,
 });
 
 class DrawerList extends Component {
 
+    logout = () => {
+        this.props.dispatch(triggerLogout());
+    }
+
     render() {
 
         return (
             <div className={this.props.classes.list}>
-                <List>
-                    <Typography className={this.props.classes.drawerListItem}
-                        variant="subheading" gutterBottom
-                        component={Link} to='/create-a-trip'
-                    >
-                    <ButtonAddCircleOutline/>
-                    Create a trip
+                {
+                    !this.props.user.isLoading && this.props.user.userName === null ?
+                        <div>
+                            <Typography
+                                variant="body1" gutterBottom
+                            >
+                                We're happy that you chose campKaboodle :)
+                                Please login!
+                            </Typography>
+                        </div>
+                        :
+                        <div>
+                        <List>
+                            <ButtonAddCircleOutline />
+                            <Typography className={this.props.classes.drawerListItem}
+                                variant="subheading" gutterBottom
+                                component={Link} to='/create-a-trip'
+                            >
+                                Create a trip
+                            </Typography>
+                        </List>
+                        <Divider />
+                        <List>
+                            <Typography
+                                variant="subheading" gutterBottom
+                                component={Link} to='/user-trip-list'
+                            >Your trips
                     </Typography>
-                </List>
-                <Divider />
-                <List>
-                    <Typography
-                        variant="subheading" gutterBottom
-                        component={Link} to='/user-trip-list'
-                    >Your trips
-                    </Typography>
-                </List>
+                        </List>
+                        <Divider />
+                        <List
+                            onClick={this.logout}
+                        >
+                            <Typography
+                                variant="subheading" gutterBottom
+                            >Logout
+                        </Typography>
+                        </List>
+                        </div>
+                }
             </div>
         );
     }

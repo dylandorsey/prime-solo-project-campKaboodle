@@ -109,7 +109,7 @@ export function callTripGearByQuantityDESC(trip_id) {
   const params = {
     trip_id: trip_id,
   }
-  return axios.get(`api/gear/quantity-DESC`, { params })
+  return axios.get(`api/gear/quantity-desc`, { params })
     .then(response => response.data)
     .catch((error) => { throw error.response || error; });
 }

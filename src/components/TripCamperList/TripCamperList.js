@@ -45,14 +45,9 @@ class UserPage extends Component {
                     <h1
                         id=""
                     >
-                        Campers coming on your trip:
+                        Campers coming on this trip:
                     </h1>
                     <TripCamperListTable />
-                    <button
-                        onClick={this.logout}
-                    >
-                        Log Out
-          </button>
                 </div>
             );
         }

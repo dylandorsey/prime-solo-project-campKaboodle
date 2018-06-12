@@ -8,12 +8,16 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import TextField from '@material-ui/core/TextField';
 
 import Nav from '../../components/Nav/Nav';
 
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
-import { triggerLogout } from '../../redux/actions/loginActions';
+import ButtonSendInvitation from '../ButtonSendInvitation/ButtonSendInvitation';
 
 const mapStateToProps = state => ({
     user: state.user,
@@ -39,7 +43,7 @@ class UserPage extends Component {
         }
     }
 
-    createNewTrip= () => {
+    createNewTrip = () => {
         const payload = { newTrip: this.state.newTrip };
         this.props.dispatch({
             type: TRIP_ACTIONS.CREATE_NEW_TRIP,
@@ -54,11 +58,6 @@ class UserPage extends Component {
                 [propertyName]: event.target.value
             }
         });
-    }
-
-    logout = () => {
-        this.props.dispatch(triggerLogout());
-        this.props.history.push('home');
     }
 
     navToUserMainMenu = () => {
@@ -115,48 +114,89 @@ class UserPage extends Component {
                     <Paper>
                         <form onSubmit={this.submitHandler}>
                             <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Edit trip details below</TableCell>
-                                    </TableRow>
-                                </TableHead>
                                 <TableBody>
                                     <TableRow>
-                                        <TableCell>Trip Name</TableCell>
-                                        <TableCell><input onChange={this.handleChangeFor('name')}></input></TableCell>
+                                        <TableCell>
+                                            <FormControl>
+                                                <InputLabel htmlFor='trip-name'>Trip name</InputLabel>
+                                                <Input
+                                                    id='trip-name'
+                                                    onChange={this.handleChangeFor('name')}
+                                                    value={this.state.newTrip.name}
+                                                />
+                                            </FormControl>
+                                        </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>Location</TableCell>
-                                        <TableCell><input onChange={this.handleChangeFor('location')}></input></TableCell>
+                                        <TableCell>
+                                            <FormControl>
+                                                <InputLabel htmlFor='trip-location'>Trip location</InputLabel>
+                                                <Input
+                                                    id='trip-location'
+                                                    onChange={this.handleChangeFor('location')}
+                                                    value={this.state.newTrip.location}
+                                                />
+                                            </FormControl>
+                                        </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>Meetup Time</TableCell>
-                                        <TableCell><input type="datetime-local" onChange={this.handleChangeFor('exit_spot')}></input></TableCell>
+                                        <TableCell>
+                                            <TextField
+                                                id='meetup-time'
+                                                label='Meetup time'
+                                                onChange={this.handleChangeFor('meetup_time')}
+                                                value={this.state.newTrip.meetup_time}
+                                                type="datetime-local"
+                                                InputLabelProps={{
+                                                    shrink: true,
+                                                }}
+                                            />
+                                        </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>Meetup Spot</TableCell>
-                                        <TableCell><input onChange={this.handleChangeFor('meetup_spot')}></input></TableCell>
+                                        <TableCell>
+                                            <FormControl>
+                                                <InputLabel htmlFor='meetup-spot'>Meetup spot</InputLabel>
+                                                <Input
+                                                    id='meetup-spot'
+                                                    onChange={this.handleChangeFor('meetup_spot')}
+                                                    value={this.state.newTrip.meetup_spot}
+                                                />
+                                            </FormControl>
+                                        </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>Exit Time</TableCell>
-                                        <TableCell><input type="datetime-local" onChange={this.handleChangeFor('exit_time')}></input></TableCell>
+                                        <TableCell>
+                                            {/* <InputLabel htmlFor='exit-time'>Exit Time</InputLabel> */}
+                                            <TextField
+                                                id='exit-time'
+                                                label='Exit time'
+                                                onChange={this.handleChangeFor('exit_time')}
+                                                value={this.state.newTrip.exit_time}
+                                                type="datetime-local"
+                                                InputLabelProps={{
+                                                    shrink: true,
+                                                }}
+                                            />
+                                        </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>Exit Spot</TableCell>
-                                        <TableCell><input onChange={this.handleChangeFor('exit_spot')}></input></TableCell>
+                                        <TableCell>
+                                            <FormControl>
+                                                <InputLabel htmlFor='exit-spot'>Exit spot</InputLabel>
+                                                <Input
+                                                    id='exit-spot'
+                                                    onChange={this.handleChangeFor('exit')}
+                                                    value={this.state.newTrip.exit_spot}
+                                                />
+                                            </FormControl>
+                                        </TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
-                            <input type="submit" value="create new trip"></input>
+                            <ButtonSendInvitation onClick={this.submitHandler} />
                         </form>
                     </Paper>
-
-
-                    <button
-                        onClick={this.logout}
-                    >
-                        Log Out
-          </button>
                 </div>
             );
         }

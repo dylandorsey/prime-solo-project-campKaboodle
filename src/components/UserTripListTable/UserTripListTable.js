@@ -9,8 +9,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
-import {TRIP_ACTIONS} from '../../redux/actions/tripActions';
+import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
 import UserTripListTableItem from '../UserTripListTableItem/UserTripListTableItem';
 
 const mapStateToProps = state => ({
@@ -63,7 +64,7 @@ class UserTripTable extends Component {
     }
 
     executeLeaveTrip = (trip_id) => {
-        this.props.dispatch({ type: TRIP_ACTIONS.REQUEST_USER_LEAVE_TRIP, payload: trip_id})
+        this.props.dispatch({ type: TRIP_ACTIONS.REQUEST_USER_LEAVE_TRIP, payload: trip_id })
     }
 
     handleClickDelete = (tripID) => {
@@ -71,37 +72,31 @@ class UserTripTable extends Component {
     }
 
     handleClickDetails = (trip) => {
-        this.props.dispatch({ type: TRIP_ACTIONS.START_SAGA_SET_CURRENT_TRIP, payload: trip})
+        this.props.dispatch({ type: TRIP_ACTIONS.START_SAGA_SET_CURRENT_TRIP, payload: trip })
     }
 
     handleClickJoin = (trip_id) => {
-        this.props.dispatch({ type: TRIP_ACTIONS.REQUEST_USER_JOIN_TRIP, payload: trip_id})
+        this.props.dispatch({ type: TRIP_ACTIONS.REQUEST_USER_JOIN_TRIP, payload: trip_id })
     }
 
 
     handleClickLeave = (trip_id) => {
         this.confirmActionLeaveTrip(trip_id);
     }
-    
+
     render() {
         return (
             <Paper>
                 <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>TRIP</TableCell>
-                            <TableCell>START DATE</TableCell>
-                        </TableRow>
-                    </TableHead>
                     <TableBody>
-                        {this.props.state.trip.userTrips.map(item=> 
-                        <UserTripListTableItem 
-                        key={item.id} item={item} 
-                        handleClickDetails={this.handleClickDetails}
-                        handleClickJoin={this.handleClickJoin} 
-                        handleClickLeave={this.handleClickLeave}
-                        handleClickDelete={this.handleClickDelete}
-                        />)}
+                        {this.props.state.trip.userTrips.map(item =>
+                            <UserTripListTableItem
+                                key={item.id} item={item}
+                                handleClickDetails={this.handleClickDetails}
+                                handleClickJoin={this.handleClickJoin}
+                                handleClickLeave={this.handleClickLeave}
+                                handleClickDelete={this.handleClickDelete}
+                            />)}
                     </TableBody>
                 </Table>
             </Paper>

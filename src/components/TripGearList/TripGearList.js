@@ -35,11 +35,6 @@ class TripGearList extends Component {
         this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR, payload: this.props.currentTrip });
     }
 
-    logout = () => {
-        this.props.dispatch(triggerLogout());
-        // this.props.history.push('home');
-    }
-
     navToTripGearList = () => {
         this.props.history.push('trip-gear-list');
     }
@@ -62,14 +57,9 @@ class TripGearList extends Component {
                     <h1
                         id=""
                     >
+                        Gear
                     </h1>
                     <TripGearListTable />
-
-                    <button
-                        onClick={this.logout}
-                    >
-                        Log Out
-          </button>
                 </div>
             );
         }

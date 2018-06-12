@@ -16,6 +16,7 @@ import FormControl from '@material-ui/core/FormControl';
 
 
 import ButtonAddCamper from '../ButtonAddCamper/ButtonAddCamper';
+import ButtonCancel from '../ButtonCancel/ButtonCancel';
 import ButtonSendInvitation from '../ButtonSendInvitation/ButtonSendInvitation';
 import ButtonViewCampers from '../ButtonViewCampers/ButtonViewCampers';
 import ButtonViewList from '../ButtonViewList/ButtonViewList';
@@ -26,6 +27,7 @@ import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
 import { Typography } from '@material-ui/core';
+
 
 const mapStateToProps = state => ({
     user: state.user,
@@ -91,7 +93,6 @@ class TripOverview extends Component {
 
     clearInput = () => {
         this.setState({
-            ...this.state,
             inviteeUsername: '',
         });
     }
@@ -114,6 +115,12 @@ class TripOverview extends Component {
         });
     }
 
+    handleSnackBarClose = () => {
+        this.setState({
+            open: false,
+        });
+    }
+
     handleClickInviteOtherFolks = () => {
         this.setState({
             inviteOthers: !this.state.inviteOthers,
@@ -122,6 +129,9 @@ class TripOverview extends Component {
 
     handleSubmitInviteCamper = event => {
         event.preventDefault();
+        this.handleSnackBarOpen();
+        this.clearInput();
+        console.log(this.state.open);
         this.props.dispatch({
             type: TRIP_ACTIONS.INVITE_USER,
             payload: {
@@ -129,11 +139,14 @@ class TripOverview extends Component {
                 trip_id: this.props.currentTrip.id,
             },
         });
+
+    }
+
+    handleSnackBarOpen = () => {
+        console.log('init handleSnackBarOpen')
         this.setState({
-            // open: true,
-            inviteOthers: !this.state.inviteOthers,
+            open: true,
         });
-        this.clearInput();
     }
 
     logout = () => {
@@ -158,11 +171,12 @@ class TripOverview extends Component {
         this.props.history.push('user-main-menu');
     }
 
-    submitHandler = event => {
+    HandleSubmitEdits = event => {
         event.preventDefault();
     }
 
     render() {
+        console.log(this.state.open);
         let content = null;
         let currentTrip = this.props.currentTrip;
 
@@ -174,7 +188,7 @@ class TripOverview extends Component {
                     </h1>
                     {this.props.currentTrip ?
                         <Paper>
-                            <form onSubmit={this.submitHandler}>
+                            <form onSubmit={this.handleSubmitEdits}>
                                 <Table>
                                     <TableBody>
                                         <TableRow>
@@ -205,8 +219,8 @@ class TripOverview extends Component {
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>Trip Gear</TableCell>
-                                            <TableCell>
-                                                <ButtonViewList onClick={this.navToTripGearList} />
+                                            <TableCell onClick={this.navToTripGearList}>
+                                                <ButtonViewList  />
                                                 <Typography variant="body1" gutterBottom>
                                                     ({this.props.gear.tripGear.length} items)
                                                 </Typography>
@@ -214,14 +228,16 @@ class TripOverview extends Component {
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>Campers</TableCell>
-                                            <TableCell>
-                                                <ButtonViewCampers onClick={this.navToTripCamperList} />
+                                            <TableCell onClick={this.navToTripCamperList}>
+                                                <ButtonViewCampers  />
                                                 <Typography variant="body1" gutterBottom>
-                                                    ({this.props.trip.currentTripCamperList.length} campers)
+                                                    {this.props.trip.currentTripCamperList.length>1 ? 
+                                                        <p>{this.props.trip.currentTripCamperList.length} campers</p> :
+                                                        <p>{this.props.trip.currentTripCamperList.length} camper</p>}
                                                 </Typography>
                                             </TableCell>
-                                            <TableCell>
-                                                <ButtonAddCamper onClick={this.handleClickInviteOtherFolks} />
+                                            <TableCell onClick={this.handleClickInviteOtherFolks} >
+                                                <ButtonAddCamper />
                                                 <Typography variant="body1" gutterBottom>Invite others
                                                 </Typography>
                                             </TableCell>
@@ -233,16 +249,19 @@ class TripOverview extends Component {
                             {/* <ButtonAddCircleOutline onClick={() => {this.handleClickInviteOtherFolks}} text="Invite Other Folks"/> */}
                             {this.state.inviteOthers ?
                                 <div>
-                                    <FormControl onSubmit={this.handleSubmitInviteCamper}>
-                                        <InputLabel htmlFor="invitee-username">invitee username</InputLabel>
-                                        <Input
-                                            id="invitee-username"
-                                            onChange={this.handleChangeFor('inviteeUsername')}
-                                            value={this.state.inviteeUsername} />
-                                        <ButtonSendInvitation onClick={this.handleSubmitInviteCamper} type="submit" value="Invite user" />
-                                    </FormControl>
-                                    {/* WHALEHUNTER this button does not call the function upon click - figure out why! */}
-                                    {/* <ButtonAddCircleOutline onClick={()=> {this.handleSubmitInviteCamper}}/> */}
+                                    <form onSubmit={this.handleSubmitInviteCamper}>
+                                        <FormControl>
+                                            <InputLabel htmlFor='invitee-username'>invitee username</InputLabel>
+                                            <Input
+                                                id='invitee-username'
+                                                onChange={this.handleChangeFor('inviteeUsername')}
+                                                value={this.state.inviteeUsername} />
+                                            <ButtonSendInvitation onClick={this.handleSubmitInviteCamper} />
+                                            <ButtonCancel onClick={this.handleClickInviteOtherFolks} />
+                                        </FormControl>
+                                        {/* WHALEHUNTER this button does not call the function upon click - figure out why! */}
+                                        {/* <ButtonAddCircleOutline onClick={()=> {this.handleSubmitInviteCamper}}/> */}
+                                    </form>
                                 </div>
                                 :
                                 ''}
@@ -250,23 +269,17 @@ class TripOverview extends Component {
                         :
                         <p>Select a trip</p>
                     }
-                    <button
-                        onClick={this.logout}
-                    >
-                        Log Out
-                    </button>
-
                     <Snackbar
                         open={this.state.open}
                         autoHideDuration={4000}
-                        onClose={this.handleClose}
+                        onClose={this.handleSnackBarClose}
                         ContentProps={{
                             'aria-describedby': 'snackbar-fab-message-id',
                             className: this.props.classes.snackbarContent,
                         }}
                         message={<span id="snackbar-fab-message-id">Invitation sent</span>}
                         action={
-                            <Button color="inherit" size="small" onClick={this.handleClose}>
+                            <Button color="inherit" size="small" onClick={this.handleSnackBarClose}>
                                 Close
                             </Button>
                         }

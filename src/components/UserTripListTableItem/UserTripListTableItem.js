@@ -4,25 +4,37 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
 import ButtonDeleteForever from '../ButtonDeleteForever/ButtonDeleteForever';
+import ButtonLeaveTrip from '../ButtonLeaveTrip/ButtonLeaveTrip';
+import ButtonViewTripDetails from '../ButtonViewTripDetails/ButtonViewTripDetails';
+import ButtonJoinTrip from '../ButtonJoinTrip/ButtonJoinTrip';
 
 class UserTripTableItem extends Component {
-render() {
+    render() {
         return (
             <TableRow>
-                <TableCell>{this.props.item.name}</TableCell>
-                <TableCell>{this.props.item.meetup_time}</TableCell>
+                <TableCell
+                    padding='none'
+                >
+                    {this.props.item.name}
+                </TableCell>
                 {this.props.item.user_hasAccepted ?
-                    <TableCell>
-                        <button onClick={() => { this.props.handleClickDetails(this.props.item) }}>Details</button>
-                        <button onClick={() => { this.props.handleClickLeave(this.props.item.id) }}>Leave trip</button>
+                    <TableCell
+                        padding='none'
+                    >
+                        <ButtonViewTripDetails onClick={() => { this.props.handleClickDetails(this.props.item) }}/>
+                        <ButtonLeaveTrip onClick={() => { this.props.handleClickLeave(this.props.item.id) }} />
                     </TableCell>
                     :
-                    <TableCell>
-                        <button onClick={() => { this.props.handleClickJoin(this.props.item.id) }}>Join</button>
+                    <TableCell
+                        padding='none'
+                    >
+                        <ButtonJoinTrip onClick={() => { this.props.handleClickJoin(this.props.item.id) }} />
                     </TableCell>
                 }
-                <TableCell>
-                    <ButtonDeleteForever  onClick={() => { this.props.handleClickDelete(this.props.item) }}/>
+                <TableCell
+                    padding='none'
+                >
+                    <ButtonDeleteForever onClick={() => { this.props.handleClickDelete(this.props.item) }} />
                 </TableCell>
             </TableRow>
         );

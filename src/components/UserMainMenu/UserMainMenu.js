@@ -58,7 +58,7 @@ class UserPage extends Component {
                     >
                         User Main Menu
                     </h1>
-                    <h3>Hi, {this.props.user.userName}! Let's plan your camp!</h3>
+                    <h3>Hi, {this.props.user.userName}! Let's plan your adventure!</h3>
 
                     <button
                         onClick={this.navToCreateTrip}
@@ -72,11 +72,6 @@ class UserPage extends Component {
                         onClick={this.navToUserGearInventory}
                     >Your gear
                     </button> */}
-                    <button
-                        onClick={this.logout}
-                    >
-                        Log Out
-                    </button>
                 </div>
             );
         }
