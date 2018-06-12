@@ -185,7 +185,7 @@ class TripOverview extends Component {
                     {this.props.currentTrip ?
                         <div>
                             <CurrentViewIndicator currentViewName="Trip overview"/>
-                            <Paper className="table" elevation={1} square="true">
+                            <Paper className="table" elevation={1} square={true}>
                                 <form onSubmit={this.handleSubmitEdits}>
                                     <Table>
                                         <TableBody>

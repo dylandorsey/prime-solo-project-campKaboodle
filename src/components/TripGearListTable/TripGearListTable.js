@@ -243,7 +243,7 @@ class TripGearListTable extends Component {
     render() {
         return (
             <div>
-                <Paper className="table" elevation={1} square="true">
+                <Paper className="table" elevation={1} square={true}>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -294,7 +294,7 @@ class TripGearListTable extends Component {
                 <div>
                     {
                         this.state.addingItem ?
-                            <Paper elevation={6} square="true">
+                            <Paper elevation={6} square={true}>
                                 <form onSubmit={this.handleSubmitNewItem}>
                                     <Table>
                                         <TableBody>
@@ -326,7 +326,7 @@ class TripGearListTable extends Component {
                                 <ButtonSendInvitation onClick={this.handleSubmitNewItem} />
                             </Paper>
                             :
-                            <Paper elevation={6} square="true">
+                            <Paper elevation={6} square={true}>
                                 <Table>
                                     <TableBody>
                                         <TableRow>

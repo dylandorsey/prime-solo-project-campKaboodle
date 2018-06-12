@@ -189,7 +189,7 @@ class CreateATrip extends Component {
             content = (
                 <div>
                     <CurrentViewIndicator currentViewName="New Trip"/>
-                    <Paper className="table" elevation={1} square="true">
+                    <Paper className="table" elevation={1} square={true}>
                         <form onSubmit={this.submitHandler}>
                             <Table>
                                 <TableBody>

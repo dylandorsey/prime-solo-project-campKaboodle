@@ -16,8 +16,8 @@ class CurrentViewIndicator extends Component {
 
     render() {
         return (
-            <Paper className="CurrentViewIndicator" elevation={10}  square="true">
-                    <Typography vanriant="subheading">
+            <Paper className="CurrentViewIndicator" elevation={6}  square={true}>
+                    <Typography className="subheading" variant="subheading">
                         {this.props.currentViewName}
                     </Typography>
             </Paper >

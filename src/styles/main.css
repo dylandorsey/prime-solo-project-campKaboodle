@@ -12,7 +12,6 @@ body {
     background-color: #F4C344 !important;
     height: 21px;
     margin-top: 8px;
-    margin-bottom: -1px;
 }
 
 .Header {
@@ -36,10 +35,14 @@ body {
     color:  #F4C344 !important;
 }
 
+.subheading {
+    text-decoration: none;
+    text-align: center;
+}
+
 .table {
     background-color: #DFEFCF !important;
     /* background-color: #0078A5 !important; */
-    rounded: false;
 }
 
 /* form {

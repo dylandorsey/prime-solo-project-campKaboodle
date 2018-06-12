@@ -58,8 +58,8 @@ class Header extends Component {
 
     return (
       <div className={this.props.classes.root}>
-        <AppBar position="static" color="default">
-          <Paper className="Header" elevation={8} square="true">
+        <AppBar position="static" color="default" elevation={8}>
+          <Paper className="Header" elevation={8} square={true}>
             <Toolbar>
               <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
                 <div

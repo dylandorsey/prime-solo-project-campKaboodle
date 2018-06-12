@@ -53,7 +53,7 @@ class TripCamperListTable extends Component {
 
     render() {
         return (
-            <Paper className="table" elevation={1} square="true">
+            <Paper className="table" elevation={4} square={true}>
                 <Table>
                     <TableHead>
                         <TableRow>
