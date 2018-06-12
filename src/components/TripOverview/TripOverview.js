@@ -111,6 +111,7 @@ class TripOverview extends Component {
 
     handleChangeFor = propertyName => event => {
         this.setState({
+            ...this.state,
             [propertyName]: event.target.value,
         });
     }
@@ -118,6 +119,12 @@ class TripOverview extends Component {
     handleSnackBarClose = () => {
         this.setState({
             open: false,
+        });
+    }
+
+    handleSnackBarOpen = () => {
+        this.setState({
+            open: true,
         });
     }
 
@@ -140,13 +147,6 @@ class TripOverview extends Component {
             },
         });
 
-    }
-
-    handleSnackBarOpen = () => {
-        console.log('init handleSnackBarOpen')
-        this.setState({
-            open: true,
-        });
     }
 
     logout = () => {
@@ -301,5 +301,4 @@ TripOverview.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-// this allows us to use <App /> in index.js
 export default connect(mapStateToProps)(withStyles(styles)(TripOverview));
