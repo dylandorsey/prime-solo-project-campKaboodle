@@ -54,7 +54,6 @@ class UserPage extends Component {
     handleChangeFor = propertyName => event => {
         this.setState({
             newTrip: {
-                ...this.state.newTrip,
                 [propertyName]: event.target.value
             }
         });
@@ -122,7 +121,6 @@ class UserPage extends Component {
                                                 <Input
                                                     id='trip-name'
                                                     onChange={this.handleChangeFor('name')}
-                                                    value={this.state.newTrip.name}
                                                 />
                                             </FormControl>
                                         </TableCell>
@@ -134,7 +132,7 @@ class UserPage extends Component {
                                                 <Input
                                                     id='trip-location'
                                                     onChange={this.handleChangeFor('location')}
-                                                    value={this.state.newTrip.location}
+
                                                 />
                                             </FormControl>
                                         </TableCell>
@@ -145,7 +143,6 @@ class UserPage extends Component {
                                                 id='meetup-time'
                                                 label='Meetup time'
                                                 onChange={this.handleChangeFor('meetup_time')}
-                                                value={this.state.newTrip.meetup_time}
                                                 type="datetime-local"
                                                 InputLabelProps={{
                                                     shrink: true,
@@ -160,7 +157,6 @@ class UserPage extends Component {
                                                 <Input
                                                     id='meetup-spot'
                                                     onChange={this.handleChangeFor('meetup_spot')}
-                                                    value={this.state.newTrip.meetup_spot}
                                                 />
                                             </FormControl>
                                         </TableCell>
@@ -172,7 +168,6 @@ class UserPage extends Component {
                                                 id='exit-time'
                                                 label='Exit time'
                                                 onChange={this.handleChangeFor('exit_time')}
-                                                value={this.state.newTrip.exit_time}
                                                 type="datetime-local"
                                                 InputLabelProps={{
                                                     shrink: true,
@@ -187,14 +182,17 @@ class UserPage extends Component {
                                                 <Input
                                                     id='exit-spot'
                                                     onChange={this.handleChangeFor('exit')}
-                                                    value={this.state.newTrip.exit_spot}
                                                 />
                                             </FormControl>
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
+                            { this.state.newTrip.name ? 
                             <ButtonSendInvitation onClick={this.submitHandler} />
+                            :
+                            <div></div>
+                            }
                         </form>
                     </Paper>
                 </div>
