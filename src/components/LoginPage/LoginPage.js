@@ -65,9 +65,6 @@ class LoginPage extends Component {
     return (
       <div>
         { this.renderAlert() }
-        <Typography variant="title" gutterBottom>
-        Log in to plan your next camping adventure
-        </Typography>
         <form onSubmit={this.login}>
           <div>
             <label htmlFor="username">

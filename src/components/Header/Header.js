@@ -58,36 +58,40 @@ class Header extends Component {
         <AppBar position="static" color="default" elevation={1}>
           <Paper className="Header" elevation={2} square={true}>
             <Toolbar>
-              <Drawer open={this.state.right} onClose={this.toggleDrawer('right', false)}>
-                <div className="drawer"
-                  tabIndex={0}
-                  role="button"
-                  onClick={this.toggleDrawer('right', false)}
-                  onKeyDown={this.toggleDrawer('right', false)}
-                >
-                  <DrawerList />
-                </div>
-              </Drawer>
-              <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
-                <div className="drawer"
-                  tabIndex={0}
-                  role="button"
-                  onClick={this.toggleDrawer('left', false)}
-                  onKeyDown={this.toggleDrawer('left', false)}
-                >
-                  <About />
-                </div>
-              </Drawer>
               <ButtonAbout onClick={this.toggleDrawer('left', true)} />
               <Typography variant="title" color="inherit" className={this.props.classes.flex}>
                 {this.props.title}
               </Typography>
-              <ButtonHamburgerMenu
-                onClick={this.toggleDrawer('right', true)}
-              />
+              {this.props.user.userName ?
+                <ButtonHamburgerMenu
+                  onClick={this.toggleDrawer('right', true)}
+                />
+                :
+                <div></div>
+              }
             </Toolbar>
           </Paper>
         </AppBar>
+        <Drawer open={this.state.right} onClose={this.toggleDrawer('right', false)}>
+          <div className="drawer"
+            tabIndex={0}
+            role="button"
+            onClick={this.toggleDrawer('right', false)}
+            onKeyDown={this.toggleDrawer('right', false)}
+          >
+            <DrawerList />
+          </div>
+        </Drawer>
+        <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+          <div className="drawer"
+            tabIndex={0}
+            role="button"
+            onClick={this.toggleDrawer('left', false)}
+            onKeyDown={this.toggleDrawer('left', false)}
+          >
+            <About />
+          </div>
+        </Drawer>
       </div>
     );
   }

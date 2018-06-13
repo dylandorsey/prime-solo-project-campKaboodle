@@ -16,19 +16,26 @@ class CurrentTripIndicator extends Component {
         return (
             <div className="CurrentTripIndicatorContainer">
                 <Paper className="CurrentTripIndicator" elevation={2} square={true}>
-                    {this.props.currentTrip ?
-                        <Typography className="subheading" variant="subheading"
-                            component={Link}
-                            to='trip-overview'>
-                            {this.props.currentTrip.name}
-                        </Typography>
+                    {this.props.userName ?
+                        this.props.currentTrip ?
+                            <Typography className="subheading" variant="subheading"
+                                component={Link}
+                                to='trip-overview'>
+                                {this.props.currentTrip.name}
+                            </Typography>
+                            :
+                            <Typography className="subheading" variant="subheading"
+                                component={Link}
+                                to='user-trip-list'>
+                                Viewing your trips
+                            </Typography>
                         :
-                        <Typography className="subheading" variant="subheading"
-                            component={Link}
-                            to='user-trip-list'>
-                            Viewing your trips
+                        <Typography className="subheading" variant="subheading">
+                            Log in to plan your next camping adventure!
                     </Typography>
                     }
+
+
                 </Paper >
             </div>
 
