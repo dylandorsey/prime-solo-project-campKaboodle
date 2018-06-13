@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 const mapStateToProps = state => ({
     state,
     currentTrip: state.trip.currentTrip,
+    user: state.user,
 });
 
 class CurrentTripIndicator extends Component {
@@ -16,7 +17,7 @@ class CurrentTripIndicator extends Component {
         return (
             <div className="CurrentTripIndicatorContainer">
                 <Paper className="CurrentTripIndicator" elevation={2} square={true}>
-                    {this.props.userName ?
+                    {this.props.user.userName ?
                         this.props.currentTrip ?
                             <Typography className="subheading" variant="subheading"
                                 component={Link}
@@ -32,7 +33,7 @@ class CurrentTripIndicator extends Component {
                         :
                         <Typography className="subheading" variant="subheading">
                             Log in to plan your next camping adventure!
-                    </Typography>
+                        </Typography>
                     }
 
 

@@ -63,7 +63,7 @@ class DrawerList extends Component {
                                 <Typography
                                     className="drawer"
                                     variant="subheading"
-                                    component={Link} to='/create-a-trip'
+                                    component={Link} to='/user-trip-list'
                                 >YOUR TRIPS
                     </Typography>
                             </List>
@@ -74,7 +74,7 @@ class DrawerList extends Component {
                                 <Typography
                                     className="drawer"
                                     variant="subheading"
-                                    component={Link} to='/create-a-trip'
+                                    component={Link} to='/home'
                                 >LOGOUT
                         </Typography>
                             </List>
