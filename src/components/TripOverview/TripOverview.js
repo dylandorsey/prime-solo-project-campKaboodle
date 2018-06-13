@@ -184,49 +184,55 @@ class TripOverview extends Component {
                 <div>
                     {this.props.currentTrip ?
                         <div>
-                            <CurrentViewIndicator currentViewName="Trip overview"/>
+                            <CurrentViewIndicator currentViewName="Trip overview" />
                             <Paper className="table" elevation={1} square={true}>
                                 <form onSubmit={this.handleSubmitEdits}>
                                     <Table>
                                         <TableBody>
                                             <TableRow>
-                                                <TableCell>Trip Name</TableCell>
-                                                <TableCell>{currentTrip.name}</TableCell>
+                                                <TableCell className="tableCell">Trip Name</TableCell>
+                                                <TableCell className="tableCell">{currentTrip.name}</TableCell>
                                             </TableRow>
                                             <TableRow>
-                                                <TableCell>Location</TableCell>
-                                                <TableCell>{currentTrip.location}</TableCell>
+                                                <TableCell className="tableCell">Location</TableCell>
+                                                <TableCell className="tableCell">{currentTrip.location}</TableCell>
                                             </TableRow>
                                             <TableRow>
-                                                <TableCell>Meetup Time</TableCell>
-                                                <TableCell>
+                                                <TableCell className="tableCell">Meetup Time</TableCell>
+                                                <TableCell className="tableCell">
                                                     {currentTrip.meetup_time}
                                                 </TableCell>
                                             </TableRow>
                                             <TableRow>
-                                                <TableCell>Meetup Spot</TableCell>
-                                                <TableCell>{currentTrip.meetup_spot}</TableCell>
+                                                <TableCell className="tableCell">Meetup Spot</TableCell>
+                                                <TableCell className="tableCell">{currentTrip.meetup_spot}</TableCell>
                                             </TableRow>
                                             <TableRow>
-                                                <TableCell>Exit Time</TableCell>
-                                                <TableCell>{currentTrip.exit_time}</TableCell>
+                                                <TableCell className="tableCell">Exit Time</TableCell>
+                                                <TableCell className="tableCell">{currentTrip.exit_time}</TableCell>
                                             </TableRow>
                                             <TableRow>
-                                                <TableCell>Exit Spot</TableCell>
-                                                <TableCell>{currentTrip.exit_spot}</TableCell>
+                                                <TableCell className="tableCell">Exit Spot</TableCell>
+                                                <TableCell className="tableCell">{currentTrip.exit_spot}</TableCell>
                                             </TableRow>
                                             <TableRow>
-                                                <TableCell>Trip Gear</TableCell>
-                                                <TableCell onClick={this.navToTripGearList}>
+                                                <TableCell className="tableCell">Trip Gear</TableCell>
+                                                <TableCell
+                                                    className="tableCell"
+                                                    onClick={this.navToTripGearList}
+                                                >
                                                     <ButtonViewList />
                                                     <Typography variant="body1" gutterBottom>
                                                         ({this.props.gear.tripGear.length} items)
-                                                </Typography>
+                                                    </Typography>
                                                 </TableCell>
                                             </TableRow>
                                             <TableRow>
-                                                <TableCell>Campers</TableCell>
-                                                <TableCell onClick={this.navToTripCamperList}>
+                                                <TableCell className="tableCell">Campers</TableCell>
+                                                <TableCell
+                                                    className="tableCell"
+                                                    onClick={this.navToTripCamperList}
+                                                >
                                                     <ButtonViewCampers />
                                                     <Typography variant="body1" gutterBottom>
                                                         {this.props.trip.currentTripCamperList.length > 1 ?
@@ -234,7 +240,10 @@ class TripOverview extends Component {
                                                             `(${this.props.trip.currentTripCamperList.length} camper)`}
                                                     </Typography>
                                                 </TableCell>
-                                                <TableCell onClick={this.handleClickInviteOtherFolks} >
+                                                <TableCell
+                                                    className="tableCell"
+                                                    onClick={this.handleClickInviteOtherFolks}
+                                                >
                                                     <ButtonAddCamper />
                                                     <Typography variant="body1" gutterBottom>Invite others
                                                 </Typography>

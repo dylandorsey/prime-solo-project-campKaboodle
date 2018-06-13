@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { ArrowUpward } from '@material-ui/icons'; // destructuring
+import { ArrowDropUp } from '@material-ui/icons';
 
 const ButtonArrowUpward = props => (
-        <ArrowUpward onClick={props.onClick}/>
+        <ArrowDropUp onClick={props.onClick}/>
 );
 
 export default ButtonArrowUpward;

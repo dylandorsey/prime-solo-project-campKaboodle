@@ -19,10 +19,6 @@ const styles = {
     list: {
         width: 300,
     },
-    drawerlistItem: {
-        textDecoration: 'none',
-        paddingLeft: 10,
-    }
 };
 
 const mapStateToProps = state => ({
@@ -39,7 +35,7 @@ class DrawerList extends Component {
     render() {
 
         return (
-            <div className={this.props.classes.list}>
+            <div className="List">
                 {
                     !this.props.user.isLoading && this.props.user.userName === null ?
                         <div>
@@ -52,32 +48,36 @@ class DrawerList extends Component {
                         </div>
                         :
                         <div>
-                        <List>
-                            <ButtonAddCircleOutline />
-                            <Typography className={this.props.classes.drawerListItem}
-                                variant="subheading" gutterBottom
-                                component={Link} to='/create-a-trip'
-                            >
-                                Create a trip
+                            <List>
+                                <ButtonAddCircleOutline />
+                                <Typography
+                                    className="drawer"
+                                    variant="subheading"
+                                    component={Link} to='/create-a-trip'
+                                >
+                                    CREATE A TRIP
                             </Typography>
-                        </List>
-                        <Divider />
-                        <List>
-                            <Typography
-                                variant="subheading" gutterBottom
-                                component={Link} to='/user-trip-list'
-                            >Your trips
+                            </List>
+                            <Divider />
+                            <List>
+                                <Typography
+                                    className="drawer"
+                                    variant="subheading"
+                                    component={Link} to='/create-a-trip'
+                                >YOUR TRIPS
                     </Typography>
-                        </List>
-                        <Divider />
-                        <List
-                            onClick={this.logout}
-                        >
-                            <Typography
-                                variant="subheading" gutterBottom
-                            >Logout
+                            </List>
+                            <Divider />
+                            <List
+                                onClick={this.logout}
+                            >
+                                <Typography
+                                    className="drawer"
+                                    variant="subheading"
+                                    component={Link} to='/create-a-trip'
+                                >LOGOUT
                         </Typography>
-                        </List>
+                            </List>
                         </div>
                 }
             </div>

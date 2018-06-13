@@ -87,8 +87,8 @@ class UserTripTable extends Component {
     render() {
         return (
             <Paper className="table" elevation={1} square={true}>
-                <Table>
-                    <TableBody>
+                {/* <Table>
+                    <TableBody> */}
                         {this.props.state.trip.userTrips.map(item =>
                             <UserTripListTableItem
                                 key={item.id} item={item}
@@ -97,8 +97,8 @@ class UserTripTable extends Component {
                                 handleClickLeave={this.handleClickLeave}
                                 handleClickDelete={this.handleClickDelete}
                             />)}
-                    </TableBody>
-                </Table>
+                    {/* </TableBody>
+                </Table> */}
             </Paper>
         );
     }

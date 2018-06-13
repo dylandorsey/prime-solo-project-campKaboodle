@@ -15,7 +15,7 @@ class CurrentTripIndicator extends Component {
     render() {
         return (
             <div className="CurrentTripIndicatorContainer">
-                <Paper className="CurrentTripIndicator" elevation={8} square={true}>
+                <Paper className="CurrentTripIndicator" elevation={2} square={true}>
                     {this.props.currentTrip ?
                         <Typography className="subheading" variant="subheading"
                             component={Link}
@@ -26,7 +26,7 @@ class CurrentTripIndicator extends Component {
                         <Typography className="subheading" variant="subheading"
                             component={Link}
                             to='user-trip-list'>
-                            View your trips
+                            Viewing your trips
                     </Typography>
                     }
                 </Paper >

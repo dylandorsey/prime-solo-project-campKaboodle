@@ -17,6 +17,8 @@ import FormControl from '@material-ui/core/FormControl';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
+import Typography from '@material-ui/core/Typography';
+
 
 import { GEAR_ACTIONS } from '../../redux/actions/gearActions';
 import ButtonAddCircleOutline from '../ButtonAddCircleOutline/ButtonAddCircleOutline';
@@ -32,7 +34,6 @@ const mapStateToProps = state => ({
     currentTrip: state.trip.currentTrip,
     tripGear: state.gear.tripGear
 });
-
 
 const styles = theme => ({
     root: {
@@ -84,6 +85,15 @@ class TripGearListTable extends Component {
 
         this.state = {
             addingItem: false,
+            description: {
+                sortAscending: true,
+            },
+            quantity: {
+                sortAscending: true,
+            },
+            provider: {
+                sortAscending: true,
+            },
             newItem: {
                 description: '',
                 quantity: '',
@@ -183,29 +193,59 @@ class TripGearListTable extends Component {
 
     handleClickSortByDescriptionAscending = () => {
         this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR, payload: this.props.currentTrip });
+        this.setState({
+            description: {
+                sortAscending: false,
+            }
+        })
     }
 
     handleClickSortByDescriptionDescending = () => {
         this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR_BY_DESCRIPTION_DESC, payload: this.props.currentTrip });
+        this.setState({
+            description: {
+                sortAscending: true,
+            }
+        })
     }
 
     handleClickSortByProviderAscending = () => {
         this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR_BY_PROVIDER_ASC, payload: this.props.currentTrip });
+        this.setState({
+            provider: {
+                sortAscending: false,
+            }
+        })
     }
 
     handleClickSortByProviderDescending = () => {
         console.log('init handleClickSortyByProviderDescending');
         this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR_BY_PROVIDER_DESC, payload: this.props.currentTrip });
+        this.setState({
+            provider: {
+                sortAscending: true,
+            }
+        })
     }
 
     handleClickSortByQuantityAscending = () => {
         console.log('init handleClickSortByQuantityAscending');
         this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR_BY_QUANTITY_ASC, payload: this.props.currentTrip });
+        this.setState({
+            quantity: {
+                sortAscending: false,
+            }
+        })
     }
 
     handleClickSortByQuantityDescending = () => {
         console.log('init handleClickSortByQuantityDescending');
-        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR_BY_QUANTITY_ASC, payload: this.props.currentTrip });
+        this.props.dispatch({ type: GEAR_ACTIONS.FETCH_TRIP_GEAR_BY_QUANTITY_DESC, payload: this.props.currentTrip });
+        this.setState({
+            quantity: {
+                sortAscending: true,
+            }
+        })
     }
 
     handleSubmitNewItem = event => {
@@ -247,36 +287,49 @@ class TripGearListTable extends Component {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell padding='none'>ITEM</TableCell>
-                                <TableCell padding='none'>QUANTITY</TableCell>
-                                <TableCell padding='none'>PROVIDER</TableCell>
-                                <TableCell padding='none'></TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell padding='none'>
-                                    <ButtonArrowUpward
-                                        onClick={() => { this.handleClickSortByDescriptionAscending() }}
-                                    ></ButtonArrowUpward>
-                                    <ButtonArrowDownward
-                                        onClick={() => { this.handleClickSortByDescriptionDescending() }}
-                                    ></ButtonArrowDownward>
+                                <TableCell className="tableCell-header">
+                                    <Typography className="typography-header" variant="body2">
+                                        Item
+                            </Typography>
+                                    {this.state.description.sortAscending ?
+                                        <ButtonArrowUpward
+                                            onClick={() => { this.handleClickSortByDescriptionAscending() }}
+                                        ></ButtonArrowUpward>
+                                        :
+                                        <ButtonArrowDownward
+                                            onClick={() => { this.handleClickSortByDescriptionDescending() }}
+                                        ></ButtonArrowDownward>
+                                    }
                                 </TableCell>
-                                <TableCell padding='none'>
-                                    <ButtonArrowUpward
-                                        onClick={() => { this.handleClickSortByQuantityAscending() }}
-                                    ></ButtonArrowUpward>
-                                    <ButtonArrowDownward
-                                        onClick={() => { this.handleClickSortByQuantityDescending() }}
-                                    ></ButtonArrowDownward>
+                                <TableCell className="tableCell-header">
+                                    <Typography className="typography-header" variant="body2">
+                                        Quantity
+                            </Typography>
+                                    {this.state.quantity.sortAscending ?
+                                        <ButtonArrowDownward
+                                            onClick={() => { this.handleClickSortByQuantityAscending() }}
+                                        ></ButtonArrowDownward>
+                                        :
+                                        <ButtonArrowUpward
+                                            onClick={() => { this.handleClickSortByQuantityDescending() }}
+                                        ></ButtonArrowUpward>
+                                    }
                                 </TableCell>
-                                <TableCell padding='none'>
-                                    <ButtonArrowUpward
-                                        onClick={() => { this.handleClickSortByProviderAscending() }}
-                                    ></ButtonArrowUpward>
-                                    <ButtonArrowDownward
-                                        onClick={() => { this.handleClickSortByProviderDescending() }}
-                                    ></ButtonArrowDownward>
+                                <TableCell className="tableCell-header">
+                                    <Typography className="typography-header" variant="body2">
+                                        Provider
+                            </Typography>
+                                    {this.state.provider.sortAscending ?
+                                        <ButtonArrowDownward
+                                            onClick={() => { this.handleClickSortByProviderAscending() }}
+                                        ></ButtonArrowDownward>
+                                        :
+                                        <ButtonArrowUpward
+                                            onClick={() => { this.handleClickSortByProviderDescending() }}
+                                        ></ButtonArrowUpward>
+                                    }
                                 </TableCell>
+                                <TableCell className="tableCell-header"></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -294,12 +347,12 @@ class TripGearListTable extends Component {
                 <div>
                     {
                         this.state.addingItem ?
-                            <Paper elevation={6} square={true}>
+                            <Paper className="add-new" elevation={6} square={true}>
                                 <form onSubmit={this.handleSubmitNewItem}>
                                     <Table>
                                         <TableBody>
                                             <TableRow>
-                                                <TableCell padding='none'>
+                                                <TableCell className="tableCell-add-new">
                                                     <FormControl>
                                                         <InputLabel htmlFor='item-description'>New item description</InputLabel>
                                                         <Input
@@ -308,7 +361,7 @@ class TripGearListTable extends Component {
                                                             value={this.state.newItem.description} />
                                                     </FormControl>
                                                 </TableCell>
-                                                <TableCell padding='none'>
+                                                <TableCell className="tableCell-add-new">
                                                     <FormControl>
                                                         <InputLabel htmlFor='item-quantity'>Quantity</InputLabel>
                                                         <Input

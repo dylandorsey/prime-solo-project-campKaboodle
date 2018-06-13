@@ -11,32 +11,30 @@ import ButtonJoinTrip from '../ButtonJoinTrip/ButtonJoinTrip';
 class UserTripTableItem extends Component {
     render() {
         return (
-            <TableRow>
-                <TableCell
-                    padding='none'
-                >
-                    {this.props.item.name}
-                </TableCell>
+            <div className="tripTable-row">
+                <div className="tripTable-row-tripName">
+
+                    <p>{this.props.item.name}</p>
+                </div>
+
                 {this.props.item.user_hasAccepted ?
-                    <TableCell
-                        padding='none'
-                    >
-                        <ButtonViewTripDetails onClick={() => { this.props.handleClickDetails(this.props.item) }}/>
+                    <div className="tripTable-row-tripActions">
+                        <ButtonViewTripDetails onClick={() => { this.props.handleClickDetails(this.props.item) }} />
                         <ButtonLeaveTrip onClick={() => { this.props.handleClickLeave(this.props.item.id) }} />
-                    </TableCell>
+
+                    </div>
                     :
-                    <TableCell
-                        padding='none'
-                    >
-                        <ButtonJoinTrip onClick={() => { this.props.handleClickJoin(this.props.item.id) }} />
-                    </TableCell>
+                    <div className="tripTable-row-tripActions">
+
+                        <ButtonJoinTrip onClick={() => { this.props.handleClickJoin(this.props.item.id) }
+                        } />
+
+                    </div>
                 }
-                <TableCell
-                    padding='none'
-                >
+                <div className="tripTable-row-delete">
                     <ButtonDeleteForever onClick={() => { this.props.handleClickDelete(this.props.item) }} />
-                </TableCell>
-            </TableRow>
+                </div>
+            </div >
         );
     }
 }

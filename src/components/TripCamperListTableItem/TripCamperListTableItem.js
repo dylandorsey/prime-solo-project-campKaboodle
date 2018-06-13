@@ -14,9 +14,13 @@ class TripCamperListTableItem extends Component {
     render() {
         return (
             <TableRow>
-                <TableCell>{this.props.item.username}</TableCell>
-                <TableCell>{this.props.item.user_hasAccepted ? "true" : "false"}</TableCell>
-                <TableCell>
+                <TableCell className="tableCell">
+                {this.props.item.username}
+                </TableCell>
+                <TableCell className="tableCell">
+                {this.props.item.user_hasAccepted ? "true" : "false"}
+                </TableCell>
+                <TableCell className="tableCell">
                     <ButtonDeleteForever onClick={() => 
                         { this.props.handleClickDelete(this.props.item) }} />
                 </TableCell>

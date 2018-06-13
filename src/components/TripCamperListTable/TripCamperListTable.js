@@ -10,6 +10,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 import { TRIP_ACTIONS } from '../../redux/actions/tripActions';
 import TripCamperListTableItem from '../TripCamperListTableItem/TripCamperListTableItem';
@@ -57,13 +58,19 @@ class TripCamperListTable extends Component {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Username</TableCell>
-                            <TableCell>Accepted Invitation</TableCell>
+                            <TableCell className="tableCell-header">
+                                <Typography className="typography-header" variant="body2">
+                                    Username
+                            </Typography>
+                            </TableCell>
+                            <TableCell className="tableCell-header">
+                            <Typography className="typography-header" variant="body2">
+                                    Accepted Invitation
+                            </Typography>
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableRow>
-                        </TableRow>
                         {this.props.trip.currentTripCamperList.map(item =>
                             <TripCamperListTableItem
                                 key={item.user_id}
