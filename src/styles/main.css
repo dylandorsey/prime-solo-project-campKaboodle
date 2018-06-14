@@ -89,7 +89,6 @@ body {
 
 .table {
     background-color: #DFEFCF !important;
-    /* background-color: #0078A5 !important; */
 }
 
 .tripOverviewRowLabel{
@@ -157,6 +156,56 @@ body {
     grid-template-columns: 1fr 3fr;
     grid-auto-flow: column;
     padding: 0px 0px 0px 0px;
+}
+
+.tripGearListTableContentRow {
+    align-content: center;
+    display: grid;
+    grid-template-columns: 3fr 1fr 2fr 1fr;
+    justify-self: stretch;
+}
+
+.tripGearListTableContentRowItem {
+    justify-self: left;
+    grid-column: 1 / 2;
+}
+
+.tripGearListTableContentRowQuantity {
+    justify-self: left;
+    grid-column: 2 / 3;
+}
+
+.tripGearListTableContentRowProvider {
+    justify-self: left;
+    grid-column: 3 / 4;
+}
+
+.tripGearListTableContentRowDelete {
+    justify-self: right;
+    align-self: top;
+    grid-column: 4 / 5;
+}
+
+.tripGearListTableHeaderRow {
+    align-content: center;
+    display: grid;
+    grid-template-columns: 3fr 1fr 2fr 1fr;
+    justify-self: stretch;
+}
+
+.tripGearListTableHeaderRowItem {
+    justify-self: left;
+    grid-column: 1 / 2;
+}
+
+.tripGearListTableHeaderRowQuantity {
+    justify-self: left;
+    grid-column: 2 / 3;
+}
+
+.tripGearListTableHeaderRowProvider {
+    justify-self: left;
+    grid-column: 3 / 4;
 }
 
 .tableCell-header {

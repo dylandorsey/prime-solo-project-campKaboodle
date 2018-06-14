@@ -18,38 +18,42 @@ const mapStateToProps = state => ({
 class TripGearListTableItem extends Component {
     render() {
         return (
-            <TableRow>
-                <TableCell className="tableCell">{this.props.item.description}</TableCell>
-                <TableCell padding='none'>{this.props.item.quantity}</TableCell>
+            <div className="tripGearListTableContentRow">
+                <div className="tripGearListTableContentRowItem">
+                    {this.props.item.description}
+                </div>
+                <div className="tripGearListTableContentRowQuantity">
+                    {this.props.item.quantity}
+                </div>
                 {this.props.item.username ?
                     (this.props.item.username == this.props.user.userName ?
-                        <TableCell className="tableCell">
+                        <div className="tripGearListTableContentRowProvider">
                             <Chip
                                 className="provider-chip-user"
                                 label="You"
                                 onDelete={() => { this.props.handleClickRemoveProvider(this.props.item) }}
                             />
-                        </TableCell>
+                        </div>
                         :
-                        <TableCell className="tableCell">
+                        <div className="tripGearListTableContentRowProvider">
                             <Chip
                                 className="provider-chip-other"
                                 label={this.props.item.username}
                                 onDelete={() => { this.props.handleClickRemoveProvider(this.props.item) }}
                             />
-                        </TableCell>
+                        </div>
                     )
                     :
-                    <TableCell className="tableCell">
+                    <div className="tripGearListTableContentRowProvider">
                         <ButtonAddCircleOutline onClick={() => { this.props.handleClickProvide(this.props.item) }} />
                         <Typography variant="body1">Provide
                             </Typography>
-                    </TableCell>
+                    </div>
                 }
-                <TableCell className="tableCell">
+                <div className="tripGearListTableContentRowDelete">
                     <ButtonDeleteForever onClick={() => { this.props.handleClickDelete(this.props.item) }} />
-                </TableCell>
-            </TableRow >
+                </div>
+            </div>
         );
     }
 }
