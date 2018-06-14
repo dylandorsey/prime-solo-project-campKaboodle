@@ -191,7 +191,7 @@ class TripOverview extends Component {
                                         <div className="tripOverviewRowLabel">
                                             <p>Trip Name</p>
                                         </div>
-                                        <div className="tripOverviewRowContent">
+                                        <div className="tripOverviewRow-StaticDetails">
                                             <p>{currentTrip.name}</p>
                                         </div>
                                     </div>
@@ -199,7 +199,7 @@ class TripOverview extends Component {
                                         <div className="tripOverviewRowLabel">
                                             <p>Location</p>
                                         </div>
-                                        <div className="tripOverviewRowContent">
+                                        <div className="tripOverviewRow-StaticDetails">
                                             <p>{currentTrip.location}</p>
                                         </div>
                                     </div>
@@ -207,7 +207,7 @@ class TripOverview extends Component {
                                         <div className="tripOverviewRowLabel">
                                             <p>Meetup Time</p>
                                         </div>
-                                        <div className="tripOverviewRowContent">
+                                        <div className="tripOverviewRow-StaticDetails">
                                             <p>{currentTrip.meetup_time}</p>
                                         </div>
                                     </div>
@@ -215,7 +215,7 @@ class TripOverview extends Component {
                                         <div className="tripOverviewRowLabel">
                                             <p>Meetup Spot</p>
                                         </div>
-                                        <div className="tripOverviewRowContent">
+                                        <div className="tripOverviewRow-StaticDetails">
                                             <p>{currentTrip.meetup_spot}</p>
                                         </div>
                                     </div>
@@ -223,7 +223,7 @@ class TripOverview extends Component {
                                         <div className="tripOverviewRowLabel">
                                             <p>Exit Time</p>
                                         </div>
-                                        <div className="tripOverviewRowContent">
+                                        <div className="tripOverviewRow-StaticDetails">
                                             <p>{currentTrip.exit_time}</p>
                                         </div>
                                     </div>
@@ -231,7 +231,7 @@ class TripOverview extends Component {
                                         <div className="tripOverviewRowLabel">
                                             <p>Exit Spot</p>
                                         </div>
-                                        <div className="tripOverviewRowContent">
+                                        <div className="tripOverviewRow-StaticDetails">
                                             <p>{currentTrip.exit_spot}</p>
                                         </div>
                                     </div>
@@ -239,13 +239,13 @@ class TripOverview extends Component {
                                         <div className="tripOverviewRowLabel">
                                             <p>Trip Gear</p>
                                         </div>
-                                        <div className="tripOverviewRowContent"
+                                        <div className="tripOverviewRow-ListDetails"
                                         >
                                             <div className="tripOverviewRowContentGearListButton">
                                                 <ButtonViewList onClick={this.navToTripGearList} />
                                             </div>
                                             <div className="tripOverviewRowContentGearListQuantity">
-                                                <p>
+                                                <p className="tripOverview-p">
                                                     ({this.props.gear.tripGear.length} items)
                                                 </p>
                                             </div>
@@ -257,12 +257,12 @@ class TripOverview extends Component {
                                         >
                                             <p>Campers</p>
                                         </div>
-                                        <div className="tripOverviewRowContent">
+                                        <div className="tripOverviewRow-ListDetails">
                                             <div className="tripOverviewRowContentGearListButton">
                                                 <ButtonViewCampers onClick={this.navToTripCamperList} />
                                             </div>
                                             <div>
-                                                <p>
+                                                <p className="tripOverview-p">
                                                     {this.props.trip.currentTripCamperList.length > 1 ?
                                                         `(${this.props.trip.currentTripCamperList.length} campers)` :
                                                         `(${this.props.trip.currentTripCamperList.length} camper)`}
@@ -272,7 +272,9 @@ class TripOverview extends Component {
                                                 <ButtonAddCamper onClick={this.handleClickInviteOtherFolks} />
                                             </div>
                                             <div className="tripOverviewRowContentInviteOthersText">
-                                                <p>Invite others</p>
+                                                <p className="tripOverview-p">
+                                                    Invite others
+                                                    </p>
                                             </div>
                                         </div>
                                     </div>

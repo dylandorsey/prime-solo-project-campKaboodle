@@ -45,9 +45,14 @@ class TripGearListTableItem extends Component {
                     )
                     :
                     <div className="tripGearListTableContentRowProvider">
-                        <ButtonAddCircleOutline onClick={() => { this.props.handleClickProvide(this.props.item) }} />
-                        <Typography variant="body1">Provide
-                            </Typography>
+                        <div className="buttonProvide">
+                            <ButtonAddCircleOutline onClick={() => { this.props.handleClickProvide(this.props.item) }} />
+                        </div>
+                        <div>
+                            <div>
+                                <p>Provide</p>
+                            </div>
+                        </div>
                     </div>
                 }
                 <div className="tripGearListTableContentRowDelete">

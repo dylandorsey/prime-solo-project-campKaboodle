@@ -92,6 +92,7 @@ body {
 }
 
 .tripOverviewRowLabel{
+    align-self: center;
     grid-column: 1 / 2;
     justify-self: stretch;
     padding: 0px;
@@ -102,11 +103,31 @@ body {
     color:  #413522;
     font-weight: bold;
     line-height: 1.0;
+    padding: 0px;
 }
 
-.tripOverviewRowContent {
+.tripOverview-p {
+    font-size: 12px;
+    color:  #413522;
+    line-height: 1.0;
+    padding: 0px;
+}
+
+.tripOverviewRow-StaticDetails {
     align-content: center;
     display: grid;
+    grid-column: 2 / 3 ;
+    justify-self: stretch;
+    font-size: 12px;
+    color:  #413522;
+    line-height: 1.0;
+    padding: 0px;
+}
+
+.tripOverviewRow-ListDetails {
+    align-content: center;
+    display: grid;
+    grid-auto-flow: column;
     grid-column: 2 / 3 ;
     grid-template-columns: 1fr 5fr 1fr 5fr;
     justify-self: stretch;
@@ -142,74 +163,88 @@ body {
     align-self: center;
 }
 
-.tripOverviewRowContent p {
-    align-self: center;
-    font-size: 12px;
-    line-height: 1.0;
-    justify-self: left;
-}
-
 .tripOverviewTableRow {
     color:  #413522 !important;
     display: grid;
     fill:  #413522 !important;
     grid-template-columns: 1fr 3fr;
     grid-auto-flow: column;
-    padding: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 4px;
 }
 
 .tripGearListTableContentRow {
-    align-content: center;
     display: grid;
-    grid-template-columns: 3fr 1fr 2fr 1fr;
+    grid-template-columns: 4fr 2fr 2fr 1fr;
     justify-self: stretch;
+    color:  #413522;
+    font-size: 12;
+    padding-left: 4px;
 }
 
 .tripGearListTableContentRowItem {
+    align-self: center;
     justify-self: left;
     grid-column: 1 / 2;
 }
 
 .tripGearListTableContentRowQuantity {
+    align-self: center;
     justify-self: left;
     grid-column: 2 / 3;
+    padding-left: 4px;
 }
 
 .tripGearListTableContentRowProvider {
+    align-self: center;
     justify-self: left;
     grid-column: 3 / 4;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
 }
 
 .tripGearListTableContentRowDelete {
     justify-self: right;
-    align-self: top;
+    align-self: center;
     grid-column: 4 / 5;
 }
 
 .tripGearListTableHeaderRow {
-    align-content: center;
     display: grid;
-    grid-template-columns: 3fr 1fr 2fr 1fr;
-    justify-self: stretch;
+    grid-template-columns: 4fr 2fr 2fr 1fr;
+    color:  #413522;
+    font-weight: bold;
+    font-size: 12;
 }
 
 .tripGearListTableHeaderRowItem {
-    justify-self: left;
     grid-column: 1 / 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-self: left;
+}
+
+.buttonProvide {
+    align-self: center;
+    justify-self: left;
+}
+
+.buttonSort{
+    align-self: center;
+    justify-self: left;
 }
 
 .tripGearListTableHeaderRowQuantity {
-    justify-self: left;
     grid-column: 2 / 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-self: left;
 }
 
 .tripGearListTableHeaderRowProvider {
-    justify-self: left;
     grid-column: 3 / 4;
-}
-
-.tableCell-header {
-    padding: 2px !important;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-self: left;
 }
 
 .tripTable-row {
@@ -218,7 +253,7 @@ body {
     fill:  #413522 !important;
     grid-template-columns: 5fr 2fr 1fr;
     grid-auto-flow: column;
-    padding: 0px;
+    padding-left: 4px;
 }
 
 .tripTable-row-tripName {
@@ -308,9 +343,4 @@ li a {
 li a:hover {
     text-decoration: underline;
     color: #eee;
-}
-
-p {
-    padding-left: 2px;
-    color:  #413522;
 }

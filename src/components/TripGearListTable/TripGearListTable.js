@@ -287,37 +287,36 @@ class TripGearListTable extends Component {
                     <Paper className="table" elevation={1} square={true}>
                         <div className="tripGearListTableHeaderRow">
                             <div className="tripGearListTableHeaderRowItem">
-                                <Typography className="typography-header" variant="body2">
-                                    Item
-                                    </Typography>
-                                {this.state.description.sortAscending ?
-                                    <ButtonArrowUpward
-                                        onClick={() => { this.handleClickSortByDescriptionAscending() }}
-                                    ></ButtonArrowUpward>
-                                    :
-                                    <ButtonArrowDownward
-                                        onClick={() => { this.handleClickSortByDescriptionDescending() }}
-                                    ></ButtonArrowDownward>
-                                }
+                                <p>Item</p>
+                                <div className="ButtonSort">
+                                    {this.state.description.sortAscending ?
+                                        <ButtonArrowUpward
+                                            onClick={() => { this.handleClickSortByDescriptionAscending() }}
+                                        ></ButtonArrowUpward>
+                                        :
+                                        <ButtonArrowDownward
+                                            onClick={() => { this.handleClickSortByDescriptionDescending() }}
+                                        ></ButtonArrowDownward>
+                                    }
+                                </div>
                             </div>
                             <div className="tripGearListTableHeaderRowQuantity">
-                                <Typography className="typography-header" variant="body2">
-                                    Quantity
-                                    </Typography>
-                                {this.state.quantity.sortAscending ?
-                                    <ButtonArrowDownward
-                                        onClick={() => { this.handleClickSortByQuantityAscending() }}
-                                    ></ButtonArrowDownward>
-                                    :
-                                    <ButtonArrowUpward
-                                        onClick={() => { this.handleClickSortByQuantityDescending() }}
-                                    ></ButtonArrowUpward>
-                                }
+                                <p>Qty</p>
+                                <div className="ButtonSort">
+                                    {this.state.quantity.sortAscending ?
+                                        <ButtonArrowDownward
+                                            onClick={() => { this.handleClickSortByQuantityAscending() }}
+                                        ></ButtonArrowDownward>
+                                        :
+                                        <ButtonArrowUpward
+                                            onClick={() => { this.handleClickSortByQuantityDescending() }}
+                                        ></ButtonArrowUpward>
+                                    }
+                                </div>
                             </div>
                             <div className="tripGearListTableHeaderRowProvider">
-                                <Typography className="typography-header" variant="body2">
-                                    Provider
-                                    </Typography>
+                                <p>Provider</p>
+                                <div className="ButtonSort">
                                 {this.state.provider.sortAscending ?
                                     <ButtonArrowDownward
                                         onClick={() => { this.handleClickSortByProviderAscending() }}
@@ -327,6 +326,7 @@ class TripGearListTable extends Component {
                                         onClick={() => { this.handleClickSortByProviderDescending() }}
                                     ></ButtonArrowUpward>
                                 }
+                                </div>
                             </div>
                         </div>
                         <div>
