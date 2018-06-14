@@ -134,6 +134,7 @@ class CreateATrip extends Component {
         this.setState({
             open: false,
         });
+        this.props.history.push('user-trip-list');
     }
 
     handleSnackBarOpen = () => {
@@ -285,7 +286,7 @@ class CreateATrip extends Component {
                         message={<span id="snackbar-fab-message-id">Trip created</span>}
                         action={
                             <Button color="inherit" size="small" onClick={this.handleSnackBarClose}>
-                                Close
+                                View your trips
                             </Button>
                         }
                         className={this.props.classes.snackbar}

@@ -28,7 +28,7 @@ class CurrentTripIndicator extends Component {
                             <Typography className="subheading" variant="subheading"
                                 component={Link}
                                 to='user-trip-list'>
-                                Viewing your trips
+                                View your trips
                             </Typography>
                         :
                         <Typography className="subheading" variant="subheading">

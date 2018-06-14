@@ -48,7 +48,7 @@ class DrawerList extends Component {
                         </div>
                         :
                         <div>
-                            <List>
+                            <List className="drawer-create-trip">
                                 <ButtonAddCircleOutline />
                                 <Typography
                                     className="drawer"

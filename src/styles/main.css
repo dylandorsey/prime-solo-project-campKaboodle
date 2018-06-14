@@ -7,12 +7,22 @@ body {
 .CurrentTripIndicator {
     background-color: #D96727 !important;
     height: 33.75px;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-content: center;
+    justify-content: center;
+    padding: 0px;
 }
 
 .CurrentViewIndicator {
     background-color: #F4C344 !important;
     height: 21px;
     margin-top: 00px;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-content: center;
+    justify-content: center;
+    padding: 0px;
 }
 
 .drawer {
@@ -22,6 +32,17 @@ body {
     font-weight: bold !important;
     color: #F4C344 !important; 
     padding-left: 5px;
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 300px;
+
+}
+
+.drawer-create-trip {
+    grid-column: 1 / 2;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    justify-items: start;
 }
 
 .Header {
@@ -57,10 +78,14 @@ body {
 }
 
 .subheading {
-    text-decoration: none;
-    text-align: center;
-    padding: 0px;
     color: #413522 !important;
+    font-weight: bold !important;
+    padding-top: 4px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase !important;
+    line-height:1.00 !important;
+
 }
 
 .table {
@@ -68,10 +93,6 @@ body {
     /* background-color: #0078A5 !important; */
 }
 
-/* .tableCell {
-    padding: 2px !important;
-    color: #413522 !important; 
-} */
 
 .tableCell-header {
     padding: 2px !important;
@@ -112,15 +133,6 @@ body {
     font-weight: bold !important;
     color: #413522 !important; 
 }
-
-/* form {
-    background-color: #dbd5d5;
-    width: 30%;
-    height: 250px;
-    margin: 20px auto;
-    padding: 25px;
-    border-radius: 2px;
-} */
 
 input {
     margin: 5px;
