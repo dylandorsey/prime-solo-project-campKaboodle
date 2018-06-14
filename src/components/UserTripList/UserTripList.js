@@ -11,8 +11,8 @@ import { triggerLogout } from '../../redux/actions/loginActions';
 const mapStateToProps = state => ({
     user: state.user,
     state
-  });
-  
+});
+
 class UserTripList extends Component {
     componentDidMount() {
         this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
@@ -38,14 +38,14 @@ class UserTripList extends Component {
         console.log('init navToUserMainMenu');
         this.props.history.push('user-main-menu');
     }
-    
+
     render() {
         let content = null;
 
         if (this.props.user.userName) {
             content = (
                 <div>
-                    <CurrentViewIndicator currentViewName="Your trips"/>
+                    <CurrentViewIndicator currentViewName="Your trips" />
                     <UserTripListTable />
                 </div>
             );

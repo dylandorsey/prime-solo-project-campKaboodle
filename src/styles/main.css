@@ -85,7 +85,6 @@ body {
     text-decoration: none;
     text-transform: uppercase !important;
     line-height:1.00 !important;
-
 }
 
 .table {
@@ -93,23 +92,94 @@ body {
     /* background-color: #0078A5 !important; */
 }
 
+.tripOverviewRowLabel{
+    grid-column: 1 / 2;
+    justify-self: stretch;
+    padding: 0px;
+}
+
+.tripOverviewRowLabel p {
+    font-size: 12px;
+    color:  #413522;
+    font-weight: bold;
+    line-height: 1.0;
+}
+
+.tripOverviewRowContent {
+    align-content: center;
+    display: grid;
+    grid-column: 2 / 3 ;
+    grid-template-columns: 1fr 5fr 1fr 5fr;
+    justify-self: stretch;
+}
+
+.tripOverviewRowContentGearListButton{
+    grid-column: 1/2;
+    align-self: center;
+}
+
+.tripOverviewRowContentGearListQuantity {
+    grid-column: 2/3;
+    align-self: center;
+}
+
+.tripOverviewRowContentCampersButton {
+    grid-column: 1/2;
+    align-self: center;
+}
+
+.tripOverviewRowContentCampersQuantity {
+    grid-column: 2/3;
+    align-self: center;
+}
+
+.tripOverviewRowContentInviteOthersButton {
+    grid-column: 3/4;
+    align-self: center;
+}
+
+.tripOverviewRowContentInviteOthersText {
+    grid-column: 4/5;
+    align-self: center;
+}
+
+.tripOverviewRowContent p {
+    align-self: center;
+    font-size: 12px;
+    line-height: 1.0;
+    justify-self: left;
+}
+
+.tripOverviewTableRow {
+    color:  #413522 !important;
+    display: grid;
+    fill:  #413522 !important;
+    grid-template-columns: 1fr 3fr;
+    grid-auto-flow: column;
+    padding: 0px 0px 0px 0px;
+}
 
 .tableCell-header {
     padding: 2px !important;
 }
 
 .tripTable-row {
+    color:  #413522 !important;
     display: grid;
+    fill:  #413522 !important;
     grid-template-columns: 5fr 2fr 1fr;
     grid-auto-flow: column;
-    background-color: #DFEFCF;
-    padding: none;
+    padding: 0px;
 }
 
 .tripTable-row-tripName {
     grid-column: 1/2;
     justify-self: start;
     align-self: center;
+    font-size: 12px;
+    color:  #413522;
+    font-weight: bold;
+    line-height: 1.0;
 }
 
 .tripTable-row-tripActions {
@@ -193,4 +263,5 @@ li a:hover {
 
 p {
     padding-left: 2px;
+    color:  #413522;
 }

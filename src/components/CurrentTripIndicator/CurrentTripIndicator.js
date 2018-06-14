@@ -16,7 +16,7 @@ class CurrentTripIndicator extends Component {
     render() {
         return (
             <div className="CurrentTripIndicatorContainer">
-                <Paper className="CurrentTripIndicator" elevation={2} square={true}>
+                <Paper className="CurrentTripIndicator" elevation={4} square={true}>
                     {this.props.user.userName ?
                         this.props.currentTrip ?
                             <Typography className="subheading" variant="subheading"

@@ -186,76 +186,99 @@ class TripOverview extends Component {
                         <div>
                             <CurrentViewIndicator currentViewName="Trip overview" />
                             <Paper className="table" elevation={1} square={true}>
-                                <form onSubmit={this.handleSubmitEdits}>
-                                    <Table>
-                                        <TableBody>
-                                            <TableRow>
-                                                <TableCell className="tableCell">Trip Name</TableCell>
-                                                <TableCell className="tableCell">{currentTrip.name}</TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell className="tableCell">Location</TableCell>
-                                                <TableCell className="tableCell">{currentTrip.location}</TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell className="tableCell">Meetup Time</TableCell>
-                                                <TableCell className="tableCell">
-                                                    {currentTrip.meetup_time}
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell className="tableCell">Meetup Spot</TableCell>
-                                                <TableCell className="tableCell">{currentTrip.meetup_spot}</TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell className="tableCell">Exit Time</TableCell>
-                                                <TableCell className="tableCell">{currentTrip.exit_time}</TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell className="tableCell">Exit Spot</TableCell>
-                                                <TableCell className="tableCell">{currentTrip.exit_spot}</TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell className="tableCell">Trip Gear</TableCell>
-                                                <TableCell
-                                                    className="tableCell"
-                                                    onClick={this.navToTripGearList}
-                                                >
-                                                    <ButtonViewList />
-                                                    <Typography variant="body1" gutterBottom>
-                                                        ({this.props.gear.tripGear.length} items)
-                                                    </Typography>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell className="tableCell">Campers</TableCell>
-                                                <TableCell
-                                                    className="tableCell"
-                                                    onClick={this.navToTripCamperList}
-                                                >
-                                                    <ButtonViewCampers />
-                                                    <Typography variant="body1" gutterBottom>
-                                                        {this.props.trip.currentTripCamperList.length > 1 ?
-                                                            `(${this.props.trip.currentTripCamperList.length} campers)` :
-                                                            `(${this.props.trip.currentTripCamperList.length} camper)`}
-                                                    </Typography>
-                                                </TableCell>
-                                                <TableCell
-                                                    className="tableCell"
-                                                    onClick={this.handleClickInviteOtherFolks}
-                                                >
-                                                    <ButtonAddCamper />
-                                                    <Typography variant="body1" gutterBottom>Invite others
-                                                </Typography>
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableBody>
-                                    </Table>
+                                <form onSubmit={this.handleSubmitEdits} className="table">
+                                    <div className="tripOverviewTableRow">
+                                        <div className="tripOverviewRowLabel">
+                                            <p>Trip Name</p>
+                                        </div>
+                                        <div className="tripOverviewRowContent">
+                                            <p>{currentTrip.name}</p>
+                                        </div>
+                                    </div>
+                                    <div className="tripOverviewTableRow">
+                                        <div className="tripOverviewRowLabel">
+                                            <p>Location</p>
+                                        </div>
+                                        <div className="tripOverviewRowContent">
+                                            <p>{currentTrip.location}</p>
+                                        </div>
+                                    </div>
+                                    <div className="tripOverviewTableRow">
+                                        <div className="tripOverviewRowLabel">
+                                            <p>Meetup Time</p>
+                                        </div>
+                                        <div className="tripOverviewRowContent">
+                                            <p>{currentTrip.meetup_time}</p>
+                                        </div>
+                                    </div>
+                                    <div className="tripOverviewTableRow">
+                                        <div className="tripOverviewRowLabel">
+                                            <p>Meetup Spot</p>
+                                        </div>
+                                        <div className="tripOverviewRowContent">
+                                            <p>{currentTrip.meetup_spot}</p>
+                                        </div>
+                                    </div>
+                                    <div className="tripOverviewTableRow">
+                                        <div className="tripOverviewRowLabel">
+                                            <p>Exit Time</p>
+                                        </div>
+                                        <div className="tripOverviewRowContent">
+                                            <p>{currentTrip.exit_time}</p>
+                                        </div>
+                                    </div>
+                                    <div className="tripOverviewTableRow">
+                                        <div className="tripOverviewRowLabel">
+                                            <p>Exit Spot</p>
+                                        </div>
+                                        <div className="tripOverviewRowContent">
+                                            <p>{currentTrip.exit_spot}</p>
+                                        </div>
+                                    </div>
+                                    <div className="tripOverviewTableRow">
+                                        <div className="tripOverviewRowLabel">
+                                            <p>Trip Gear</p>
+                                        </div>
+                                        <div className="tripOverviewRowContent"
+                                        >
+                                            <div className="tripOverviewRowContentGearListButton">
+                                                <ButtonViewList onClick={this.navToTripGearList} />
+                                            </div>
+                                            <div className="tripOverviewRowContentGearListQuantity">
+                                                <p>
+                                                    ({this.props.gear.tripGear.length} items)
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="tripOverviewTableRow">
+                                        <div className="tripOverviewRowLabel"
+                                            onClick={this.navToTripCamperList}
+                                        >
+                                            <p>Campers</p>
+                                        </div>
+                                        <div className="tripOverviewRowContent">
+                                            <div className="tripOverviewRowContentGearListButton">
+                                                <ButtonViewCampers onClick={this.navToTripCamperList} />
+                                            </div>
+                                            <div>
+                                                <p>
+                                                    {this.props.trip.currentTripCamperList.length > 1 ?
+                                                        `(${this.props.trip.currentTripCamperList.length} campers)` :
+                                                        `(${this.props.trip.currentTripCamperList.length} camper)`}
+                                                </p>
+                                            </div>
+                                            <div className="tripOverviewRowContentInviteOthersButton">
+                                                <ButtonAddCamper onClick={this.handleClickInviteOtherFolks} />
+                                            </div>
+                                            <div className="tripOverviewRowContentInviteOthersText">
+                                                <p>Invite others</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </form>
-                                {/* WHALEHUNTER this button does not call the function upon click - figure out why! */}
-                                {/* <ButtonAddCircleOutline onClick={() => {this.handleClickInviteOtherFolks}} text="Invite Other Folks"/> */}
                                 {this.state.inviteOthers ?
-                                    <div>
+                                    <div className="tripOverviewRowLabel">
                                         <form onSubmit={this.handleSubmitInviteCamper}>
                                             <FormControl>
                                                 <InputLabel htmlFor='invitee-username'>invitee username</InputLabel>

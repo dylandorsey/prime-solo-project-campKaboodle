@@ -13,7 +13,6 @@ class UserTripTableItem extends Component {
         return (
             <div className="tripTable-row">
                 <div className="tripTable-row-tripName">
-
                     <p>{this.props.item.name}</p>
                 </div>
 

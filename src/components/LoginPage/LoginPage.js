@@ -27,7 +27,7 @@ class LoginPage extends Component {
   
   componentWillReceiveProps(nextProps) {
     if (nextProps.user.userName) {
-      this.props.history.push('/user-main-menu');
+      this.props.history.push('user-trip-list');
     }
   }
 
