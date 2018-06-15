@@ -2,6 +2,7 @@
     color: #F4C344 !important;
     text-decoration: none;
     line-height:1.00 !important;
+    font-size: 12px;
 }
 
 ::-webkit-autofill,
@@ -10,7 +11,6 @@
 ::-webkit-autofill:active {
 -webkit-box-shadow: 0 0 0 0px !important;
  }
-
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -116,6 +116,7 @@ body {
     text-decoration: none;
     line-height:1.00 !important;
     -webkit-appearance: none;
+    font-size: 12px;
 
 }
 
@@ -166,6 +167,7 @@ body {
     text-decoration: none;
     line-height:1.00 !important;
     -webkit-appearance: none;
+    font-size: 12px;
 
 }
 
@@ -403,6 +405,80 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-self: left;
+}
+
+#newGearItemInput {
+    background-color: #413522 !important;
+    color:  #F4C344 ;
+    display: grid;
+    grid-template-columns: 4fr 2fr 4fr;
+    padding: 0 4 4 4px;
+}
+
+#newGearItemDescription {
+    grid-column: 1 / 2 ;
+    justify-self: left;
+    background-color: #413522;
+}
+
+#newGearItemDescription input {
+    background-color: #413522;
+    border-width: 0px 0px 2px 0px;
+    border-bottom-color: #F4C344;
+    padding-top: 4px;
+    color: #F4C344;
+    font-size: 12px;
+    
+}
+
+#newGearItemInitiate {
+    background-color: #413522;
+    color:  #F4C344 ;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: right;
+}
+
+#newGearItemInitiateButton {
+    justify-self: right;
+    margin: 0 4 4 4px !important;
+}
+
+#newGearItemQuantity {
+    grid-column: 2 / 3;
+    justify-self: left;
+    background-color: #413522;
+}
+
+#newGearItemQuantity input {
+    background-color: #413522;
+    border-width: 0px 0px 2px 0px;
+    border-bottom-color: #F4C344;
+    padding-top: 4px;
+    color: #F4C344;
+    font-size: 12px;
+}
+
+#newGearItemActions {
+    grid-column: 3 / 4;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-self: center;
+}
+
+#cancelAddItem {
+    justify-self: right;
+}
+
+#submitAddItem {
+    justify-self:right;
+    padding-right: 4px;
+}
+
+#addNewItem {
+    margin-top: 4px;
+    background-color: #413522 !important;
+    padding: 8 4 4 4px;
 }
 
 .buttonProvide {

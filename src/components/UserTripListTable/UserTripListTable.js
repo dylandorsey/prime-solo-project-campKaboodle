@@ -157,7 +157,7 @@ class UserTripTable extends Component {
     render() {
         return (
             <div>
-                <Paper className="table" elevation={1} square={true}>
+                <Paper elevation={1} square={true}>
                     {/* <Table>
                     <TableBody> */}
                     {this.props.state.trip.userTrips.map(item =>

@@ -317,15 +317,15 @@ class TripGearListTable extends Component {
                             <div className="tripGearListTableHeaderRowProvider">
                                 <p>Provider</p>
                                 <div className="buttonSort">
-                                {this.state.provider.sortAscending ?
-                                    <ButtonArrowDownward
-                                        onClick={() => { this.handleClickSortByProviderAscending() }}
-                                    ></ButtonArrowDownward>
-                                    :
-                                    <ButtonArrowUpward
-                                        onClick={() => { this.handleClickSortByProviderDescending() }}
-                                    ></ButtonArrowUpward>
-                                }
+                                    {this.state.provider.sortAscending ?
+                                        <ButtonArrowDownward
+                                            onClick={() => { this.handleClickSortByProviderAscending() }}
+                                        ></ButtonArrowDownward>
+                                        :
+                                        <ButtonArrowUpward
+                                            onClick={() => { this.handleClickSortByProviderDescending() }}
+                                        ></ButtonArrowUpward>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -341,52 +341,42 @@ class TripGearListTable extends Component {
                         </div>
                     </Paper>
                 </div>
-                <div>
+                <div id="addNewItem">
                     {this.state.addingItem ?
-                        <Paper className="add-new" elevation={6} square={true}>
-                            <form onSubmit={this.handleSubmitNewItem}>
-                                <Table>
-                                    <TableBody>
-                                        <TableRow>
-                                            <TableCell className="tableCell-add-new">
-                                                <FormControl>
-                                                    <InputLabel htmlFor='item-description'>New item description</InputLabel>
-                                                    <Input
-                                                        id='item-description'
-                                                        onChange={this.handleChangeFor('description')}
-                                                        value={this.state.newItem.description} />
-                                                </FormControl>
-                                            </TableCell>
-                                            <TableCell className="tableCell-add-new">
-                                                <FormControl>
-                                                    <InputLabel htmlFor='item-quantity'>Quantity</InputLabel>
-                                                    <Input
-                                                        id='item-quantity'
-                                                        type='number'
-                                                        onChange={this.handleChangeFor('quantity')}
-                                                        value={this.state.newItem.quantity} />
-                                                </FormControl>
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
+                        <Paper elevation={1} square={true}>
+                            <form id="newGearItemInput" onSubmit={this.handleSubmitNewItem}>
+                                    <div id="newGearItemDescription">
+                                        <input
+                                            id="newItemDescription"
+                                            type="text"
+                                            name="newItemDescription"
+                                            placeholder="description"
+                                            onChange={this.handleChangeFor('description')}
+                                            value={this.state.newItem.description}
+                                        />
+                                    </div>
+                                    <div id="newGearItemQuantity">
+                                        <input
+                                            id="newItemQuantity"
+                                            type="number"
+                                            placeholder="quantity"
+                                            onChange={this.handleChangeFor('quantity')}
+                                            value={this.state.newItem.quantity}
+                                        />
+
+                                    </div>
+                                    <div id="newGearItemActions">
+                                        <ButtonCancel id="cancelAddItem" onClick={this.handleClickCancel} />
+                                        <ButtonSendInvitation id="submitAddItem" onClick={this.handleSubmitNewItem} />
+                                    </div>
                             </form>
-                            <ButtonCancel onClick={this.handleClickCancel} />
-                            <ButtonSendInvitation onClick={this.handleSubmitNewItem} />
+
                         </Paper>
                         :
-                        <Paper elevation={6} square={true}>
-                            <Table>
-                                <TableBody>
-                                    <TableRow>
-                                        <TableCell padding='none'>
-                                            <button>
-                                                <ButtonAddCircleOutline onClick={this.toggleAddingItem} />
-                                            </button>
-                                        </TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
+                        <Paper elevation={1} square={true}>
+                            <div id="newGearItemInitiate">
+                                <ButtonAddCircleOutline id="newGearItemInitiateButton" onClick={this.toggleAddingItem} />
+                            </div>
                         </Paper>
                     }
                 </div >
@@ -406,7 +396,7 @@ class TripGearListTable extends Component {
                     }
                     className={this.props.classes.snackbar}
                 />
-            </div>
+            </div >
         );
     }
 }
