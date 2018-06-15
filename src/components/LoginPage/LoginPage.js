@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { triggerLogin, formError, clearError } from '../../redux/actions/loginActions';
 import Typography from '@material-ui/core/Typography';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Paper from '@material-ui/core/Paper';
+import { Link } from 'react-router-dom';
 
 
 const mapStateToProps = state => ({
@@ -24,7 +28,7 @@ class LoginPage extends Component {
     this.props.dispatch(clearError());
   }
 
-  
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.user.userName) {
       this.props.history.push('user-trip-list');
@@ -32,8 +36,8 @@ class LoginPage extends Component {
   }
 
   login = (event) => {
+    console.log('init login');
     event.preventDefault();
-
     if (this.state.username === '' || this.state.password === '') {
       this.props.dispatch(formError());
     } else {
@@ -54,7 +58,7 @@ class LoginPage extends Component {
           className="alert"
           role="alert"
         >
-          { this.props.login.message }
+          {this.props.login.message}
         </h2>
       );
     }
@@ -64,40 +68,43 @@ class LoginPage extends Component {
   render() {
     return (
       <div>
-        { this.renderAlert() }
-        <form onSubmit={this.login}>
-          <div>
-            <label htmlFor="username">
-              Username:
-              <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-            </label>
-          </div>
-          <div>
+        {this.renderAlert()}
+        <Paper id="loginWindow" elevation={1} square={true}>
+          <div id="loginFields">
             <input
-              type="submit"
-              name="submit"
-              value="Log In"
+              autoFocus='true'
+              className="loginInput"
+              type="text"
+              name="username"
+              placeholder="username"
+              // value={this.state.username}
+              onChange={this.handleInputChangeFor('username')}
             />
+            <input
+              className="loginInput"
+              type="password"
+              name="password"
+              placeholder="password"
+              // value={this.state.password}
+              onChange={this.handleInputChangeFor('password')}
+            />
+            <div
+              onClick={this.login}
+              id="loginButton">
+              <p>
+                LOG IN
+            </p>
+            </div>
           </div>
-        </form>
-        <h3>Would you like to join?</h3>
-            <Link to="/register">Register</Link>
+        </Paper>
+        <Paper
+          id="registerLink"
+          elevation={1}
+          square={true}
+          component={Link} to="/register"
+        >
+          <p>REGISTER</p>
+        </Paper>
       </div>
     );
   }
