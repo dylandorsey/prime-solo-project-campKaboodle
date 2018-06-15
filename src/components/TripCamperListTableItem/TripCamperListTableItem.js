@@ -13,18 +13,18 @@ const mapStateToProps = state => ({
 class TripCamperListTableItem extends Component {
     render() {
         return (
-            <TableRow>
-                <TableCell className="tableCell">
+            <div className="tripCamperListTableContentRow">
+                <div className="tripCamperListTableContentRowUsername">
                 {this.props.item.username}
-                </TableCell>
-                <TableCell className="tableCell">
+                </div>
+                <div className="tripCamperListTableContentRowHasAccepted">
                 {this.props.item.user_hasAccepted ? "true" : "false"}
-                </TableCell>
-                <TableCell className="tableCell">
+                </div>
+                <div className="tripCamperListTableContentRowHasAccepted">
                     <ButtonDeleteForever onClick={() => 
                         { this.props.handleClickDelete(this.props.item) }} />
-                </TableCell>
-            </TableRow >
+                </div>
+            </div>
         );
     }
 }

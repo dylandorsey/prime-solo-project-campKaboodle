@@ -288,7 +288,7 @@ class TripGearListTable extends Component {
                         <div className="tripGearListTableHeaderRow">
                             <div className="tripGearListTableHeaderRowItem">
                                 <p>Item</p>
-                                <div className="ButtonSort">
+                                <div className="buttonSort">
                                     {this.state.description.sortAscending ?
                                         <ButtonArrowUpward
                                             onClick={() => { this.handleClickSortByDescriptionAscending() }}
@@ -302,7 +302,7 @@ class TripGearListTable extends Component {
                             </div>
                             <div className="tripGearListTableHeaderRowQuantity">
                                 <p>Qty</p>
-                                <div className="ButtonSort">
+                                <div className="buttonSort">
                                     {this.state.quantity.sortAscending ?
                                         <ButtonArrowDownward
                                             onClick={() => { this.handleClickSortByQuantityAscending() }}
@@ -316,7 +316,7 @@ class TripGearListTable extends Component {
                             </div>
                             <div className="tripGearListTableHeaderRowProvider">
                                 <p>Provider</p>
-                                <div className="ButtonSort">
+                                <div className="buttonSort">
                                 {this.state.provider.sortAscending ?
                                     <ButtonArrowDownward
                                         onClick={() => { this.handleClickSortByProviderAscending() }}

@@ -55,30 +55,26 @@ class TripCamperListTable extends Component {
     render() {
         return (
             <Paper className="table" elevation={4} square={true}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell className="tableCell-header">
-                                <Typography className="typography-header" variant="body2">
-                                    Username
-                            </Typography>
-                            </TableCell>
-                            <TableCell className="tableCell-header">
-                            <Typography className="typography-header" variant="body2">
-                                    Accepted Invitation
-                            </Typography>
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {this.props.trip.currentTripCamperList.map(item =>
-                            <TripCamperListTableItem
-                                key={item.user_id}
-                                item={item}
-                                handleClickDelete={this.handleClickDelete}
-                            />)}
-                    </TableBody>
-                </Table>
+                <div className="tripCamperListTableHeaderRow">
+                    <div className="tripCamperListTableContentRowUsername">
+                        <p>
+                            Username
+                            </p>
+                    </div>
+                    <div className="tripCamperListTableContentRowAcceptedInvitation">
+                        <p>
+                            Accepted Invitation
+                            </p>
+                    </div>
+                </div>
+                <div>
+                    {this.props.trip.currentTripCamperList.map(item =>
+                        <TripCamperListTableItem
+                            key={item.user_id}
+                            item={item}
+                            handleClickDelete={this.handleClickDelete}
+                        />)}
+                </div>
             </Paper>
         );
     }

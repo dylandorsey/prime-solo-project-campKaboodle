@@ -172,6 +172,58 @@ body {
     padding: 0px 0px 0px 4px;
 }
 
+/* START TRIP CAMPER LIST VIEW STYLING */
+
+.tripCamperListTableContentRow {
+    display: grid;
+    grid-template-columns: 3fr 2fr 1fr;
+    color:  #413522;
+    font-size: 12;
+    padding-left: 4px;
+}
+
+.tripCamperListTableContentRowUsername {
+    align-self: center;
+    justify-self: left;
+    grid-column: 1 / 2;
+}
+
+.tripCamperListTableContentRowHasAccepted {
+    align-self: center;
+    justify-self: left;
+    grid-column: 2 / 3;
+    padding-left: 4px;
+}
+
+.tripCamperListTableContentRowDelete {
+    justify-self: right;
+    align-self: center;
+    grid-column: 3 / 4;
+}
+
+.tripCamperListTableHeaderRow {
+    display: grid;
+    grid-template-columns: 3fr 2fr 1fr;
+    color:  #413522;
+    font-weight: bold;
+    font-size: 12;
+    padding-left: 4px;
+}
+
+.tripCamperListTableHeaderRowUsername {
+    grid-column: 1 / 2;
+    justify-self: left;
+}
+
+.tripCamperListTableHeaderRowAcceptedInvitation {
+    grid-column: 2 / 3;
+    justify-self: left;
+}
+
+/* END TRIP CAMPER LIST VIEW STYLING */
+
+/* START TRIP GEAR LIST VIEW STYLING */
+
 .tripGearListTableContentRow {
     display: grid;
     grid-template-columns: 4fr 2fr 2fr 1fr;
@@ -214,22 +266,13 @@ body {
     color:  #413522;
     font-weight: bold;
     font-size: 12;
+    padding-left: 4px;
 }
 
 .tripGearListTableHeaderRowItem {
     grid-column: 1 / 2;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    justify-self: left;
-}
-
-.buttonProvide {
-    align-self: center;
-    justify-self: left;
-}
-
-.buttonSort{
-    align-self: center;
     justify-self: left;
 }
 
@@ -246,6 +289,18 @@ body {
     grid-template-columns: 1fr 1fr;
     justify-self: left;
 }
+
+.buttonProvide {
+    align-self: center;
+    justify-self: left;
+}
+
+.buttonSort{
+    align-self: center;
+    justify-self: left;
+}
+
+/* END TRIP GEAR LIST VIEW STYLING */
 
 .tripTable-row {
     color:  #413522 !important;
