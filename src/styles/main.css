@@ -131,6 +131,57 @@ body {
     text-decoration: none;
 }
 
+#registerWindow {
+    background-color: #413522;
+    color:  #F4C344 ;
+    display: grid;
+    grid-template-columns: 1 fr;
+    margin: 1em;
+    padding: 20px;
+}
+
+#registerFields {
+    grid-column: 1 / 2;
+    align-self: start;
+    justify-self: center;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+#registerButton {
+    grid-column: 1 / 2;
+    background-color: #413522;
+    color: #F4C344;
+    border-color:  #F4C344 !important;
+    border-width: 2px !important;
+    justify-self: right;
+    text-decoration: none;
+}
+
+#registerFields input {
+    border-width: 0px 0px 2px 0px;
+    border-bottom-color: #F4C344;
+    color: #F4C344 !important;
+    background-color: #413522;
+    text-decoration: none;
+    line-height:1.00 !important;
+    -webkit-appearance: none;
+
+}
+
+#loginLink {
+    background-color: #413522;
+    color:  #F4C344 ;
+    display: grid;
+    grid-template-columns: 1 fr;
+    margin: 1em;
+    padding: 8px;
+    align-content: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+
 .provider-chip-other {
     background-color: #158D66 !important;
     color:  #F4C344 !important;   

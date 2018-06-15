@@ -12,6 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import moment from 'moment';
 
 import ButtonAddCamper from '../ButtonAddCamper/ButtonAddCamper';
 import ButtonCancel from '../ButtonCancel/ButtonCancel';
@@ -208,7 +209,7 @@ class TripOverview extends Component {
                                             <p>Meetup Time</p>
                                         </div>
                                         <div className="tripOverviewRow-StaticDetails">
-                                            <p>{currentTrip.meetup_time}</p>
+                                            <p>{moment(currentTrip.meetup_time).format('MMM Do YYYY, h:mm:ss a')}</p>
                                         </div>
                                     </div>
                                     <div className="tripOverviewTableRow">
@@ -224,7 +225,7 @@ class TripOverview extends Component {
                                             <p>Exit Time</p>
                                         </div>
                                         <div className="tripOverviewRow-StaticDetails">
-                                            <p>{currentTrip.exit_time}</p>
+                                        <p>{moment(currentTrip.exit_time).format('MMM Do YYYY, h:mm:ss a')}</p>
                                         </div>
                                     </div>
                                     <div className="tripOverviewTableRow">

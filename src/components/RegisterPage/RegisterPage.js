@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 
 class RegisterPage extends Component {
@@ -69,42 +70,85 @@ class RegisterPage extends Component {
     return (
       <div>
         {this.renderAlert()}
-        <form onSubmit={this.registerUser}>
-          <h1>Register to begin</h1>
-          <div>
-            <label htmlFor="username">
-              Username:
-              <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-            </label>
-          </div>
-          <div>
+        <Paper id="registerWindow" elevation={1} square={true}>
+          <div id="registerFields">
             <input
-              type="submit"
-              name="submit"
-              value="Register"
+              autoFocus='true'
+              className="registerInput"
+              type="text"
+              name="username"
+              placeholder="username"
+              // value={this.state.username}
+              onChange={this.handleInputChangeFor('username')}
             />
-            <Link to="/home">Cancel</Link>
+            <input
+              className="registerInput"
+              type="password"
+              name="password"
+              placeholder="password"
+              // value={this.state.password}
+              onChange={this.handleInputChangeFor('password')}
+            />
+            <div
+              onClick={this.registerUser}
+              id="registerButton">
+              <p>
+                REGISTER
+            </p>
+            </div>
           </div>
-        </form>
-        <h3>Already a member?</h3>
-        <Link to="/home">login</Link>
+        </Paper>
+        <Paper
+          id="loginLink"
+          elevation={1}
+          square={true}
+          component={Link} to="/home"
+        >
+        <p>Already registered?</p>
+          <p>LOG IN</p>
+        </Paper>
       </div>
+
+
+
+      // <div>
+      //   {this.renderAlert()}
+      //   <form onSubmit={this.registerUser}>
+      //     <h1>Register to begin</h1>
+      //     <div>
+      //       <label htmlFor="username">
+      //         Username:
+      //         <input
+      //           type="text"
+      //           name="username"
+      //           value={this.state.username}
+      //           onChange={this.handleInputChangeFor('username')}
+      //         />
+      //       </label>
+      //     </div>
+      //     <div>
+      //       <label htmlFor="password">
+      //         Password:
+      //         <input
+      //           type="password"
+      //           name="password"
+      //           value={this.state.password}
+      //           onChange={this.handleInputChangeFor('password')}
+      //         />
+      //       </label>
+      //     </div>
+      //     <div>
+      //       <input
+      //         type="submit"
+      //         name="submit"
+      //         value="Register"
+      //       />
+      //       <Link to="/home">Cancel</Link>
+      //     </div>
+      //   </form>
+      //   <h3>Already a member?</h3>
+      //   <Link to="/home">login</Link>
+      // </div>
     );
   }
 }
