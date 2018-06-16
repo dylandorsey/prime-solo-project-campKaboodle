@@ -20,7 +20,7 @@ class TripCamperListTableItem extends Component {
                 <div className="tripCamperListTableContentRowHasAccepted">
                 {this.props.item.user_hasAccepted ? "true" : "false"}
                 </div>
-                <div className="tripCamperListTableContentRowHasAccepted">
+                <div className="tripCamperListTableContentRowDelete">
                     <ButtonDeleteForever onClick={() => 
                         { this.props.handleClickDelete(this.props.item) }} />
                 </div>
