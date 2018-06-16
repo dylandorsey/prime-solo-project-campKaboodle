@@ -18,6 +18,37 @@ body {
     background-color: #1377A2;
 }
 
+/* START CREATE A TRIP VIEW STYLING */
+
+#createNewTripForm input {
+/* border-width: 0px 0px 2px 0px; */
+/* border-bottom-color: #F4C344; */
+color: #413522 !important;
+text-decoration: none;
+line-height:1.00 !important;
+-webkit-appearance: none;
+font-size: 12px;
+}
+
+#createTripSubmit {
+    background-color: #413522 !important;
+    color: #F4C344;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: right;
+    padding: 4 4 4 0px;
+    margin-top: 4px;
+}
+
+#createTripSubmitButton {
+    grid-column: 1 / 2;
+    justify-self: right;
+    margin: 4 4 4 0px;
+}
+
+
+/* END CREATE A TRIP VIEW STYLING */
+
 /* START CURRENT TRIP INDICATOR STYLING */
 
 .CurrentTripIndicator {

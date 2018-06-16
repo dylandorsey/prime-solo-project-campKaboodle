@@ -79,6 +79,7 @@ class CreateATrip extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            snackBarMessage: '',
             newTrip: {
                 message: '',
                 name: '',
@@ -116,7 +117,7 @@ class CreateATrip extends Component {
             type: TRIP_ACTIONS.CREATE_NEW_TRIP,
             payload
         });
-        this.handleSnackBarOpen();
+        this.handleSnackBarOpen('Trip created');
         this.clearInput();
     }
 
@@ -134,11 +135,11 @@ class CreateATrip extends Component {
         this.setState({
             open: false,
         });
-        this.props.history.push('user-trip-list');
     }
 
-    handleSnackBarOpen = () => {
+    handleSnackBarOpen = (newMessage) => {
         this.setState({
+            snackBarMessage: [newMessage],
             open: true,
         });
     }
@@ -178,7 +179,7 @@ class CreateATrip extends Component {
     submitHandler = (event) => {
         event.preventDefault();
         if (this.state.newTrip.name === '') {
-            alert('name must not be empty');
+            this.handleSnackBarOpen('Enter a trip name!')
         } else {
             this.createNewTrip();
         }
@@ -188,8 +189,8 @@ class CreateATrip extends Component {
         let content = null;
         if (this.props.user.userName) {
             content = (
-                <div>
-                    <CurrentViewIndicator currentViewName="New Trip"/>
+                <div id="createNewTripForm">
+                    <CurrentViewIndicator currentViewName="New Trip" />
                     <Paper className="table" elevation={1} square={true}>
                         <form onSubmit={this.submitHandler}>
                             <Table>
@@ -199,6 +200,7 @@ class CreateATrip extends Component {
                                             <FormControl>
                                                 <InputLabel htmlFor='trip-name'>Trip name</InputLabel>
                                                 <Input
+                                                    placeholder="trip-name"
                                                     id='trip-name'
                                                     onChange={this.handleChangeFor('name')}
                                                 />
@@ -268,12 +270,10 @@ class CreateATrip extends Component {
                                     </TableRow>
                                 </TableBody>
                             </Table>
-                            { this.state.newTrip.name ? 
-                            <ButtonSendInvitation onClick={this.submitHandler} />
-                            :
-                            <div></div>
-                            }
                         </form>
+                    </Paper>
+                    <Paper id="createTripSubmit" elevation={1} square={true}>
+                        <ButtonSendInvitation id="createTripSubmitButton" onClick={this.submitHandler} />
                     </Paper>
                     <Snackbar
                         open={this.state.open}
@@ -283,15 +283,15 @@ class CreateATrip extends Component {
                             'aria-describedby': 'snackbar-fab-message-id',
                             className: this.props.classes.snackbarContent,
                         }}
-                        message={<span id="snackbar-fab-message-id">Trip created</span>}
+                        message={<span id="snackbar-fab-message-id">{this.state.snackBarMessage}</span>}
                         action={
                             <Button color="inherit" size="small" onClick={this.handleSnackBarClose}>
-                                View your trips
+                                Close
                             </Button>
                         }
                         className={this.props.classes.snackbar}
                     />
-                </div>
+                </div >
             );
         }
         return (

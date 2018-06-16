@@ -110,12 +110,14 @@ class UserTripTable extends Component {
     };
 
     executeDeleteTrip = (trip) => {
+        this.handleSnackBarOpen('Deleted trip');
         console.log('init handleClickDelete');
         const payload = { trip_id: trip.id };
         this.props.dispatch({
             type: TRIP_ACTIONS.DELETE_TRIP,
             payload
         });
+        
     }
 
     executeLeaveTrip = (trip_id) => {
@@ -125,7 +127,6 @@ class UserTripTable extends Component {
 
     handleClickDelete = (tripID) => {
         this.confirmActionDeleteTrip(tripID);
-        this.handleSnackBarOpen('Deleted trip');
     }
 
     handleClickDetails = (trip) => {
