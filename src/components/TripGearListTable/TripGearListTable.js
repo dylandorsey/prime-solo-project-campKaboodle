@@ -97,7 +97,8 @@ class TripGearListTable extends Component {
             newItem: {
                 description: '',
                 quantity: '',
-            }
+            },
+            snackBarMessage: '',
         }
     }
 
@@ -185,8 +186,9 @@ class TripGearListTable extends Component {
         });
     }
 
-    handleSnackBarOpen = () => {
+    handleSnackBarOpen = (newMessage) => {
         this.setState({
+            snackBarMessage: [newMessage],
             open: true,
         });
     }
@@ -251,25 +253,19 @@ class TripGearListTable extends Component {
     handleSubmitNewItem = event => {
         event.preventDefault();
         if (this.props.currentTrip.id === '') {
-            alert('Trip ID must not be null');
+            this.handleSnackBarOpen('Please select a trip!')
         } else if (this.state.newItem.description === '') {
-            alert('Item description must not be null');
+            this.handleSnackBarOpen('Enter description!');
         } else if (this.state.newItem.quantity === '') {
-            alert('Item quantity must not be null');
+            this.handleSnackBarOpen('Enter quantity!');
         } else {
             const newItem = {
                 newItem: this.state.newItem,
                 id: this.props.currentTrip.id
             };
             this.props.dispatch({ type: GEAR_ACTIONS.CREATE_NEW_GEAR_ITEM, payload: newItem });
-            this.handleSnackBarOpen()
+            this.handleSnackBarOpen('Item added')
             this.clearInput();
-        }
-    }
-
-    renderAlert() {
-        if (this.state.message !== '') {
-            alert(this.state.message);
         }
     }
 
@@ -388,7 +384,7 @@ class TripGearListTable extends Component {
                         'aria-describedby': 'snackbar-fab-message-id',
                         className: this.props.classes.snackbarContent,
                     }}
-                    message={<span id="snackbar-fab-message-id">Gear item added</span>}
+                    message={<span id="snackbar-fab-message-id">{this.state.snackBarMessage}</span>}
                     action={
                         <Button color="inherit" size="small" onClick={this.handleSnackBarClose}>
                             Close
