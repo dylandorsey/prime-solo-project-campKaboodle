@@ -18,6 +18,8 @@ body {
     background-color: #1377A2;
 }
 
+/* START CURRENT TRIP INDICATOR STYLING */
+
 .CurrentTripIndicator {
     background-color: #D96727 !important;
     height: 33.75px;
@@ -38,6 +40,8 @@ body {
     justify-content: center;
     padding: 0px;
 }
+
+/* END CURRENT TRIP INDICATOR STYLING */
 
 .drawer {
     background-color: #413522 !important;
@@ -80,6 +84,8 @@ body {
     width: 300;
     background-color: #413522;
 }
+
+/* START LOGIN VIEW SYTLING */
 
 #loginWindow {
     background-color: #413522;
@@ -132,6 +138,10 @@ body {
     text-decoration: none;
 }
 
+/* END LOGIN VIEW STYLING */
+
+/* START REGISTER VIEW STYLING */
+
 #registerWindow {
     background-color: #413522;
     color:  #F4C344 ;
@@ -183,6 +193,7 @@ body {
     text-decoration: none;
 }
 
+/* END REIGSTER VIEW STYLING */
 
 .provider-chip-other {
     background-color: #158D66 !important;
@@ -206,6 +217,36 @@ body {
 
 .table {
     background-color: #DFEFCF !important;
+}
+
+/* START TRIP OVERVIEW VIEW STYLING */
+
+#inviteOthers {
+    margin-top: 4px;
+    background-color: #413522 !important;
+    padding: 8 4 4 4px;
+}
+
+#inviteCamperInitiate {
+    background-color: #413522;
+    color:  #F4C344 ;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: right;
+    padding: 4 4 4 0px;
+}
+
+#inviteCamperInitiateButton {
+    justify-self: right;
+    margin: 4 4 4 0px !important;
+}
+
+#inviteeUsernameInput {
+    background-color: #413522 !important;
+    color:  #F4C344 ;
+    display: grid;
+    grid-template-columns: 4fr 2fr 4fr;
+    padding: 0 4 4 4px;
 }
 
 .tripOverviewRowLabel{
@@ -289,6 +330,8 @@ body {
     padding: 0px 0px 0px 4px;
 }
 
+/* END TRIP OVERVIEW STYLING */
+
 /* START TRIP CAMPER LIST VIEW STYLING */
 
 .tripCamperListTableContentRow {
@@ -336,6 +379,106 @@ body {
     grid-column: 2 / 3;
     justify-self: left;
 }
+
+#inviteeUsernameInput {
+    background-color: #413522 !important;
+    color:  #F4C344 ;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    padding: 0 4 4 4px;
+}
+
+#inviteeUsernameInput input {
+    background-color: #413522;
+    border-width: 0px 0px 2px 0px;
+    border-bottom-color: #F4C344;
+    padding-top: 4px;
+    color: #F4C344;
+    font-size: 12px;
+}
+
+#inviteOthersActions {
+    grid-column: 2 / 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-self: center;
+}
+
+#cancelIviteCamper {
+    justify-self: right;
+}
+
+#submitInviteCamper {
+    justify-self:right;
+    padding-right: 4px;
+}
+
+/* 
+#newGearItemDescription {
+    grid-column: 1 / 2 ;
+    justify-self: left;
+    background-color: #413522;
+}
+
+#newGearItemDescription input {
+    background-color: #413522;
+    border-width: 0px 0px 2px 0px;
+    border-bottom-color: #F4C344;
+    padding-top: 4px;
+    color: #F4C344;
+    font-size: 12px;
+    
+}
+
+#newGearItemInitiate {
+    background-color: #413522;
+    color:  #F4C344 ;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: right;
+}
+
+#newGearItemInitiateButton {
+    justify-self: right;
+    margin: 0 4 4 4px !important;
+}
+
+#newGearItemQuantity {
+    grid-column: 2 / 3;
+    justify-self: left;
+    background-color: #413522;
+}
+
+#newGearItemQuantity input {
+    background-color: #413522;
+    border-width: 0px 0px 2px 0px;
+    border-bottom-color: #F4C344;
+    padding-top: 4px;
+    color: #F4C344;
+    font-size: 12px;
+}
+
+#newGearItemActions {
+    grid-column: 3 / 4;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-self: center;
+}
+
+#cancelAddItem {
+    justify-self: right;
+}
+
+#submitAddItem {
+    justify-self:right;
+    padding-right: 4px;
+}
+
+#addNewItem {
+    margin-top: 4px;
+    background-color: #413522 !important;
+    padding: 8 4 4 4px;
+} */
 
 /* END TRIP CAMPER LIST VIEW STYLING */
 
@@ -493,7 +636,10 @@ body {
 
 /* END TRIP GEAR LIST VIEW STYLING */
 
+/* START USER TRIP LIST VIEW STYLING */
+
 .tripTable-row {
+    background-color: #DFEFCF;
     color:  #413522 !important;
     display: grid;
     fill:  #413522 !important;
@@ -527,6 +673,7 @@ body {
     justify-self: end;
 }
 
+/* END USER TRIP LIST VIEW STYLING */
 
 .typography-header {
     text-transform: capitalize !important;

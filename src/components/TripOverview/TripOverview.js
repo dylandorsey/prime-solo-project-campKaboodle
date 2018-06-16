@@ -122,8 +122,9 @@ class TripOverview extends Component {
         });
     }
 
-    handleSnackBarOpen = () => {
+    handleSnackBarOpen = (newMessage) => {
         this.setState({
+            snackBarMessage: [newMessage],
             open: true,
         });
     }
@@ -136,16 +137,21 @@ class TripOverview extends Component {
 
     handleSubmitInviteCamper = event => {
         event.preventDefault();
-        this.handleSnackBarOpen();
-        this.clearInput();
-        console.log(this.state.open);
-        this.props.dispatch({
-            type: TRIP_ACTIONS.INVITE_USER,
-            payload: {
-                inviteeUsername: this.state.inviteeUsername,
-                trip_id: this.props.currentTrip.id,
-            },
-        });
+        if (this.state.inviteeUsername !='') {
+            this.handleSnackBarOpen('Invitation sent');
+            this.clearInput();
+            console.log(this.state.open);
+            this.props.dispatch({
+                type: TRIP_ACTIONS.INVITE_USER,
+                payload: {
+                    inviteeUsername: this.state.inviteeUsername,
+                    trip_id: this.props.currentTrip.id,
+                },
+            });
+        } else {
+            this.handleSnackBarOpen('Enter a username!');
+        }
+
 
     }
 
@@ -225,7 +231,7 @@ class TripOverview extends Component {
                                             <p>Exit Time</p>
                                         </div>
                                         <div className="tripOverviewRow-StaticDetails">
-                                        <p>{moment(currentTrip.exit_time).format('MMM Do YYYY, h:mm:ss a')}</p>
+                                            <p>{moment(currentTrip.exit_time).format('MMM Do YYYY, h:mm:ss a')}</p>
                                         </div>
                                     </div>
                                     <div className="tripOverviewTableRow">
@@ -269,36 +275,48 @@ class TripOverview extends Component {
                                                         `(${this.props.trip.currentTripCamperList.length} camper)`}
                                                 </p>
                                             </div>
-                                            <div className="tripOverviewRowContentInviteOthersButton">
+                                            {/* <div className="tripOverviewRowContentInviteOthersButton">
                                                 <ButtonAddCamper onClick={this.handleClickInviteOtherFolks} />
                                             </div>
                                             <div className="tripOverviewRowContentInviteOthersText">
                                                 <p className="tripOverview-p">
                                                     Invite others
                                                     </p>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                 </form>
-                                {this.state.inviteOthers ?
-                                    <div className="tripOverviewRowLabel">
-                                        <form onSubmit={this.handleSubmitInviteCamper}>
-                                            <FormControl>
-                                                <InputLabel htmlFor='invitee-username'>invitee username</InputLabel>
-                                                <Input
-                                                    id='invitee-username'
-                                                    onChange={this.handleChangeFor('inviteeUsername')}
-                                                    value={this.state.inviteeUsername} />
-                                                <ButtonSendInvitation onClick={this.handleSubmitInviteCamper} />
-                                                <ButtonCancel onClick={this.handleClickInviteOtherFolks} />
-                                            </FormControl>
-                                            {/* WHALEHUNTER this button does not call the function upon click - figure out why! */}
-                                            {/* <ButtonAddCircleOutline onClick={()=> {this.handleSubmitInviteCamper}}/> */}
-                                        </form>
-                                    </div>
-                                    :
-                                    ''}
+
                             </Paper>
+
+                            <div id="inviteOthers">
+                                {this.state.inviteOthers ?
+                                    <Paper elevation={1} square={true}>
+                                        <form id="inviteeUsernameInput" onSubmit={this.handleSubmitInviteCamper}>
+                                            <input
+                                                id='inviteeUsername'
+                                                placeholder="invitee username"
+                                                onChange={this.handleChangeFor('inviteeUsername')}
+                                                value={this.state.inviteeUsername}
+                                            />
+                                            <div id="inviteOthersActions">
+                                                <ButtonCancel id="cancelInviteCamper" onClick={this.handleClickInviteOtherFolks}
+                                                />
+                                                <ButtonSendInvitation id="submitInviteCamper" onClick={this.handleSubmitInviteCamper}
+                                                />
+                                            </div>
+                                        </form>
+                                    </Paper>
+                                    :
+                                    <Paper elevation={1} square={true}>
+                                        <div id="inviteCamperInitiate">
+                                            <ButtonAddCamper
+                                                id="inviteCamperInitiateButton"
+                                                onClick={this.handleClickInviteOtherFolks} />
+                                        </div>
+                                    </Paper>
+                                }
+                            </div>
                         </div>
                         :
                         <p>Select a trip</p>
@@ -311,7 +329,7 @@ class TripOverview extends Component {
                             'aria-describedby': 'snackbar-fab-message-id',
                             className: this.props.classes.snackbarContent,
                         }}
-                        message={<span id="snackbar-fab-message-id">Invitation sent</span>}
+                        message={<span id="snackbar-fab-message-id">{this.state.snackBarMessage}</span>}
                         action={
                             <Button color="inherit" size="small" onClick={this.handleSnackBarClose}>
                                 Close

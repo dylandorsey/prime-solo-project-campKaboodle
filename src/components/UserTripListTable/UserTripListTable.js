@@ -156,7 +156,7 @@ class UserTripTable extends Component {
 
     render() {
         return (
-            <div>
+            <div className="table">
                 <Paper elevation={1} square={true}>
                     {/* <Table>
                     <TableBody> */}

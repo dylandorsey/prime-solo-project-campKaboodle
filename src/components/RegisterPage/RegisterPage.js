@@ -104,7 +104,7 @@ class RegisterPage extends Component {
           square={true}
           component={Link} to="/home"
         >
-        <p>Already registered?</p>
+          <p>Already registered?</p>
           <p>LOG IN</p>
         </Paper>
       </div>
