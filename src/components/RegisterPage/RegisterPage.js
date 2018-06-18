@@ -1,7 +1,57 @@
 import React, { Component } from 'react';
+
 import { Link } from 'react-router-dom';
-import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
+
+import Snackbar from '@material-ui/core/Snackbar';
+import Button from '@material-ui/core/Button';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+
+const styles = theme => ({
+  root: {
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  appFrame: {
+    width: 360,
+    height: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+  button: {
+    marginBottom: theme.spacing.unit,
+  },
+  fab: {
+    position: 'absolute',
+    bottom: theme.spacing.unit * 2,
+    right: theme.spacing.unit * 2,
+  },
+  fabMoveUp: {
+    transform: 'translate3d(0, -46px, 0)',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.enteringScreen,
+      easing: theme.transitions.easing.easeOut,
+    }),
+  },
+  fabMoveDown: {
+    transform: 'translate3d(0, 0, 0)',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.leavingScreen,
+      easing: theme.transitions.easing.sharp,
+    }),
+  },
+  snackbar: {
+    position: 'absolute',
+  },
+  snackbarContent: {
+    width: 360,
+  },
+});
 
 class RegisterPage extends Component {
   constructor(props) {
@@ -10,17 +60,34 @@ class RegisterPage extends Component {
     this.state = {
       username: '',
       password: '',
-      message: '',
+      open: false,
     };
+  }
+
+  handleInputChangeFor = propertyName => (event) => {
+    this.setState({
+      [propertyName]: event.target.value,
+    });
+  }
+
+  handleSnackBarClose = () => {
+    this.setState({
+      open: false,
+    });
+  }
+
+  handleSnackBarOpen = (newMessage) => {
+    this.setState({
+      snackBarMessage: [newMessage],
+      open: true,
+    });
   }
 
   registerUser = (event) => {
     event.preventDefault();
 
     if (this.state.username === '' || this.state.password === '') {
-      this.setState({
-        message: 'Choose a username and password!',
-      });
+      this.handleSnackBarOpen('Please enter a new username and password!')
     } else {
       const body = {
         username: this.state.username,
@@ -33,24 +100,14 @@ class RegisterPage extends Component {
           if (response.status === 201) {
             this.props.history.push('/home');
           } else {
-            this.setState({
-              message: 'Ooops! That didn\'t work. The username might already be taken. Try again!',
-            });
+            this.handleSnackBarOpen('Ooops! That didn\'t work. The username might already be taken. Try again!');
           }
         })
         .catch(() => {
-          this.setState({
-            message: 'Ooops! Something went wrong! Is the server running?',
-          });
+          this.handleSnackBarOpen('Ooops! Something went wrong. Please try again later!');
         });
     }
   } // end registerUser
-
-  handleInputChangeFor = propertyName => (event) => {
-    this.setState({
-      [propertyName]: event.target.value,
-    });
-  }
 
   renderAlert() {
     if (this.state.message !== '') {
@@ -107,6 +164,22 @@ class RegisterPage extends Component {
           <p>Already registered?</p>
           <p>LOG IN</p>
         </Paper>
+        <Snackbar
+          open={this.state.open}
+          autoHideDuration={4000}
+          onClose={this.handleSnackBarClose}
+          ContentProps={{
+            'aria-describedby': 'snackbar-fab-message-id',
+            className: this.props.classes.snackbarContent,
+          }}
+          message={<span id="snackbar-fab-message-id">{this.state.snackBarMessage}</span>}
+          action={
+            <Button color="inherit" size="small" onClick={this.handleSnackBarClose}>
+              Close
+                 </Button>
+          }
+          className={this.props.classes.snackbar}
+        />
       </div>
 
 
@@ -153,5 +226,9 @@ class RegisterPage extends Component {
   }
 }
 
-export default RegisterPage;
+RegisterPage.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(RegisterPage);
 

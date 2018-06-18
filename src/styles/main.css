@@ -257,21 +257,20 @@ font-size: 12px;
     padding: 8 4 4 4px;
 }
 
-#inviteCamperInitiate {
-    background-color: #413522;
+.inviteCamperInitiate {
+    background-color: #413522 !important;
     color:  #F4C344 ;
     display: grid;
     grid-template-columns: 1fr;
-    justify-content: right;
-    padding: 4 4 4 0px;
+    padding: 0 4 4 4px !important;
 }
 
 #inviteCamperInitiateButton {
+    grid-column: 1 / 2;
     justify-self: right;
-    margin: 4 4 4 0px !important;
 }
 
-#inviteeUsernameInput {
+.inviteeUsernameInput {
     background-color: #413522 !important;
     color:  #F4C344 ;
     display: grid;
@@ -410,7 +409,7 @@ font-size: 12px;
     justify-self: left;
 }
 
-#inviteeUsernameInput {
+.inviteeUsernameInput {
     background-color: #413522 !important;
     color:  #F4C344 ;
     display: grid;
@@ -418,8 +417,8 @@ font-size: 12px;
     padding: 0 4 4 4px;
 }
 
-#inviteeUsernameInput input {
-    background-color: #413522;
+.inviteeUsernameInput input {
+    background-color: #413522 !important;
     border-width: 0px 0px 2px 0px;
     border-bottom-color: #F4C344;
     padding-top: 4px;

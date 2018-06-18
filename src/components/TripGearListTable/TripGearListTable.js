@@ -114,7 +114,7 @@ class TripGearListTable extends Component {
     confirmAction = (item) => {
         const description = item.description;
         confirmAlert({
-            title: 'Confirm delete camper from trip',
+            title: 'Confirm delete item from trip',
             message: `Are you sure you want to remove ${description} from the trip?`,
             buttons: [
                 {
@@ -123,7 +123,7 @@ class TripGearListTable extends Component {
                 },
                 {
                     label: 'No',
-                    onClick: () => alert('aborted')
+                    onClick: () => this.handleSnackBarOpen('Aborted')
                 }
             ]
         })
@@ -131,6 +131,7 @@ class TripGearListTable extends Component {
 
     executeDeleteItem = (item) => {
         console.log('init handleClickDelete');
+        this.handleSnackBarOpen('Item deleted');
         const payload = { item: item, id: this.props.currentTrip.id };
         this.props.dispatch({
             type: GEAR_ACTIONS.DELETE_ITEM,

@@ -286,13 +286,11 @@ class TripOverview extends Component {
                                         </div>
                                     </div>
                                 </form>
-
                             </Paper>
-
                             <div id="inviteOthers">
                                 {this.state.inviteOthers ?
                                     <Paper elevation={1} square={true}>
-                                        <form id="inviteeUsernameInput" onSubmit={this.handleSubmitInviteCamper}>
+                                        <form className="inviteeUsernameInput" onSubmit={this.handleSubmitInviteCamper}>
                                             <input
                                                 id='inviteeUsername'
                                                 placeholder="invitee username"
@@ -309,7 +307,7 @@ class TripOverview extends Component {
                                     </Paper>
                                     :
                                     <Paper elevation={1} square={true}>
-                                        <div id="inviteCamperInitiate">
+                                        <div className="inviteCamperInitiate">
                                             <ButtonAddCamper
                                                 id="inviteCamperInitiateButton"
                                                 onClick={this.handleClickInviteOtherFolks} />
