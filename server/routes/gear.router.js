@@ -1,9 +1,10 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const {rejectUnauthenticated} = require('../modules/authentication-middleware');
 
 // GET gear list by description ASC
-router.get('/asc', (req, res) => {
+router.get('/asc', rejectUnauthenticated, (req, res) => {
     // console.log('this is the query', req.query);
     const trip_id = req.query.trip_id;
     // console.log('fetching gear for trip: ',trip_id)
@@ -23,7 +24,7 @@ router.get('/asc', (req, res) => {
 
 
 // GET gear list by description DESC
-router.get('/desc', (req, res) => {
+router.get('/desc', rejectUnauthenticated, (req, res) => {
     // console.log('this is the query', req.query);
     const trip_id = req.query.trip_id;
     // console.log('fetching gear for trip: ',trip_id)
@@ -42,7 +43,7 @@ router.get('/desc', (req, res) => {
 });
 
 // GET gear list by provider asc
-router.get('/provider-asc', (req, res) => {
+router.get('/provider-asc', rejectUnauthenticated, (req, res) => {
     // console.log('this is the query', req.query);
     const trip_id = req.query.trip_id;
     // console.log('fetching gear for trip: ',trip_id)
@@ -62,7 +63,7 @@ router.get('/provider-asc', (req, res) => {
 
 
 // GET gear list by provider desc
-router.get('/provider-desc', (req, res) => {
+router.get('/provider-desc', rejectUnauthenticated, (req, res) => {
     // console.log('this is the query', req.query);
     const trip_id = req.query.trip_id;
     // console.log('fetching gear for trip: ',trip_id)
@@ -81,7 +82,7 @@ router.get('/provider-desc', (req, res) => {
 });
 
 // GET gear list by quantity asc
-router.get('/quantity-asc', (req, res) => {
+router.get('/quantity-asc', rejectUnauthenticated, (req, res) => {
     const trip_id = req.query.trip_id;
     let queryText = `SELECT "description","quantity", "user"."username", "user_trip_gear"."id"
     FROM "user_trip_gear"
@@ -98,7 +99,7 @@ router.get('/quantity-asc', (req, res) => {
 });
 
 // GET gear list by quantity asc
-router.get('/quantity-desc', (req, res) => {
+router.get('/quantity-desc', rejectUnauthenticated, (req, res) => {
     const trip_id = req.query.trip_id;
     let queryText = `SELECT "description","quantity", "user"."username", "user_trip_gear"."id"
     FROM "user_trip_gear"
@@ -115,7 +116,7 @@ router.get('/quantity-desc', (req, res) => {
 });
 
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
     console.log(`DELETE /api/gear/ with req.params`, req.params);
     const gear_id = req.params.id;
     // console.log(tripID);
@@ -131,7 +132,7 @@ router.delete('/:id', (req, res) => {
         });
 })
 
-router.post('/new-item', (req, res) => {
+router.post('/new-item', rejectUnauthenticated, (req, res) => {
     // console.log('POST /api/gear/new-gear')
     const newItem = req.body.newItem;
     const tripID = req.body.id;
@@ -151,7 +152,7 @@ router.post('/new-item', (req, res) => {
         });
 })
 
-router.put('/new-item-provider', (req, res) => {
+router.put('/new-item-provider', rejectUnauthenticated, (req, res) => {
     const user_id = req.user.id;
     const item_id = req.body.item_id;
     console.log(item_id);
@@ -166,7 +167,7 @@ router.put('/new-item-provider', (req, res) => {
         });
 });
 
-router.put('/null-item-provider', (req, res) => {
+router.put('/null-item-provider', rejectUnauthenticated, (req, res) => {
     const item_id = req.body.item_id;
     console.log(item_id);
     let queryText = `UPDATE "user_trip_gear" 

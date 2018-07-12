@@ -317,7 +317,7 @@ class TripOverview extends Component {
                             </div>
                         </div>
                         :
-                        <p>Select a trip</p>
+                        <p></p>
                     }
                     <Snackbar
                         open={this.state.open}
